@@ -1,4 +1,5 @@
 id: readingpoint-001
+
 model: M5
 criterion: spin_half_statistics
 observable: apolar_double_cover
@@ -19,10 +20,11 @@ readingpoint_structure:
   residues: [1, 7, 11, 13, 17, 19, 23, 29]
   cardinality: 8
 
-m5_structure:
+m5_theoretical_context:
   name: biaxial_fundamental_group
   group: Q8
   cardinality: 8
+  measured_by_target_artifact: false
 
 hypothesis:
   question: >
@@ -30,5 +32,9 @@ hypothesis:
     eight units modulo 30 and an independently measured or specified
     eight-state structure associated with M5's biaxial topology?
 
-mapping_assumed: false
-status: baseline_reproduction
+constraints:
+  mapping_assumed: false
+  cardinality_match_is_not_sufficient: true
+  q8_not_measured_by_target_artifact: true
+
+status: baseline_ready
