@@ -1,0 +1,32 @@
+id: readingpoint-001
+status: rejected
+
+test:
+  name: mod30_units_vs_q8
+  script: readingpoint/tests/test_001_mod30_vs_q8.py
+
+readingpoint:
+  structure: units_mod_30
+  group: C4_x_C2
+  cardinality: 8
+  abelian: true
+
+m5:
+  structure: quaternion_group_Q8
+  cardinality: 8
+  abelian: false
+
+observations:
+  cardinality_match: true
+  group_isomorphism: false
+
+reason:
+  - equal cardinality does not imply equal group structure
+  - units modulo 30 form an abelian group
+  - Q8 is non-abelian
+
+conclusion: >
+  The eight mod-30 residue lanes cannot be identified with Q8
+  by group isomorphism. Any future correspondence must preserve
+  some more specific relation, action, quotient, observable, or
+  representation rather than cardinality alone.
