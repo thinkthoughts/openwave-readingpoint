@@ -4,6 +4,8 @@ An experimental fork of OpenWave for translating specified structure into testab
 
 ## Reading Point <img height="49" src="assets/logo/reading-point-badge-dark-512.png" />
 
+ https://github.com/thinkthoughts/reading-point
+
  [readingpoint.app](https://readingpoint.app) begins with a simple arithmetic specification:
 
 **(1 + 1) × 3 × 5 = 30**
