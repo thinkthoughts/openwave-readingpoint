@@ -1,8 +1,8 @@
-# <img height="100" src="assets/logo/reading-point-badge-dark-512.png" /> OpenWave Reading Point 
+# OpenWave Reading Point 
 
 An experimental fork of OpenWave for translating specified structure into testable model constraints.
 
-## Reading Point
+## <img height="81" src="assets/logo/reading-point-badge-dark-512.png" /> Reading Point
 
 [readingpoint.app](https://readingpoint.app) begins with a simple arithmetic specification:
 
