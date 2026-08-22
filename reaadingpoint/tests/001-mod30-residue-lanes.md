@@ -68,5 +68,25 @@ states after the fact.
 ## Current expectation
 
 Open.
+## Baseline reproduction
+
+Before testing the Reading Point specification, reproduce the existing
+OpenWave M5 charge-quantization result.
+
+Upstream observable:
+topological winding / charge Q ∈ ℤ
+
+Upstream evidence:
+m5_1_winding.py
+
+Expected upstream result:
+Q = ±1 for the corresponding hedgehog orientation.
+
+Reading Point modifications:
+none
+
+Purpose:
+Establish that the fork reproduces the upstream observable before any
+candidate mod-30 correspondence is introduced.
 
 The existing validated Q = ±1 result by itself does not provide eight classes.
