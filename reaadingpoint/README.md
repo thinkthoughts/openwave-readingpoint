@@ -2,9 +2,9 @@
 
 An experimental fork of OpenWave for translating specified structure into testable model constraints.
 
-## Reading Point
+## Reading Point <img height="49" src="assets/logo/reading-point-badge-dark-512.png" />
 
- <img height="49" src="assets/logo/reading-point-badge-dark-512.png" />[readingpoint.app](https://readingpoint.app) begins with a simple arithmetic specification:
+ [readingpoint.app](https://readingpoint.app) begins with a simple arithmetic specification:
 
 **(1 + 1) × 3 × 5 = 30**
 
