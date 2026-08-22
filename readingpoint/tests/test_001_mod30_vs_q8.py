@@ -69,9 +69,6 @@ def test_mod30_units_form_group():
     for a, b in product(units, repeat=2):
         assert mod30_mul(a, b) in units
 
-    for a in units:
-        assert mod30_mul(a, a) == 1
-
 
 def test_mod30_unit_orders():
     orders = {
@@ -79,8 +76,18 @@ def test_mod30_unit_orders():
         for a in MOD30_UNITS
     }
 
-    assert orders[1] == 1
-    assert all(order == 2 for a, order in orders.items() if a != 1)
+    expected = {
+        1: 1,
+        7: 4,
+        11: 2,
+        13: 4,
+        17: 4,
+        19: 2,
+        23: 4,
+        29: 2,
+    }
+
+    assert orders == expected
 
 
 def test_mod30_units_are_abelian():
@@ -137,6 +144,16 @@ def test_equal_cardinality_but_no_group_isomorphism():
 
 
 if __name__ == "__main__":
+    mod30_orders = {
+        a: element_order(a, 1, mod30_mul)
+        for a in MOD30_UNITS
+    }
+
+    q8_orders = {
+        element: element_order(element, (1, "1"), q8_mul)
+        for element in Q8_ELEMENTS
+    }
+
     test_mod30_units_form_group()
     test_mod30_unit_orders()
     test_mod30_units_are_abelian()
@@ -152,6 +169,26 @@ if __name__ == "__main__":
     print("cardinality match: PASS")
     print("group isomorphism: REJECTED")
     print()
+
+    print("mod-30 element orders:")
+    for element in MOD30_UNITS:
+        print(f"  {element:>2} -> order {mod30_orders[element]}")
+
+    print()
+
+    print("Q8 element orders:")
+    for element in Q8_ELEMENTS:
+        sign, basis = element
+
+        if basis == "1":
+            label = "1" if sign == 1 else "-1"
+        else:
+            label = basis if sign == 1 else f"-{basis}"
+
+        print(f"  {label:>2} -> order {q8_orders[element]}")
+
+    print()
     print("Reason:")
-    print("(Z/30Z)^* is abelian and every non-identity element has order 2.")
-    print("Q8 is non-abelian and has six elements of order 4.")
+    print("(Z/30Z)^* is abelian and isomorphic to C4 x C2.")
+    print("Q8 is non-abelian.")
+    print("Equal cardinality therefore does not imply equal group structure.")
