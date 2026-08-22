@@ -51,11 +51,23 @@ result:
   common_quotient: C2_x_C2
   structural_correspondence: supported
   physical_correspondence_established: false
+  m5_q_neg_q_identification_established: false
 
 constraints:
   residue_to_quaternion_pairing_assumed: false
   quotient_isomorphism_selects_unique_pairing: false
   physical_mapping_assumed: false
+  q_neg_q_identification_assumed: false
+
+m5_followup:
+  q_neg_q_identification:
+    status: not_established
+    evidence: >
+      Current M5 task specifications retain the non-abelian Q8
+      classification and leave the physically relevant charge-class
+      relation for the biaxial two-defect problem as an open discovery.
+      The current M5 materials do not establish q ~ -q as a physical
+      identification.
 
 conclusion: >
   The mod-30 unit group and Q8 are not isomorphic, but their
@@ -63,9 +75,10 @@ conclusion: >
   respectively, are both isomorphic to C2 x C2. This establishes
   a shared mathematical quotient structure. It does not establish
   a physical correspondence between Reading Point residues and
-  M5 biaxial defect states.
+  M5 biaxial defect states. Current M5 materials also do not establish
+  q ~ -q as a physical identification.
 
 next_question: >
-  Does the current M5 model expose an independently defined physical
-  or topological observable that identifies q with -q, thereby making
-  Q8/{1,-1} an operational rather than purely mathematical reduction?
+  What does M5's eigenframe-winding instrument on synthetic known-q
+  configurations actually distinguish, and does it distinguish q
+  from -q?
