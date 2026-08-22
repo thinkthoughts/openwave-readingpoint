@@ -3,6 +3,16 @@ model: M5
 criterion: spin_half_statistics
 observable: apolar_double_cover
 
+openwave_target:
+  model: M5
+  criterion: spin_half_statistics
+  artifact: m5_8_2s_spin_half_apolar.py
+  observable:
+    field_return_period: pi
+    frame_return_period: 2pi
+    ratio: 2
+  q8_computed: false
+
 readingpoint_structure:
   name: units_mod_30
   modulus: 30
