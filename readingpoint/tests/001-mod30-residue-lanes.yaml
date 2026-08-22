@@ -19,22 +19,31 @@ readingpoint_structure:
   modulus: 30
   residues: [1, 7, 11, 13, 17, 19, 23, 29]
   cardinality: 8
+  group_structure: C2_x_C2_x_C2
+  abelian: true
 
 m5_theoretical_context:
   name: biaxial_fundamental_group
-  group: Q8
-  cardinality: 8
-  measured_by_target_artifact: false
+  order_parameter_space: SO(3)/D2
+  fundamental_group: Q8
+  group_name: quaternion_group
+  group_order: 8
+  abelian: false
+  computed_by_target_artifact: false
+  note: >
+    Q8 here denotes the quaternion fundamental group associated with
+    biaxial topology, not the separately numbered M5 research question Q8.
 
 hypothesis:
   question: >
-    Does any structure-preserving correspondence exist between the
-    eight units modulo 30 and an independently measured or specified
-    eight-state structure associated with M5's biaxial topology?
+    Can a specified relation be constructed between the eight units
+    modulo 30 and M5's quaternion-class topology that preserves
+    explicitly identified structure rather than cardinality alone?
 
 constraints:
   mapping_assumed: false
   cardinality_match_is_not_sufficient: true
+  group_isomorphism_expected: false
   q8_not_measured_by_target_artifact: true
 
 status: baseline_ready
