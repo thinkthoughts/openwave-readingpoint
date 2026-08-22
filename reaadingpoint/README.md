@@ -1,26 +1,22 @@
 # OpenWave Reading Point
 
+# OpenWave Reading Point
+
 An experimental fork of OpenWave for translating specified structure into testable model constraints.
 
 ## Reading Point
 
 [readingpoint.app](https://readingpoint.app) begins with a simple arithmetic specification:
 
-[
-(1+1)\times3\times5=30.
-]
+**(1 + 1) × 3 × 5 = 30**
 
-Every prime (p>5) resists division by (2), (3), and (5). Equivalently,
+Every prime **p > 5** resists division by **2, 3, and 5**. Equivalently,
 
-[
-\gcd(p,30)=1,
-]
+**gcd(p, 30) = 1,**
 
 so every such prime occupies one of eight residue classes:
 
-[
-p\bmod30\in{1,7,11,13,17,19,23,29}.
-]
+**p mod 30 ∈ {1, 7, 11, 13, 17, 19, 23, 29}.**
 
 The interactive Reading Point interface treats these eight mod-30 residues as persistent lanes through which integers can be read.
 
