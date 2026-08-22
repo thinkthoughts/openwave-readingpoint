@@ -1,0 +1,40 @@
+id: readingpoint-002
+status: rejected
+
+test:
+  name: mod30_vs_q8_conjugacy_classes
+  script: readingpoint/tests/test_002_mod30_vs_q8_classes.py
+
+readingpoint:
+  structure: units_mod_30
+  group: C4_x_C2
+  cardinality: 8
+  conjugacy_class_count: 8
+  conjugacy_class_sizes: [1, 1, 1, 1, 1, 1, 1, 1]
+
+m5:
+  theoretical_structure: quaternion_group_Q8
+  group_order: 8
+  conjugacy_class_count: 5
+  conjugacy_class_sizes: [1, 1, 2, 2, 2]
+
+observations:
+  element_cardinality_match: true
+  conjugacy_class_count_match: false
+  one_to_one_conjugacy_class_correspondence: false
+
+reason:
+  - units modulo 30 form an abelian group
+  - every conjugacy class in an abelian group is a singleton
+  - Q8 is non-abelian
+  - Q8 has five conjugacy classes with sizes 1, 1, 2, 2, 2
+
+conclusion: >
+  The eight mod-30 residue lanes cannot correspond one-to-one with
+  the conjugacy classes of Q8. Any future correspondence must use
+  additional specified structure, such as a quotient, action,
+  representation, or observable.
+
+next_question: >
+  Do independently defined quotients of the mod-30 unit group and Q8
+  produce a common group structure?
