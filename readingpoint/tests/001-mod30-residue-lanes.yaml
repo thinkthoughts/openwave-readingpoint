@@ -1,13 +1,24 @@
 id: readingpoint-001
 model: M5
-criterion: charge_quantization
-observable: topological_charge_Q
+criterion: spin_half_statistics
+observable: apolar_double_cover
+
 readingpoint_structure:
+  name: units_mod_30
   modulus: 30
   residues: [1, 7, 11, 13, 17, 19, 23, 29]
+  cardinality: 8
+
+m5_structure:
+  name: biaxial_fundamental_group
+  group: Q8
+  cardinality: 8
+
 hypothesis:
   question: >
-    Does the existing M5 topological classification naturally yield
-    eight distinguishable classes?
+    Does any structure-preserving correspondence exist between the
+    eight units modulo 30 and an independently measured or specified
+    eight-state structure associated with M5's biaxial topology?
+
 mapping_assumed: false
-status: specified
+status: baseline_reproduction
