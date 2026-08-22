@@ -1,0 +1,57 @@
+id: readingpoint-004
+status: supported
+scope: m5_numerical_baseline
+
+test:
+  name: m5_known_q_baseline
+  script: readingpoint/tests/test_004_m5_known_q_baseline.py
+
+openwave_target:
+  model: M5
+  artifact: >
+    openwave/xperiments/m5_liquid_crystal/research/scripts/
+    m5_20_1_b_seeds.py
+
+instrument:
+  name: biaxial_eigenframe_winding
+  validation: synthetic_known_q
+  target_gate: B1
+
+upstream_gates:
+  B0: pass
+  B0b: pass
+  B1: pass
+  B2: pass
+
+observations:
+  upstream_script_runnable: true
+  upstream_exit_success: true
+  known_q_gate_B1_pass: true
+  all_reported_gates_pass: true
+  json_summary_matches_gate_output: true
+
+result:
+  m5_known_q_winding_instrument: supported
+  baseline_reproduced_in_fork: true
+  readingpoint_mapping_tested: false
+  physical_correspondence_established: false
+
+constraints:
+  mod30_residue_mapping_assumed: false
+  quaternion_mapping_assumed: false
+  q_neg_q_identification_assumed: false
+  instrument_baseline_is_not_physical_mapping: true
+
+conclusion: >
+  The current OpenWave M5 known-q winding instrument reproduces
+  successfully in the Reading Point fork. The synthetic known-q
+  B1 gate passes, together with the other reported upstream gates.
+  This establishes a runnable M5 numerical baseline for subsequent
+  Reading Point cross-system tests. It does not establish a mapping
+  between mod-30 residues and quaternion classes or M5 physical states.
+
+next_question: >
+  Can the shared C2 x C2 quotient established in Reading Point
+  Result 003 be related to an output of the reproduced M5 measurement
+  machinery without assuming an arbitrary correspondence between
+  Reading Point cosets and quaternion states?
