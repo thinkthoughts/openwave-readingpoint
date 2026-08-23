@@ -1,0 +1,167 @@
+result:
+  id: 026
+  slug: m5_fullframe_connection_discriminator
+  title: "Existing M -> full eigenframe -> connection/curvature discriminator"
+  status: pass
+
+question: >
+  Does the already implemented M5 full-eigenframe connection/curvature
+  machinery distinguish transformations inside the four-element C-sign
+  classes left unresolved by Result 024?
+
+provenance:
+  source: "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_22_4_a_fullf.py"
+  existing_functions:
+    full_frame_M: found
+    gamma_vecs_O_h: found
+  implemented_route: "M -> O(M) -> Gamma_i -> G_i -> R_ij"
+  new_M_to_q_projection_introduced: false
+  new_flavour_space_contraction_introduced: false
+
+parameters:
+  n: 40
+  dx: 1.0
+  alpha: 0.6
+  delta: 0.1
+  chi: 0.6
+  q: 0.5
+  R_loop: 9.0
+  core_vox: 2.0
+  kappa: 0.0
+
+prior_partition:
+  K_plus: [I, Ty, Tz, TyTz]
+  K_minus: [Tx, TxTy, TxTz, TxTyTz]
+
+field_closure:
+  source_result: 023
+  classification: "C2^3-like"
+  transformations: [I, Tx, Ty, Tz, TxTy, TxTz, TyTz, TxTyTz]
+
+observables:
+  connection:
+    symbol: G
+    description: "ordered three-flavour full-eigenframe connection-vector field"
+  curvature:
+    symbol: R
+    description: "ordered three-flavour curvature-vector field with R_ij = G_i x G_j"
+  comparison:
+    normalization: "Frobenius-normalized full fields"
+    equivalence_threshold: 1.0e-4
+
+per_transformation:
+  I:
+    C_sign: "+"
+    G_norm: 8.366680e+01
+    R_norm: 1.150419e+01
+    C_antisymmetry_error: 2.823e-15
+    Mr_symmetry_error: 0.0
+  Tx:
+    C_sign: "-"
+    G_norm: 8.366680e+01
+    R_norm: 1.150419e+01
+    C_antisymmetry_error: 6.023e-15
+    Mr_symmetry_error: 0.0
+  Ty:
+    C_sign: "+"
+    G_norm: 8.366680e+01
+    R_norm: 1.150419e+01
+    C_antisymmetry_error: 3.576e-15
+    Mr_symmetry_error: 0.0
+  Tz:
+    C_sign: "+"
+    G_norm: 8.265405e+01
+    R_norm: 1.082988e+01
+    C_antisymmetry_error: 1.694e-15
+    Mr_symmetry_error: 0.0
+  TxTy:
+    C_sign: "-"
+    G_norm: 8.366680e+01
+    R_norm: 1.150419e+01
+    C_antisymmetry_error: 1.506e-15
+    Mr_symmetry_error: 0.0
+  TxTz:
+    C_sign: "-"
+    G_norm: 8.265405e+01
+    R_norm: 1.082988e+01
+    C_antisymmetry_error: 4.329e-15
+    Mr_symmetry_error: 0.0
+  TyTz:
+    C_sign: "+"
+    G_norm: 8.265405e+01
+    R_norm: 1.082988e+01
+    C_antisymmetry_error: 4.517e-15
+    Mr_symmetry_error: 0.0
+  TxTyTz:
+    C_sign: "-"
+    G_norm: 8.265405e+01
+    R_norm: 1.082988e+01
+    C_antisymmetry_error: 1.882e-15
+    Mr_symmetry_error: 0.0
+
+equal_C_sign_discrimination:
+  pair_count: 12
+  connection_G:
+    separated: 12
+    total: 12
+  curvature_R:
+    separated: 12
+    total: 12
+  G_or_R:
+    separated: 12
+    total: 12
+  verdict: "FULL DISCRIMINATION ACROSS TESTED EQUAL-C-SIGN PAIRS"
+
+joint_partition:
+  observables: "C + full-frame geometry"
+  class_count: 8
+  classes:
+    0: [I]
+    1: [Tx]
+    2: [Ty]
+    3: [Tz]
+    4: [TxTy]
+    5: [TxTz]
+    6: [TyTz]
+    7: [TxTyTz]
+  composition_compatible: true
+  composition_violations: 0
+  verdict: "EIGHT-CLASS COMPOSITION-COMPATIBLE GEOMETRIC READOUT SUPPORTED"
+
+structural_consequence:
+  effective_C_sign_readout: "2 classes"
+  real_overlap_Mr_added_discrimination: false
+  fullframe_geometric_readout: "8 classes"
+  statement: >
+    The existing full-eigenframe connection and curvature observables recover
+    distinctions among all eight tested Result-023 field transformations that
+    were collapsed by the N4 C-sign and real-overlap readouts.
+
+interpretation: >
+  Result 025 reached a stopping boundary for the specifically audited
+  M -> (q0,q) -> connection/curvature path. A subsequent repository-wide
+  search identified an independently implemented route beginning directly
+  from M: M -> O(M) -> Gamma_i -> G_i -> R_ij. Result 026 evaluates that
+  existing route on the same eight Result-023 transformed N3/N4 flavour
+  states. Both normalized G and normalized R separate all 12 pairs lying
+  within the two equal-C-sign sectors. The resulting joint partition contains
+  eight singleton classes and is compatible with the established C2^3-like
+  composition law. This establishes an existing geometric discriminator, but
+  it does not select a unique four-state reduction or establish a Reading
+  Point physical mapping.
+
+claims:
+  existing_M_to_fullframe_connection_route: supported
+  connection_discrimination_within_C_sign_sectors: "12/12"
+  curvature_discrimination_within_C_sign_sectors: "12/12"
+  eight_class_geometric_readout: supported
+  composition_compatibility: supported
+  unique_V4_selection: "NOT ESTABLISHED"
+  Q8_mod_center_identification: "NOT ESTABLISHED"
+  physical_handedness_identification: "NOT YET ESTABLISHED"
+  reading_point_to_M5_physical_mapping: "NOT ESTABLISHED"
+
+next_question: >
+  Do existing geometric invariants or symmetry relations define a natural
+  four-class reduction of the eight-state C2^3-like geometric structure
+  without selecting a V4 subgroup by hand?
