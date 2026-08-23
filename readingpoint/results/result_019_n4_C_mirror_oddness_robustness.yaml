@@ -1,0 +1,147 @@
+result_id: "019"
+title: "N4 C mirror-oddness robustness"
+status: "supported_robust_across_tested_family"
+
+test:
+  script: "readingpoint/tests/test_019_n4_C_mirror_oddness_robustness.py"
+  purpose: >
+    Determine whether the mirror relation P C P^T approximately equals -C
+    and the chi -> -chi approximate invariance observed in Result 018 persist
+    across a controlled family of N4 geometries.
+
+fixed_parameters:
+  n: 40
+  dx: 1.0
+  R_loop: 9.0
+  core_vox: 2.0
+  q: 0.5
+
+parameter_family:
+  alpha: [0.4, 0.6, 0.8]
+  delta: [0.05, 0.1, 0.2]
+  chi: [0.3, 0.6, 1.0]
+  geometry_points: 27
+
+diagnostics:
+  basis_covariance:
+    relation: "C_mirror = P C P^T"
+    max_error: 0.0
+    supported_points: "27/27"
+    status: "SUPPORTED"
+
+  mirror_oddness:
+    relation: "P C P^T approximately equals -C"
+    threshold: 1.0e-03
+    supported_points: "27/27"
+    min_error: 1.018361e-06
+    median_error: 5.841212e-06
+    max_error: 2.159673e-05
+    status: "ROBUST ACROSS TESTED FAMILY"
+
+  chi_sign_invariance:
+    relation: "C(-chi) approximately equals C(+chi)"
+    threshold: 1.0e-03
+    supported_points: "27/27"
+    min_error: 1.077438e-06
+    median_error: 5.902615e-06
+    max_error: 2.184209e-05
+    status: "ROBUST ACROSS TESTED FAMILY"
+
+  chi_sign_oddness:
+    relation: "C(-chi) approximately equals -C(+chi)"
+    min_error: 1.999997
+    median_error: 1.999999
+    max_error: 2.0
+    status: "REJECTED IN TESTED FAMILY"
+
+  chi_reversal_magnitude_preservation:
+    threshold: 1.0e-03
+    supported_points: "27/27"
+    min_relative_difference: 1.647260e-07
+    median_relative_difference: 8.178009e-07
+    max_relative_difference: 2.726370e-06
+    status: "ROBUST ACROSS TESTED FAMILY"
+
+  antisymmetry:
+    max_error: 8.992806e-15
+    status: "PASS"
+
+result:
+  basis_covariance_across_geometry: true
+  mirror_oddness_robust_across_tested_family: true
+  chi_sign_invariance_robust_across_tested_family: true
+  chi_sign_oddness_supported: false
+  chi_reversal_magnitude_preserved: true
+  antisymmetry_preserved: true
+  physical_handedness_identification_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+interpretation: >
+  The approximate mirror-odd relation observed in Result 018 is not a
+  one-point numerical accident. Across all 27 tested combinations of alpha,
+  delta, and chi, the mu-tau basis swap is exactly covariant and the
+  transformed matrix P C P^T remains approximately equal to -C, with maximum
+  relative error 2.16e-5. At the same time, C remains approximately invariant
+  under chi -> -chi at all 27 points, while the oddness diagnostic remains
+  essentially 2. Therefore the sign of chi does not act as the sign-reversing
+  operation for C in this family. The robust sign reversal is associated with
+  the tested mirror/orientation transformation, not screw-sign reversal.
+
+constraints:
+  - >
+    The tested mirror operation is the mu-tau orientation swap together with
+    the corresponding basis permutation. It is not yet an independently
+    applied spatial reflection of the full M5 tensor field.
+  - >
+    Robustness is established only over the tested alpha, delta, chi family
+    with fixed n, R_loop, core_vox, and q.
+  - >
+    The result does not yet establish physical handedness in the full M5
+    field theory.
+  - >
+    No Reading Point residue mapping is introduced.
+
+relation_to_previous_results:
+  result_016: >
+    Result 016 supported convergence of the normalized N4 C operator shape.
+  result_017: >
+    Result 017 supported dx*C as the lattice normalization among the tested
+    integer powers.
+  result_018: >
+    Result 018 found approximate chi-evenness, exact mirror basis covariance,
+    and approximate mirror sign reversal at one geometry.
+  result_019: >
+    Result 019 shows those transformation properties persist across all 27
+    tested alpha-delta-chi combinations.
+
+bridge_status:
+  n4_C_effective_operator_shape: "SUPPORTED"
+  n4_C_lattice_normalization: "dx * C SUPPORTED"
+  n4_C_antisymmetry: "SUPPORTED"
+  chi_sign_as_C_handedness_selector: "REJECTED IN TESTED FAMILY"
+  mirror_basis_covariance: "SUPPORTED"
+  mirror_oddness: "ROBUST ACROSS TESTED FAMILY"
+  physical_spatial_reflection_oddness: "NOT YET TESTED"
+  physical_handedness_identification: "NOT YET ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+next_reading_point:
+  result: "020"
+  question: >
+    Does an actual spatial reflection of the M5 loop fields, with the tensor
+    transformed consistently, reverse the lattice-normalized N4 chiral
+    operator after accounting for any required flavour-basis transformation?
+  requirements:
+    - "Apply a genuine spatial reflection to the field configuration."
+    - "Transform tensor components consistently with the reflection."
+    - "Keep spatial reflection distinct from mu-tau basis relabeling."
+    - "Measure C_reflected + C after any required basis transformation."
+    - "Preserve the dx*C lattice normalization from Result 017."
+  readingpoint_residue_mapping: "HELD"
+
+final_status:
+  mirror_oddness_under_orientation_swap: "SUPPORTED ROBUSTLY"
+  chi_sign_oddness: "REJECTED"
+  full_spatial_reflection_oddness: "OPEN"
+  physical_handedness_identification: "OPEN"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
