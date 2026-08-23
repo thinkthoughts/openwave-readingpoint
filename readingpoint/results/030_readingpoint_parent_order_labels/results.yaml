@@ -1,0 +1,103 @@
+id: readingpoint-030
+status: supported
+scope: readingpoint_intrinsic_quotient_labeling
+
+test:
+  name: readingpoint_parent_order_labels
+  script: readingpoint/tests/test_030_readingpoint_parent_order_labels.py
+
+provenance:
+  prior_results:
+    - readingpoint-003
+    - readingpoint-028
+    - readingpoint-029
+  invariant_source: parent_group_element_order
+  invariant_defined_independently_of_m5_mapping: true
+
+readingpoint:
+  parent_group: units_mod_30
+  parent_group_notation: "(Z/30Z)^*"
+  parent_group_structure: C4_x_C2
+  units: [1, 7, 11, 13, 17, 19, 23, 29]
+  element_orders:
+    1: 1
+    7: 4
+    11: 2
+    13: 4
+    17: 4
+    19: 2
+    23: 4
+    29: 2
+  quotient:
+    subgroup: [1, 19]
+    quotient_group: C2_x_C2
+    quotient_order: 4
+    identity_class: [1, 19]
+    nonidentity_classes:
+      - residues: [7, 13]
+        parent_order_profile: [4, 4]
+      - residues: [11, 29]
+        parent_order_profile: [2, 2]
+      - residues: [17, 23]
+        parent_order_profile: [4, 4]
+
+observations:
+  distinct_nonidentity_parent_order_profiles: 2
+  uniquely_labeled_nonidentity_classes:
+    - residues: [11, 29]
+      parent_order_profile: [2, 2]
+  ambiguous_nonidentity_classes:
+    - residues: [7, 13]
+      parent_order_profile: [4, 4]
+    - residues: [17, 23]
+      parent_order_profile: [4, 4]
+  readingpoint_intrinsic_quotient_labeling: partial
+  readingpoint_internal_permutation_freedom:
+    before: S3
+    after: C2
+    residual_exchange:
+      - [7, 13]
+      - [17, 23]
+
+correspondence:
+  result_028_abstract_isomorphisms: 6
+  readingpoint_side_candidate_count_if_parent_order_label_is_preserved: 2
+  cross_system_correspondences_currently_licensed: 6
+  reason: >
+    The Reading Point parent-order invariant uniquely distinguishes
+    {11,29}, but no independently corresponding M5 invariant has yet
+    identified which M5 quotient class should receive that label.
+  residue_pair_to_m5_quotient_class_assignment: not_established
+  physical_q8_identification: not_established
+  readingpoint_to_m5_physical_mapping: not_established
+
+constraints:
+  m5_class_assigned_to_11_29: false
+  cross_system_6_to_2_reduction_claimed_as_established: false
+  parent_order_used_as_readingpoint_native_label: true
+  unique_full_readingpoint_labeling_established: false
+
+result:
+  parent_order_profiles_supported: true
+  unique_2_2_class: [11, 29]
+  two_4_4_classes:
+    - [7, 13]
+    - [17, 23]
+  readingpoint_intrinsic_labeling: partial
+  test_status: PASS
+
+conclusion: >
+  The Reading Point V4 quotient inherits a nontrivial label from its
+  parent group. The class {11,29} is uniquely characterized by parent
+  element-order profile (2,2), while {7,13} and {17,23} both have
+  profile (4,4). This reduces Reading Point's internal nonidentity
+  permutation freedom from S3 to the C2 exchange of the two (4,4)
+  classes. It does not yet reduce the six licensed M5-to-Reading-Point
+  isomorphisms, because an independently corresponding M5 invariant has
+  not been established.
+
+next_question: >
+  Does the existing M5 quotient carry an independently defined binary
+  invariant that partitions its three nonidentity classes as one
+  distinguished class plus one equivalent pair, matching the 1+2
+  structure established here without using Reading Point labels?
