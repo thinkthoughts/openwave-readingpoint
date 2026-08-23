@@ -1,8 +1,10 @@
-       # Result 037 — Native N4 chiral-coupling sign → C-sign orientation audit
+# Reading Point Test 037 — N4 chiral-coupling sign → C-sign orientation audit
 
 ## Outcome
 
-**PASS — the tested native N4 chiral signs do not anchor the geometric \(C\)-sign.**
+**PASS.**
+
+The tested native N4 chiral signs do not anchor the geometric `C`-sign.
 
 The decisive result is:
 
@@ -23,7 +25,7 @@ chi sign leaves geometric C even:
 SUPPORTED
 ```
 
-Therefore `g_chiral` supplies a native sign for the **weighted chiral interaction term**, but not for the geometric chiral-overlap matrix \(C\) used in Result 032.
+Therefore `g_chiral` supplies a native sign for the **weighted chiral interaction term**, but not for the geometric chiral-overlap matrix `C` used in Result 032.
 
 ## Existing implementation
 
@@ -33,7 +35,7 @@ Result 037 uses:
 openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_n4_chiral.py
 ```
 
-and the existing functions:
+with the existing functions:
 
 ```text
 chiral_mass_matrix(...)
@@ -42,22 +44,25 @@ chiral_overlap(...)
 
 The native construction is:
 
-\[
-M_H=M_r+i\,g_{\rm chiral}C.
-\]
+```text
+M_H = Mr + i * g_chiral * C
+```
 
-The test therefore keeps three objects separate:
+The test keeps three objects separate:
 
-1. the geometric chiral-overlap matrix \(C\);
-2. the coupling sign \(g_{\rm chiral}\);
-3. the weighted chiral term
-   \[
-   K=g_{\rm chiral}C.
-   \]
+```text
+geometric chiral-overlap matrix: C
+coupling sign:                   g_chiral
+weighted chiral term:           K = g_chiral * C
+```
 
-This separation prevents the trivial sign change of \(g_{\rm chiral}C\) from being misidentified as a sign change of \(C\).
+This separation prevents the sign change of `g_chiral*C` from being read as a sign change of geometric `C`.
 
-## Parameter set
+No Reading Point mapping or `chi3` label is used.
+
+## Configuration
+
+The exact tested parameter set is:
 
 ```text
 n          = 40
@@ -71,7 +76,7 @@ core_vox   = 2.0
 kappa      = 0.0
 ```
 
-The tested states are:
+The four tested states are:
 
 ```text
 (+chi,+g)
@@ -79,8 +84,6 @@ The tested states are:
 (-chi,+g)
 (-chi,-g)
 ```
-
-No Reading Point label or \(\chi_3\) sign is used.
 
 ## Per-state readout
 
@@ -93,97 +96,73 @@ chi-_g+      -0.600   +1.000   2.619759e+00  2.619759e+00
 chi-_g-      -0.600   -1.000   2.619759e+00  2.619759e+00
 ```
 
-All tested \(C\) matrices remain antisymmetric, and all real overlap matrices remain symmetric.
+All tested `C` matrices remain antisymmetric, and all real overlap matrices remain symmetric.
 
-## Pure \(g_{\rm chiral}\)-sign flip
+## Pure coupling-sign flip
 
-At fixed positive \(\chi\):
+At fixed positive `chi`:
 
 ```text
 Geometric C:
-r_odd           = 1.000000000e+00
-r_even          = 0.000000000e+00
-magnitude ratio = 1.000000000e+00
-verdict         = EVEN
+  r_odd           = 1.000000000e+00
+  r_even          = 0.000000000e+00
+  magnitude ratio = 1.000000000e+00
+  verdict         = EVEN
+
+Weighted K = g_chiral * C:
+  r_odd           = 0.000000000e+00
+  r_even          = 1.000000000e+00
+  magnitude ratio = 1.000000000e+00
+  verdict         = ODD
+
+Real overlap Mr:
+  r_odd           = 1.000000000e+00
+  r_even          = 0.000000000e+00
+  magnitude ratio = 1.000000000e+00
+  verdict         = EVEN
 ```
 
-while:
+The same result reproduces at negative `chi`.
 
-```text
-Weighted K = g_chiral*C:
-r_odd           = 0.000000000e+00
-r_even          = 1.000000000e+00
-magnitude ratio = 1.000000000e+00
-verdict         = ODD
-```
-
-The same result reproduces at negative \(\chi\).
-
-Thus:
-
-\[
-C(\chi,-g)=C(\chi,+g)
-\]
-
-exactly within the tested implementation, while:
-
-\[
-(-g)C=-gC.
-\]
-
-So the sign reversal belongs to the coupling-weighted term rather than to the geometric overlap.
+Thus the sign reversal belongs to the coupling-weighted term rather than to the geometric overlap.
 
 ## Pure screw-sign flip
 
-At fixed positive \(g_{\rm chiral}\):
+At fixed positive `g_chiral`:
 
 ```text
 Geometric C:
-r_odd           = 1.000000000e+00
-r_even          = 4.185726694e-06
-magnitude ratio = 9.999985576e-01
-verdict         = EVEN
+  r_odd           = 1.000000000e+00
+  r_even          = 4.185726694e-06
+  magnitude ratio = 9.999985576e-01
+  verdict         = EVEN
+
+Weighted K = g_chiral * C:
+  r_odd           = 1.000000000e+00
+  r_even          = 4.185726694e-06
+  magnitude ratio = 9.999985576e-01
+  verdict         = EVEN
+
+Real overlap Mr:
+  r_odd           = 1.000000000e+00
+  r_even          = 6.191268694e-17
+  magnitude ratio = 1.000000000e+00
+  verdict         = EVEN
 ```
 
-The same result reproduces at negative \(g_{\rm chiral}\).
+The same result reproduces at negative `g_chiral`.
 
-The real overlap matrix is even to numerical precision:
-
-```text
-r_even = 6.191268694e-17
-```
-
-Therefore changing the sign of the secondary screw parameter \(\chi\) does not reverse \(C\) in the tested family.
-
-## Component audit
-
-For the \(\chi\)-sign flip:
-
-```text
-C_01:
-+chi = +1.009873677
--chi = +1.009884024
-
-C_02:
-+chi = -1.009884326
--chi = -1.009873376
-
-C_12:
-+chi = -1.179774791
--chi = -1.179771112
-```
-
-No independent component changes sign.
+Changing the sign of `chi` therefore does not reverse geometric `C` in the tested family.
 
 ## Combined sign flip
 
 For:
 
-\[
-(+\chi,+g)\rightarrow(-\chi,-g),
-\]
+```text
+(+chi,+g) -> (-chi,-g)
+```
 
-the geometric \(C\) remains even:
+geometric `C` remains even:
 
 ```text
 r_even = 4.185726694e-06
@@ -195,7 +174,25 @@ while the weighted term is odd:
 r_odd = 4.185726694e-06
 ```
 
-This is exactly the behavior expected if the coupling sign carries the sign reversal while the geometric overlap remains approximately unchanged.
+The replicated combined flip
+
+```text
+(+chi,-g) -> (-chi,+g)
+```
+
+gives the same classification.
+
+## Component audit
+
+For the `chi`-sign flip:
+
+```text
+C_01: +chi=+1.009873677e+00  -chi=+1.009884024e+00
+C_02: +chi=-1.009884326e+00  -chi=-1.009873376e+00
+C_12: +chi=-1.179774791e+00  -chi=-1.179771112e+00
+```
+
+No tested component reverses sign.
 
 ## Controls
 
@@ -237,31 +234,31 @@ Native role of g_chiral:
 G_CHIRAL_FLIPS_WEIGHTED_TERM_NOT_GEOMETRIC_C
 ```
 
-Thus `g_chiral` is a meaningful native signed coupling, but that sign cannot be substituted for the geometric \(C\)-sign used to distinguish the Result-032 quotient pair.
+Thus `g_chiral` is a native signed coupling, but that sign does not supply the geometric `C`-sign used to distinguish the Result-032 quotient pair.
 
 ## Relation to Results 035–036
 
-The current orientation-anchor sequence is:
+The orientation-anchor sequence through Result 037 is:
 
 ```text
-035  right-handed full eigenframe
-     -> does not anchor C-sign
+035  right-handed full-frame convention
+     -> no C-sign anchor
 
 036  self-linking N -> -N
      -> no clean C-sign anchor
 
-037  g_chiral / chi sign
-     -> no geometric C-sign anchor
+037  g_chiral / chi signs
+     -> weighted-term sign only
 ```
 
-Result 037 does independently establish:
+Result 037 independently establishes:
 
 ```text
 g_chiral sign anchors g_chiral*C:
 SUPPORTED
 ```
 
-but this is a different object from \(C\).
+but `g_chiral*C` is a different object from geometric `C`.
 
 ## Correspondence boundary
 
@@ -275,7 +272,7 @@ Mapping B:
 C-sign = -chi3
 ```
 
-Result 037 licenses neither.
+Result 037 licenses neither convention.
 
 Therefore:
 
@@ -287,35 +284,27 @@ Result-037 admissible mappings: 2
 NOT LICENSED
 ```
 
-and:
+Accordingly:
 
-```text
-Unique Reading Point -> M5 correspondence:
-NOT ESTABLISHED
+**Unique Reading Point → M5 correspondence: NOT ESTABLISHED.**
 
-Reading Point -> M5 physical mapping:
-NOT ESTABLISHED
-```
+**Reading Point → M5 physical mapping: NOT ESTABLISHED.**
 
-## Required result statement
+## Result
 
-**RESULT 037:**
+**RESULT 037**
 
-Native reversal of `g_chiral` leaves the geometric chiral-overlap matrix \(C\) unchanged while reversing the weighted chiral term
+Native reversal of `g_chiral` leaves the geometric chiral-overlap matrix `C` unchanged while reversing the weighted chiral term `g_chiral*C`.
 
-\[
-g_{\rm chiral}C.
-\]
+Reading Point `chi3` sign mapping remains unassigned by Test 037.
 
-Reading Point \(\chi_3\) sign mapping remains unassigned by Test 037.
+**PASS**
 
 ## Next reading point
 
-The strongest remaining field-derived candidate is the existing signed Mermin–Ho / topological-charge machinery.
+Test the existing signed Mermin-Ho / topological-flux machinery as an independent native orientation candidate.
 
-A next test should ask whether that independently implemented signed geometric quantity has an executable relation to the same Result-032 \(C\)-sign.
-
-If that route also fails, the remaining twofold correspondence becomes increasingly well-defined as a current implementation boundary rather than an unresolved algebraic calculation.
+The next test should ask whether that signed geometric quantity supplies an executable relation to the Result-032 `C`-sign.
 
 ## Script
 
