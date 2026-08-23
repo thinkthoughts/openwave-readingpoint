@@ -1,0 +1,172 @@
+id: readingpoint-037
+status: pass
+scope: m5_orientation_anchor
+test:
+  name: n4_chiral_coupling_orientation_C_sign
+  script: readingpoint/tests/test_037_n4_chiral_coupling_orientation_C_sign.py
+question: Do the existing N4 chiral sign variables g_chiral and chi provide an independently
+  implemented orientation anchor for the geometric chiral-overlap matrix C used in
+  Result 032?
+implementation:
+  source: openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_n4_chiral.py
+  functions:
+  - chiral_mass_matrix
+  - chiral_overlap
+  native_relation: M_H = Mr + i * g_chiral * C
+parameters:
+  n: 40
+  alpha: 0.6
+  delta: 0.1
+  chi_abs: 0.6
+  g_chiral_abs: 1.0
+  R_loop: 9.0
+  q: 0.5
+  core_vox: 2.0
+  kappa: 0.0
+states:
+  chi+_g+:
+    chi: 0.6
+    g_chiral: 1.0
+    C_norm: 2.619763
+    gC_norm: 2.619763
+  chi+_g-:
+    chi: 0.6
+    g_chiral: -1.0
+    C_norm: 2.619763
+    gC_norm: 2.619763
+  chi-_g+:
+    chi: -0.6
+    g_chiral: 1.0
+    C_norm: 2.619759
+    gC_norm: 2.619759
+  chi-_g-:
+    chi: -0.6
+    g_chiral: -1.0
+    C_norm: 2.619759
+    gC_norm: 2.619759
+audits:
+  pure_g_flip_at_positive_chi:
+    C:
+      r_odd: 1.0
+      r_even: 0.0
+      magnitude_ratio: 1.0
+      verdict: EVEN
+    gC:
+      r_odd: 0.0
+      r_even: 1.0
+      magnitude_ratio: 1.0
+      verdict: ODD
+    Mr:
+      r_odd: 1.0
+      r_even: 0.0
+      magnitude_ratio: 1.0
+      verdict: EVEN
+  pure_g_flip_at_negative_chi:
+    C:
+      r_odd: 1.0
+      r_even: 0.0
+      magnitude_ratio: 1.0
+      verdict: EVEN
+    gC:
+      r_odd: 0.0
+      r_even: 1.0
+      magnitude_ratio: 1.0
+      verdict: ODD
+    Mr:
+      r_odd: 1.0
+      r_even: 0.0
+      magnitude_ratio: 1.0
+      verdict: EVEN
+  pure_chi_flip_at_positive_g:
+    C:
+      r_odd: 1.0
+      r_even: 4.185726694e-06
+      magnitude_ratio: 0.9999985576
+      verdict: EVEN
+    gC:
+      r_odd: 1.0
+      r_even: 4.185726694e-06
+      magnitude_ratio: 0.9999985576
+      verdict: EVEN
+    Mr:
+      r_odd: 1.0
+      r_even: 6.191268694e-17
+      magnitude_ratio: 1.0
+      verdict: EVEN
+  pure_chi_flip_at_negative_g:
+    C:
+      r_odd: 1.0
+      r_even: 4.185726694e-06
+      magnitude_ratio: 0.9999985576
+      verdict: EVEN
+    gC:
+      r_odd: 1.0
+      r_even: 4.185726694e-06
+      magnitude_ratio: 0.9999985576
+      verdict: EVEN
+    Mr:
+      r_odd: 1.0
+      r_even: 6.191268694e-17
+      magnitude_ratio: 1.0
+      verdict: EVEN
+  combined_flip:
+    C:
+      r_odd: 1.0
+      r_even: 4.185726694e-06
+      magnitude_ratio: 0.9999985576
+      verdict: EVEN
+    gC:
+      r_odd: 4.185726694e-06
+      r_even: 1.0
+      magnitude_ratio: 0.9999985576
+      verdict: ODD
+    Mr:
+      r_odd: 1.0
+      r_even: 6.191268694e-17
+      magnitude_ratio: 1.0
+      verdict: EVEN
+component_audit_chi_flip:
+  C_01:
+    positive_chi: 1.009873677
+    negative_chi: 1.009884024
+    sign_reverses: false
+  C_02:
+    positive_chi: -1.009884326
+    negative_chi: -1.009873376
+    sign_reverses: false
+  C_12:
+    positive_chi: -1.179774791
+    negative_chi: -1.179771112
+    sign_reverses: false
+controls:
+  C_antisymmetry: SUPPORTED
+  Mr_symmetry: SUPPORTED
+  M_H_equals_Mr_plus_i_gC: SUPPORTED
+  repeatability_C_residual: 0.0
+  repeatability_Mr_residual: 0.0
+  repeatability: SUPPORTED
+aggregate:
+  g_chiral_sign_reverses_geometric_C: false
+  g_chiral_sign_leaves_geometric_C_even: true
+  g_chiral_sign_reverses_weighted_gC: true
+  chi_sign_reverses_geometric_C: false
+  chi_sign_leaves_geometric_C_even: true
+  native_C_sign_anchor_from_tested_chiral_signs: NOT ESTABLISHED
+  native_role_of_g_chiral: FLIPS WEIGHTED CHIRAL TERM, NOT GEOMETRIC C
+correspondence_boundary:
+  result_032_geometric_C_sign_gets_independent_native_orientation_anchor: false
+  weighted_chiral_term_has_native_g_chiral_sign_orientation: true
+  weighted_term_sign_alone_establishes_result_032_C_sign: false
+  reading_point_chi3_sign_assigned: false
+  result_034_admissible_mappings: 2
+  result_037_admissible_mappings: 2
+  reduction_2_to_1: NOT LICENSED
+  unique_readingpoint_to_m5_correspondence: NOT ESTABLISHED
+  readingpoint_to_m5_physical_mapping: NOT ESTABLISHED
+conclusion: Native reversal of g_chiral leaves the geometric chiral-overlap matrix
+  C unchanged while reversing the weighted chiral term g_chiral*C. Reversal of chi
+  also leaves geometric C approximately even. Neither tested native chiral sign therefore
+  anchors the Result-032 C-sign.
+next_question: Does a remaining independently implemented field-derived sign, such
+  as Mermin-Ho/topological charge or signed curvature, have an existing executable
+  relation to the Result-032 C-sign?
