@@ -1,0 +1,143 @@
+id: readingpoint-039
+status: pass
+scope: correspondence_boundary_synthesis
+
+test:
+  name: correspondence_boundary_synthesis
+  number: 39
+  result: PASS
+  result_dir: readingpoint/results/test_039_correspondence_boundary_synthesis
+  audit_json: readingpoint/results/test_039_correspondence_boundary_synthesis/audit.json
+
+purpose: >
+  Reconstruct the strongest Reading Point <-> M5 correspondence licensed
+  by Results 001-038 without introducing a new M5 observable, a new
+  Reading Point arithmetic label, or a new cross-system sign convention.
+
+scope_controls:
+  new_m5_observable_introduced: false
+  new_readingpoint_arithmetic_label_introduced: false
+  new_cross_system_sign_convention_imposed: false
+
+abstract_quotient:
+  structure: V4
+  identity_preserving_bijections_tested: 6
+  multiplication_preserving_isomorphisms: 6
+  result_028_sixfold_ambiguity_reproduced: true
+
+partition_bridge:
+  m5:
+    singleton: Txbar
+    pair: [Tzbar, TxTzbar]
+  readingpoint:
+    singleton: "{11,29}"
+    pair: ["{7,13}", "{17,23}"]
+  partition_preserving_isomorphisms: 2
+  reduction_6_to_2: supported
+
+remaining_mappings:
+  - name: aligned
+    mapping:
+      Ibar: "{1,19}"
+      Txbar: "{11,29}"
+      Tzbar: "{7,13}"
+      TxTzbar: "{17,23}"
+    multiplication_preserving: true
+    partition_preserving: true
+    residual_C_sign_chi3_relation: ALIGNED
+  - name: reversed
+    mapping:
+      Ibar: "{1,19}"
+      Txbar: "{11,29}"
+      Tzbar: "{17,23}"
+      TxTzbar: "{7,13}"
+    multiplication_preserving: true
+    partition_preserving: true
+    residual_C_sign_chi3_relation: REVERSED
+
+intrinsic_labeling:
+  readingpoint:
+    first_label: chi5 / mod-5 quadratic character
+    second_label: chi3 / nontrivial mod-3 character
+    all_four_quotient_classes_distinguished: true
+  m5:
+    first_label: full-frame G/R norm partition
+    second_label: N4 C-sign
+    all_four_tested_quotient_classes_distinguished: true
+  complete_internal_labeling_both_sides: true
+  implies_unique_cross_system_mapping: false
+
+orientation_anchor_audit:
+  - result: 35
+    candidate: right-handed full-frame convention
+    verdict: NO_C_SIGN_ANCHOR
+  - result: 36
+    candidate: self-linking N -> -N
+    verdict: NO_CLEAN_C_SIGN_ANCHOR
+  - result: 37
+    candidate: g_chiral / chi signs
+    verdict: WEIGHTED_TERM_SIGN_ONLY
+  - result: 38
+    candidate: Mermin-Ho / topological-flux sign
+    verdict: SAME_RESIDUAL_PAIR_SIGN
+
+cross_system_orientation:
+  C_sign_equals_chi3_rule_found: false
+  C_sign_equals_negative_chi3_rule_found: false
+  independent_orientation_alignment_rule: NOT_FOUND
+
+evidence_ledger:
+  - {result: 3, claim: common V4 quotient, status: SUPPORTED}
+  - {result: 27, claim: repository-native M5 quotient, status: SUPPORTED}
+  - {result: 28, claim: abstract M5 <-> Reading Point quotient isomorphisms, status: SUPPORTED}
+  - {result: 29, claim: native M5 quotient observables, status: SUPPORTED}
+  - {result: 30, claim: Reading Point native 1+2 partition, status: SUPPORTED}
+  - {result: 31, claim: M5 native 1+2 partition, status: SUPPORTED}
+  - {result: 32, claim: M5 residual-pair C-sign label, status: SUPPORTED}
+  - {result: 33, claim: Reading Point residual-pair chi3 label, status: SUPPORTED}
+  - {result: 34, claim: two-bit cross-system correspondence audit, status: SUPPORTED}
+  - {result: 35, claim: right-handed full-frame C-sign anchor, status: NOT_SUPPORTED}
+  - {result: 36, claim: self-linking N -> -N C-sign anchor, status: NOT_ESTABLISHED}
+  - {result: 37, claim: native chiral-sign C anchor, status: NOT_ESTABLISHED}
+  - {result: 38, claim: Mermin-Ho/topological-flux C-sign anchor, status: NOT_ESTABLISHED}
+
+strongest_licensed_correspondence:
+  common_quotient_structure: SUPPORTED
+  repository_native_m5_quotient: SUPPORTED
+  readingpoint_quotient_intrinsically_labeled: SUPPORTED
+  m5_quotient_intrinsically_labeled: SUPPORTED
+  partition_level_cross_system_correspondence: SUPPORTED
+  abstract_quotient_isomorphisms: 6
+  partition_preserving_isomorphisms: 2
+  currently_admissible_cross_system_mappings: 2
+  independent_orientation_alignment_rule: NOT_FOUND
+  unique_structural_correspondence: NOT_ESTABLISHED
+  readingpoint_to_m5_physical_mapping: NOT_ESTABLISHED
+
+stopping_boundary:
+  executable_evidence_reduces_6_to_2: true
+  executable_evidence_reduces_2_to_1: false
+  additional_sign_convention_required_for_2_to_1: true
+  such_convention_established_by_results_001_038: false
+  current_implementation_stopping_boundary: SUPPORTED
+
+constraints:
+  complete_internal_labeling_implies_unique_cross_system_mapping: false
+  aligned_sign_convention_assumed: false
+  reversed_sign_convention_assumed: false
+  physical_mapping_assumed: false
+
+conclusion: >
+  Results 001-038 license a shared V4 quotient and an independently
+  supported partition-level Reading Point <-> M5 correspondence that
+  reduces six abstract quotient isomorphisms to two. Both quotients are
+  internally fully labeled, but no independently implemented
+  cross-system orientation rule selects between the two remaining
+  mappings. A unique Reading Point -> M5 correspondence and a physical
+  mapping therefore remain unestablished.
+
+next_question: >
+  Preserve Result 039 as the current implementation boundary and expose
+  the 001-039 evidence ladder in the repository and outreach materials.
+  Reopen the executable bridge only if an independently defined
+  cross-system orientation constraint becomes available.
