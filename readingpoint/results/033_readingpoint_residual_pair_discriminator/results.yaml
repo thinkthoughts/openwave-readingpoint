@@ -1,0 +1,154 @@
+result:
+  id: 033
+  slug: readingpoint_residual_pair_discriminator
+  title: "Reading Point residual-pair discriminator from canonical mod-3 / mod-5 characters"
+  status: pass
+
+question: >
+  Does the existing arithmetic structure of (Z/30Z)^* supply an independently
+  defined second binary invariant that distinguishes the residual Reading Point
+  quotient classes {7,13} and {17,23}, without importing M5 labels or C-sign?
+
+parent_group:
+  structure: "units_mod_30"
+  notation: "(Z/30Z)^*"
+  elements: [1, 7, 11, 13, 17, 19, 23, 29]
+
+quotient:
+  subgroup: [1, 19]
+  notation: "(Z/30Z)^* / {1,19}"
+  order: 4
+  classification: "C2_x_C2"
+  classes:
+    - [1, 19]
+    - [7, 13]
+    - [11, 29]
+    - [17, 23]
+
+prior_result_030:
+  parent_order_profiles:
+    "{7,13}": [4, 4]
+    "{11,29}": [2, 2]
+    "{17,23}": [4, 4]
+  singleton: [11, 29]
+  residual_pair:
+    - [7, 13]
+    - [17, 23]
+  intrinsic_labeling: partial
+
+construction_constraints:
+  m5_labels_used: false
+  m5_C_sign_used: false
+  residue_to_m5_assignment_imposed: false
+
+characters:
+  chi3:
+    definition:
+      "1_mod_3": 1
+      "2_mod_3": -1
+    interpretation: "nontrivial character of (Z/3Z)^*"
+    parent_group_multiplicativity: supported
+    values_on_kernel: [1, 1]
+    kernel_subset_character_kernel: true
+    descends_to_quotient: true
+  chi5:
+    definition:
+      "quadratic_residues_mod_5_[1,4]": 1
+      "quadratic_nonresidues_mod_5_[2,3]": -1
+    interpretation: "quadratic character modulo 5"
+    parent_group_multiplicativity: supported
+    values_on_kernel: [1, 1]
+    kernel_subset_character_kernel: true
+    descends_to_quotient: true
+
+quotient_character_table:
+  "{1,19}":
+    parent_order_profile: [1, 2]
+    chi3: 1
+    chi5: 1
+    joint_signature: [1, 1]
+  "{7,13}":
+    parent_order_profile: [4, 4]
+    chi3: 1
+    chi5: -1
+    joint_signature: [1, -1]
+  "{11,29}":
+    parent_order_profile: [2, 2]
+    chi3: -1
+    chi5: 1
+    joint_signature: [-1, 1]
+  "{17,23}":
+    parent_order_profile: [4, 4]
+    chi3: -1
+    chi5: -1
+    joint_signature: [-1, -1]
+
+residual_pair_test:
+  "{7,13}":
+    chi3: 1
+    chi5: -1
+  "{17,23}":
+    chi3: -1
+    chi5: -1
+  distinguished_by_chi3: true
+  verdict: supported
+
+joint_quotient_labeling:
+  signature_class_count: 4
+  all_four_classes_uniquely_labeled: true
+  preserves_quotient_multiplication: true
+  verdict: supported
+
+interpretation:
+  first_binary_label:
+    observable: chi5
+    role: >
+      Reproduces the Result-030 singleton-plus-pair distinction among the
+      nonidentity quotient classes.
+  second_binary_label:
+    observable: chi3
+    role: >
+      Independently distinguishes the residual order-(4,4) pair {7,13}
+      and {17,23}.
+  joint_role: >
+    The pair (chi3, chi5) gives four distinct quotient signatures and
+    preserves multiplication. The Reading Point quotient is therefore fully
+    intrinsically labeled by canonical arithmetic inherited from its mod-3
+    and mod-5 CRT factors.
+
+summary:
+  chi3_multiplicative: supported
+  chi5_multiplicative: supported
+  chi3_descends_through_kernel: supported
+  chi5_descends_through_kernel: supported
+  residual_pair_discrimination: supported
+  readingpoint_residual_pair_labeling: supported
+  readingpoint_quotient_intrinsic_labeling: "FULLY DISTINGUISHED"
+  joint_signature_homomorphism: supported
+  m5_correspondence_imposed: none
+  unique_readingpoint_to_m5_correspondence: "NOT YET TESTED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+constraints:
+  chi3_equated_to_m5_C_sign: false
+  chi5_equated_to_m5_norm_label: false
+  unique_cross_system_mapping_claimed: false
+  physical_mapping_claimed: false
+
+conclusion: >
+  Both canonical binary characters chi3 and chi5 are multiplicative on
+  (Z/30Z)^*, contain the Result-003 kernel {1,19} in their kernels, and
+  therefore descend to the Reading Point quotient. chi5 supplies the
+  singleton-plus-pair structure already seen in Result 030, while chi3
+  distinguishes {7,13} from {17,23}. Their joint signatures uniquely label
+  all four quotient classes and preserve quotient multiplication. This fully
+  distinguishes the Reading Point quotient internally without using M5
+  labels. A separate correspondence audit is required before the remaining
+  cross-system mappings can be reduced.
+
+next_question: >
+  Among the two Result-031 partition-preserving M5-to-Reading-Point quotient
+  isomorphisms, does comparison of the independently constructed M5 labels
+  (geometric norm partition and C-sign) with the Reading Point labels
+  (chi5 and chi3) license a unique structural correspondence without assuming
+  a physical identification between the label meanings?
