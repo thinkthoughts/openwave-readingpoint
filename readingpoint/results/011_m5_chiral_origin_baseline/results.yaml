@@ -1,0 +1,91 @@
+id: readingpoint-011
+status: supported_conditional
+scope: m5_chiral_origin_baseline
+
+test:
+  name: m5_chiral_origin_baseline
+  script: readingpoint/tests/test_011_m5_chiral_origin_baseline.py
+
+openwave_target:
+  model: M5
+  artifact: >
+    openwave/xperiments/m5_liquid_crystal/research/scripts/
+    m5_11_n4b_chiral_origin.py
+  candidate_observable: chiral_overlap_and_handedness_energy
+
+test_domain:
+  delta: 0.1
+  chi: 1.2
+  g_chiral_values: [0.0, 0.3, 0.6, 0.94, 1.5]
+
+observations:
+  g_0_00:
+    C_norm: 0.9447
+    delta_CP: 0.0
+    theta13: 0.000
+    dE_handedness: 0.0
+
+  g_0_30:
+    C_norm: 0.9447
+    delta_CP: -90.0
+    theta13: 2.858
+    dE_handedness: 0.0
+
+  g_0_60:
+    C_norm: 0.9447
+    delta_CP: -90.0
+    theta13: 5.631
+    dE_handedness: 0.0
+
+  g_0_94:
+    C_norm: 0.9447
+    delta_CP: -90.0
+    theta13: 8.581
+    dE_handedness: 0.0
+
+  g_1_50:
+    C_norm: 0.9447
+    delta_CP: -90.0
+    theta13: 12.841
+    dE_handedness: 0.0
+
+result:
+  geometric_chiral_overlap_supported: true
+  geometric_overlap_independent_of_g_chiral: true
+  achiral_handedness_degeneracy_supported: true
+  achiral_orientation_selector_present: false
+  g_chiral_zero_cp_conserving: true
+  nonzero_g_chiral_activates_cp_in_tested_scan: true
+  chiral_orientation_selector: conditional_on_g_chiral
+  physical_origin_of_g_chiral_established: false
+  result_009_orientation_requirement_satisfied_by_achiral_m5: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+constraints:
+  existing_m5_chiral_construction_only: true
+  chiral_substrate_term_assumed_by_model_branch: true
+  substrate_origin_not_derived_here: true
+  residue_to_quaternion_pairing_assumed: false
+  readingpoint_mapping_assumed: false
+
+conclusion: >
+  The reproduced M5 chiral-origin calculation contains a nonzero
+  geometric chiral overlap C that remains constant across the tested
+  g_chiral sweep, while the underlying achiral Landau-de Gennes energy
+  remains exactly degenerate between +chi and -chi. At g_chiral = 0,
+  the tested construction is CP-conserving. Nonzero g_chiral activates
+  the CP sector and selects handedness conditionally. Thus the tested
+  achiral M5 model does not itself provide the basis-invariant physical
+  orientation selector sought after Result 009; such selection depends
+  on the presence and sign of an additional chiral substrate coupling
+  whose physical origin remains unestablished here.
+
+upstream_side_effects:
+  generated_summary_restored: true
+  persistent_openwave_modification: false
+
+next_question: >
+  Does the current M5 repository independently derive, specify, or
+  otherwise justify a chiral Lifshitz or cholesteric substrate term
+  supplying g_chiral, rather than treating g_chiral as a phenomenological
+  input?
