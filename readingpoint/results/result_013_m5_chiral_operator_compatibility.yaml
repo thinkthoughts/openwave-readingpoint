@@ -1,0 +1,121 @@
+result_id: "013"
+title: "M5 chiral operator compatibility"
+status: "characterized"
+
+test:
+  script: "readingpoint/tests/test_013_m5_chiral_operator_compatibility.py"
+  purpose: >
+    Determine whether the implemented P2 chiral Lifshitz functional and
+    the N4 chiral-overlap matrix C are directly the same operator, or
+    whether an additional effective reduction is required.
+
+sources_examined:
+  - "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_p2_heliknoton.py"
+  - "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_n4_chiral.py"
+  - "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_n1_precision_method.py"
+
+p2_chiral_operator:
+  form: "Q_times_dQ"
+  differential_order: 1
+  tensor_scope: "spatial_3x3_block"
+  schematic_expression: >
+    F_chiral = integral 2 q0 Lc epsilon_ikl Q_ij partial_k Q_lj d^3r
+  coefficient_structure: "2 * q0 * Lc"
+  gradient_normalization: "central_difference_1_over_2dx"
+  explicit_volume_factor: "dx^3"
+
+n4_chiral_operator:
+  form: "dA_times_dB"
+  differential_order_per_field: 1
+  bilinear_total_derivative_order: 2
+  tensor_scope: "full_4x4_field"
+  schematic_expression: >
+    C_ab = sum[<dx dM_a, dy dM_b>_s - <dy dM_a, dx dM_b>_s
+    + <dy dM_a, dz dM_b>_s - <dz dM_a, dy dM_b>_s
+    + <dz dM_a, dx dM_b>_s - <dx dM_a, dz dM_b>_s]
+  contraction: "engine_SIGN_MAT_signed_inner_product"
+  gradient_default_dx: 1.0
+  explicit_volume_factor: false
+
+comparison:
+  differential_order_match: false
+  tensor_scope_match: false
+  contraction_match: false
+  explicit_normalization_match: false
+  direct_operator_identity_supported: false
+  direct_parameter_identification_supported: false
+
+result:
+  p2_lifshitz_operator_implemented: true
+  n4_chiral_overlap_implemented: true
+  direct_p2_lifshitz_equals_n4_C: false
+  g_chiral_equals_2_q0_Lc_supported: false
+  additional_effective_reduction_required: true
+  readingpoint_to_m5_physical_mapping_established: false
+
+interpretation: >
+  The implemented P2 Lifshitz functional and N4 chiral overlap are not
+  directly identical as coded. P2 uses a one-derivative Q*partial Q
+  Lifshitz density on the spatial 3x3 tensor block, with explicit dx
+  normalization and volume integration. N4 uses an antisymmetric
+  gradient-gradient bilinear between loop-field perturbations, contracted
+  with the engine SIGN_MAT signed inner product and summed without an
+  explicit dx^3 factor. Therefore the existing code does not support the
+  direct identification g_chiral = 2*q0*Lc. A P2-to-N4 provenance bridge
+  would require an independently specified projection, reduction,
+  coarse-graining, integration-by-parts argument, or effective-theory
+  derivation.
+
+constraints:
+  - >
+    This result does not prove that no effective relation between the
+    P2 and N4 chiral structures can exist.
+  - >
+    This result establishes only that the two operators are not directly
+    identical in the examined implementations.
+  - >
+    No integration-by-parts, projection, or coarse-graining relation is
+    assumed.
+  - >
+    No Reading Point residue-to-M5 mapping is introduced.
+
+relation_to_previous_results:
+  result_011: >
+    Result 011 showed that N4 handedness selection is conditional on
+    g_chiral and that the achiral model remains handedness-degenerate.
+  result_012: >
+    Result 012 found implemented P2 chiral substrate machinery but no
+    explicit parameter provenance bridge to N4 g_chiral.
+  result_013: >
+    The operator-level comparison now shows why a direct parameter bridge
+    is unsupported: the P2 and N4 chiral structures differ in differential
+    order, tensor contraction, and normalization.
+
+bridge_status:
+  p2_chiral_substrate_machinery: "IMPLEMENTED"
+  n4_chiral_overlap: "IMPLEMENTED"
+  direct_operator_identity: "NOT SUPPORTED"
+  direct_parameter_bridge: "NOT SUPPORTED"
+  effective_reduction_required: true
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+next_reading_point:
+  question: >
+    Does the current M5 repository already contain an effective reduction,
+    projection, coarse-graining, overlap construction, or integration-out
+    step that maps a substrate energy functional onto the N3/N4 three-state
+    mass matrix?
+  requirements:
+    - "Search existing M5 derivations before constructing a new reduction."
+    - "Prefer an implemented or documented M5-native projection."
+    - "Do not fit g_chiral from parameter values alone."
+    - >
+      Only derive an effective coefficient if the operator mapping itself
+      is established first.
+  readingpoint_residue_mapping: "HELD"
+
+final_status:
+  direct_p2_to_n4_operator_bridge: "NOT ESTABLISHED"
+  effective_p2_to_n4_bridge: "OPEN"
+  physical_parameter_bridge: "NOT ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
