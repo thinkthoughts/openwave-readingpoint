@@ -1,4 +1,4 @@
-# Result 003 — Common V4 quotient
+# Result 003 --- Common V4 quotient
 
 ## Outcome
 
@@ -22,9 +22,9 @@ The eight units modulo 30 are:
 
 Reducing by the subgroup `{1,19}` produces four cosets:
 
-`{1,19}`  
-`{7,13}`  
-`{11,29}`  
+`{1,19}`\
+`{7,13}`\
+`{11,29}`\
 `{17,23}`
 
 The resulting quotient has four elements, and every nonidentity element
@@ -42,13 +42,13 @@ The center of Q8 is:
 
 Reducing Q8 by its center produces four cosets:
 
-`{1,-1}`  
-`{i,-i}`  
-`{j,-j}`  
+`{1,-1}`\
+`{i,-i}`\
+`{j,-j}`\
 `{k,-k}`
 
-Again, the quotient has four elements, and every nonidentity element
-has order 2.
+Again, the quotient has four elements, and every nonidentity element has
+order 2.
 
 Therefore:
 
@@ -58,14 +58,14 @@ Therefore:
 
 The executable test confirms:
 
-- original group cardinality match: **PASS**
-- original group isomorphism: **REJECTED**
-- quotient cardinality match: **PASS**
-- quotient element-order profile: **PASS**
-- common quotient structure: **SUPPORTED**
+-   original group cardinality match: **PASS**
+-   original group isomorphism: **REJECTED**
+-   quotient cardinality match: **PASS**
+-   quotient element-order profile: **PASS**
+-   common quotient structure: **SUPPORTED**
 
-This is the first supported structural correspondence in the
-Reading Point → M5 comparison.
+This is the first supported structural correspondence in the Reading
+Point → M5 comparison.
 
 ## Constraint
 
@@ -90,25 +90,25 @@ Result 003 is a mathematical correspondence.
 It does not establish that mod-30 residue lanes represent M5 particles,
 defects, charges, or physical states.
 
-A physical interpretation requires an independently defined M5 observable
-that makes the quotient operational.
+A physical interpretation requires an independently defined M5
+observable that makes the quotient operational.
 
 ## Next reading point
 
-Determine whether the current M5 model supplies a physical or topological
-reason to identify:
+Determine whether the current M5 model supplies a physical or
+topological reason to identify:
 
 `q ~ -q`
 
 for quaternion defect classes.
 
-If M5 independently identifies each quaternion element with its negative,
-then:
+If M5 independently identifies each quaternion element with its
+negative, then:
 
 `Q8 / {1,-1}`
 
-may become an operational M5 classification rather than only a mathematical
-quotient.
+may become an operational M5 classification rather than only a
+mathematical quotient.
 
 That would provide the next testable bridge between the Reading Point
 quotient and M5.
