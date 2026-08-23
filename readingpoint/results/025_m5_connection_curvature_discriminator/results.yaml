@@ -1,0 +1,125 @@
+reading_point_test: 25
+id: 025_m5_connection_curvature_discriminator
+title: M5 connection/curvature discriminator audit
+
+status: PASS
+
+purpose: >
+  Determine whether the independently implemented M5 connection/curvature
+  sector already provides an executable observable that can discriminate
+  states inside the four-element effective classes left unresolved by
+  Results 023-024, without introducing a new projection.
+
+prior_results:
+  result_015:
+    connection_curvature_machinery: IMPLEMENTED
+    n4_C_provenance_bridge: NOT_ESTABLISHED
+
+  result_023:
+    field_closure: C2^3_LIKE
+    transformations: 8
+    C_representation: NON_FAITHFUL_Z2_SIGN_REPRESENTATION
+
+  result_024:
+    second_observable: N3_N4_REAL_OVERLAP_Mr
+    independent_discrimination_within_C_sign_sectors: false
+    joint_class_count: 2
+    quotient_compatibility: SUPPORTED
+    unresolved_classes:
+      positive:
+        - I
+        - Ty
+        - Tz
+        - TyTz
+      negative:
+        - Tx
+        - TxTy
+        - TxTz
+        - TxTyTz
+
+m5_non_hessian_geometric_machinery:
+  symbolic_connection:
+    expression: "Gamma_i = O^T d_i O"
+    status: IMPLEMENTED
+
+  field_connection:
+    expression: "Gamma_i = q0 d_i q - (d_i q0) q + q x d_i q"
+    status: IMPLEMENTED
+
+  curvature:
+    expression: "R_ij = Gamma_i x Gamma_j"
+    status: IMPLEMENTED
+
+  curvature_scalar_profile_observable:
+    status: IMPLEMENTED
+
+existing_field_level_functions:
+  - regularized_hedgehog
+  - centered_difference
+  - connection
+  - curvature_magnitude
+  - analytic_curvature_magnitude
+  - analytic_proxy
+  - analytic_log_slope
+  - shell_profile
+  - coupling_interpretations
+
+representation_audit:
+  connection_signature:
+    begins_with:
+      - q0
+      - q
+    status: CONFIRMED
+
+  n3_n4_flavour_representation:
+    type: rank_2_M_fields
+    status: CONFIRMED
+
+  explicit_M_to_q0_q_conversion:
+    status: NOT_FOUND_IN_EXAMINED_SOURCES
+    hits: []
+
+  n3_n4_to_connection_curvature_executable_bridge:
+    status: NOT_FOUND_IN_EXAMINED_SOURCES
+    hits: []
+
+discriminator_audit:
+  independent_connection_curvature_observable_exists: SUPPORTED
+  existing_input_projection_bridge: NOT_ESTABLISHED
+  executable_discriminator_for_result_024_kernel_states: NOT_FOUND
+
+stopping_boundary:
+  verdict: REACHED_FOR_CURRENT_IMPLEMENTED_BRIDGE
+  reason: >
+    M5 contains independently implemented connection and curvature
+    observables, but the examined implementation does not establish the
+    projection required to map the N3/N4 rank-2 flavour fields into that
+    geometric readout.
+
+  consequence: >
+    Evaluating Gamma_i or R_ij on the Result-023 transformed flavour states
+    would require an additional derived mapping rather than execution of an
+    already implemented observable.
+
+claims:
+  connection_curvature_machinery_exists: SUPPORTED
+  connection_curvature_is_existing_second_discriminator: NOT_ESTABLISHED
+  unique_V4_selection: NOT_ESTABLISHED
+  q8_mod_center_identification: NOT_ESTABLISHED
+  physical_handedness_identification: NOT_ESTABLISHED
+  reading_point_to_m5_physical_mapping: NOT_ESTABLISHED
+
+interpretation: >
+  Result 015 established genuine non-Hessian connection and curvature
+  machinery in M5. Result 024 established that the existing N3/N4 real
+  overlap sector adds no discrimination beyond the binary sign of C.
+  Test 025 therefore audited whether the independently implemented
+  geometric sector already supplies the missing discriminator. The
+  connection/curvature implementation operates on q0,q hedgehog variables,
+  while the N3/N4 flavour construction operates on rank-2 M fields.
+  No examined executable path establishes M -> (q0,q), Gamma/R -> flavour
+  readout, or an equivalent connection/curvature observable on the eight
+  Result-023 states. The current implemented bridge therefore reaches its
+  stopping boundary without establishing a further discriminator.
+
+reading_point_to_m5_physical_mapping: NOT_ESTABLISHED
