@@ -1,0 +1,173 @@
+result_id: "012"
+title: "M5 chiral parameter provenance"
+status: "characterized"
+
+test:
+  script: "readingpoint/tests/test_012_m5_chiral_parameter_provenance.py"
+  purpose: >
+    Determine whether the implemented P2 chiral Lifshitz substrate
+    machinery supplies an explicit parameter provenance bridge to the
+    N4 chiral coupling g_chiral.
+
+sources_examined:
+  - "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_p2_heliknoton.py"
+  - "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_n4_chiral.py"
+  - "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_n4b_chiral_origin.py"
+  - "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_n4_linking.py"
+
+p2_chiral_substrate:
+  implemented: true
+
+  lifshitz_term:
+    coefficient_structure: "2 * q0 * Lc"
+    schematic_expression: >
+      F_chiral = integral 2 q0 Lc epsilon_ikl Q_ij
+      partial_k Q_lj d^3r
+    code_expression: "2.0 * q0 * Lc * chi * dV"
+
+  parameters:
+    q0:
+      role: "chiral pitch parameter"
+    Lc:
+      role: "chiral strength"
+    Kf:
+      role: "Frank elastic coefficient"
+
+  frank_partner:
+    relation: "Kf = Lc / 2"
+    scope: "tested P2 helix/sweep construction"
+
+  implementation_status: "IMPLEMENTED"
+
+n4_chiral_sector:
+  parameter: "g_chiral"
+
+  mass_matrix_structure: >
+    M_H = M_real + i * g_chiral * C
+
+  geometric_overlap:
+    symbol: "C"
+    role: >
+      Chiral overlap constructed from the loop geometry and acted on
+      by g_chiral.
+
+  parameter_status:
+    result: "FREE / PHENOMENOLOGICAL IN EXAMINED BRANCH"
+    basis:
+      - >
+        The examined N4 implementation uses g_chiral as a separate
+        coupling.
+      - >
+        The N4 provenance discussion leaves the substrate origin of
+        the chiral coupling as an open question.
+      - >
+        The examined N4 linking material describes g_chiral as a
+        free coupling / cholesteric-pitch analogue.
+
+parameter_bridge:
+  candidate_source_parameters:
+    - "q0"
+    - "Lc"
+    - "Kf"
+
+  target_parameter: "g_chiral"
+
+  explicit_relation_found: false
+
+  relations_not_found:
+    - "g_chiral = f(q0, Lc, Kf)"
+    - "g_chiral derived from q0"
+    - "g_chiral derived from Lc"
+    - "g_chiral derived from Kf"
+
+  result: "NOT FOUND IN EXAMINED SOURCES"
+
+  scope_constraint: >
+    This result establishes the absence of an explicit P2-to-N4
+    parameter bridge in the examined implementation sources. It does
+    not prove that no such relation can be derived or exists elsewhere.
+
+result:
+  p2_chiral_substrate_implemented: true
+  p2_lifshitz_coefficient_structure: "2 * q0 * Lc"
+  p2_frank_partner_relation: "Kf = Lc / 2"
+  n4_chiral_parameter: "g_chiral"
+  explicit_p2_to_n4_parameter_bridge_found: false
+  n4_g_chiral_free_in_examined_branch: true
+
+interpretation: >
+  M5 contains implemented chiral Lifshitz substrate machinery in the
+  P2 branch. The P2 construction uses a chiral coefficient structure
+  2*q0*Lc together with a Frank partner Kf=Lc/2 in the tested
+  helix/sweep construction. The examined N4 branch instead introduces
+  the separate coupling g_chiral multiplying its geometric chiral
+  overlap C. No explicit equation or code path deriving g_chiral from
+  q0, Lc, or Kf was found in the examined sources. The repository
+  therefore contains both chiral substrate machinery and an N4 chiral
+  coupling, while their parameter provenance remains unbridged.
+
+constraints:
+  - >
+    This result does not identify g_chiral with 2*q0*Lc.
+  - >
+    This result does not derive g_chiral from the P2 Lifshitz
+    coefficient.
+  - >
+    This result does not establish that the P2 and N4 chiral terms
+    represent the same effective observable.
+  - >
+    This result does not establish a Reading Point residue-to-M5
+    state correspondence.
+  - >
+    No residue-to-quaternion or residue-to-chiral-state assignment is
+    introduced.
+
+bridge_status:
+  p2_chiral_substrate_machinery: "IMPLEMENTED"
+  n4_geometric_chiral_overlap: "IMPLEMENTED"
+  n4_g_chiral_parameter: "FREE / PHENOMENOLOGICAL IN EXAMINED BRANCH"
+  explicit_p2_to_n4_parameter_provenance: "NOT ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+relation_to_previous_results:
+  result_009: >
+    Result 009 showed that winding-sign orientation requires an
+    independently specified orientation, handedness, transport rule,
+    or interaction observable.
+
+  result_010: >
+    Result 010 reproduced the integer self-linking candidate N but
+    found that the naive N*s construction does not provide a clean
+    physics-preserving orientation bridge.
+
+  result_011: >
+    Result 011 reproduced a nonzero geometric chiral overlap and
+    achiral handedness degeneracy. A handedness selector appeared only
+    conditionally through g_chiral.
+
+  result_012: >
+    The P2 branch supplies implemented chiral Lifshitz substrate
+    machinery, refining Result 011. However, no explicit parameter
+    bridge from the P2 coefficients q0, Lc, Kf to N4 g_chiral is
+    present in the examined sources.
+
+next_reading_point:
+  question: >
+    Are the normalization and dimensional conventions of the P2
+    Lifshitz term and the N4 chiral overlap C compatible with a
+    non-arbitrary parameter bridge?
+
+  requirements:
+    - "Inspect the normalization and dimensions of q0, Lc, and Kf."
+    - "Inspect the normalization and construction of the N4 overlap C."
+    - "Compare the two chiral structures before proposing any mapping."
+    - >
+      Require any candidate relation for g_chiral to follow from the
+      existing M5 definitions rather than assigning it by hand.
+
+  readingpoint_residue_mapping: "HELD"
+
+final_status:
+  mathematical_parameter_bridge: "NOT ESTABLISHED"
+  physical_parameter_bridge: "NOT ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
