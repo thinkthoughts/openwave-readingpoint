@@ -1,0 +1,77 @@
+id: readingpoint-006
+status: characterized
+scope: m5_winding_instrument_response
+
+test:
+  name: m5_winding_magnitude_sweep
+  script: readingpoint/tests/test_006_m5_winding_magnitude_sweep.py
+
+openwave_target:
+  model: M5
+  instrument: winding_measure_biax
+  source_artifact: >
+    openwave/xperiments/m5_liquid_crystal/research/scripts/
+    m5_20_1_b_seeds.py
+
+test_domain:
+  synthetic_q_magnitudes: [0.25, 0.5, 1.0]
+  signs: [positive, negative]
+  deltas: [0.1, 0.3, 0.5]
+  pairings:
+    - pair_1d
+    - pair_d0
+  read_radii: [3.0, 4.0, 5.0, 6.0]
+  total_sign_pairs: 72
+
+observations:
+  q_0_25:
+    positive_input_measured_as: 0.0
+    negative_input_measured_as: 0.0
+    classification: aliased_to_zero
+    cases: 24
+
+  q_0_5:
+    positive_input_measured_as: 0.5
+    negative_input_measured_as: 0.5
+    classification: sign_identified
+    cases: 24
+
+  q_1_0:
+    positive_input_measured_as: -1.0
+    negative_input_measured_as: 1.0
+    classification: sign_distinguished
+    cases: 24
+
+  unreadable_cases: 0
+  mixed_cases: 0
+  mixing_monitor_zero_in_reported_cases: true
+
+result:
+  winding_response_uniform_across_magnitude: false
+  q_0_5_sign_identification_reproduced: true
+  universal_q_neg_q_identification_supported: false
+  full_q8_center_quotient_physically_established: false
+  readingpoint_v4_quotient_mathematically_supported: true
+  readingpoint_to_m5_physical_mapping_established: false
+
+constraints:
+  additional_q_values_are_synthetic_instrument_probes: true
+  physical_admissibility_of_q_0_25_not_assumed: true
+  physical_admissibility_of_q_1_0_not_assumed: true
+  residue_to_quaternion_pairing_assumed: false
+  physical_mapping_assumed: false
+
+conclusion: >
+  The M5 eigenframe-winding instrument exhibits magnitude-dependent
+  behavior on the tested synthetic configurations. Inputs with
+  |q| = 0.25 alias to zero, inputs with |q| = 0.5 identify opposite
+  signs at +0.5, and inputs with |q| = 1.0 remain sign-distinguishable
+  up to the instrument's orientation convention. Therefore the
+  q ~ -q behavior observed in Result 005 is specific to the tested
+  half-winding sector and does not define a universal quotient of the
+  M5 winding observable.
+
+next_question: >
+  Why does winding_measure_biax produce the three observed regimes,
+  and which q values correspond to independently admissible M5
+  topological sectors rather than synthetic instrument probes?
