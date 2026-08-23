@@ -1,0 +1,125 @@
+id: readingpoint-038
+status: pass
+scope: m5_native_orientation_audit
+
+test:
+  name: m5_mermin_ho_orientation_anchor
+  number: 38
+  result: PASS
+  result_dir: readingpoint/results/test_038_m5_mermin_ho_orientation_anchor
+  audit_json: readingpoint/results/test_038_m5_mermin_ho_orientation_anchor/audit.json
+
+sources:
+  full_f:
+    path: openwave/xperiments/m5_liquid_crystal/research/scripts/m5_22_4_a_fullf.py
+    reader: reads(...)[basic]
+    interpretation: longest-axis / Mermin-Ho signed cube flux
+  closure:
+    path: readingpoint/tests/test_026_m5_fullframe_connection_discriminator.py
+
+configuration:
+  n: 40
+  delta: 0.1
+  h: 1.2
+  flux_scales:
+    - half6
+    - half12
+    - half18
+
+quotient:
+  group: C2^3
+  kernel: "<Ty>"
+  quotient_group: C2_x_C2
+  classes:
+    Ibar: [I, Ty]
+    Txbar: [Tx, TxTy]
+    Tzbar: [Tz, TyTz]
+    TxTzbar: [TxTz, TxTyTz]
+  basic_triplets_descend: true
+
+residual_pair:
+  classes:
+    - Tzbar
+    - TxTzbar
+  result_032_C_labels:
+    Tzbar: "+C"
+    TxTzbar: "-C"
+
+observations:
+  half6:
+    Tzbar:
+      triplet: [-1.042859801, -0.2867537697, -0.2693187098]
+      component_signs: ["-", "-", "-"]
+      net: -1.598932281
+      net_sign: "-"
+    TxTzbar:
+      triplet: [-1.042859801, -0.2693187098, -0.2867537697]
+      component_signs: ["-", "-", "-"]
+      net: -1.598932281
+      net_sign: "-"
+    triplet_distance: 0.02465689815
+  half12:
+    Tzbar:
+      triplet: [-0.02343001942, -0.2219693854, -0.2177119766]
+      component_signs: ["-", "-", "-"]
+      net: -0.4631113814
+      net_sign: "-"
+    TxTzbar:
+      triplet: [-0.02343001942, -0.2177119766, -0.2219693854]
+      component_signs: ["-", "-", "-"]
+      net: -0.4631113814
+      net_sign: "-"
+    triplet_distance: 0.006020885327
+  half18:
+    Tzbar:
+      triplet: [-0.0001525195992, -0.0004091048998, -0.0004063453524]
+      component_signs: ["-", "-", "-"]
+      net: -0.0009679698514
+      net_sign: "-"
+    TxTzbar:
+      triplet: [-0.0001525195992, -0.0004063453524, -0.0004091048998]
+      component_signs: ["-", "-", "-"]
+      net: -0.0009679698514
+      net_sign: "-"
+    triplet_distance: 0.000003902589472
+
+result:
+  mermin_ho_triplet_distinguishes_residual_pair: true
+  opposite_component_sign_tuples_all_scales: false
+  opposite_net_signed_flux_all_scales: false
+  same_component_sign_tuples_all_scales: true
+  same_net_sign_all_scales: true
+  native_signed_binary_discriminator: false
+  native_orientation_verdict: SAME_NATIVE_TOPOLOGICAL_SIGN
+  mermin_ho_topological_sign_anchors_result_032_C_sign: false
+  numerical_mermin_ho_quotient_labeling: supported
+
+correspondence:
+  readingpoint_mapping_used: false
+  chi3_used: false
+  readingpoint_chi3_sign_assigned: false
+  result_034_admissible_mappings: 2
+  result_038_admissible_mappings: 2
+  reduction_2_to_1_licensed: false
+  unique_readingpoint_to_m5_correspondence: not_established
+  readingpoint_to_m5_physical_mapping: not_established
+
+constraints:
+  numerical_distinction_implies_orientation_sign: false
+  C_sign_from_mermin_ho_sign_assumed: false
+  chi3_to_m5_sign_mapping_assumed: false
+
+conclusion: >
+  The existing Mermin-Ho/topological-flux instrument numerically
+  distinguishes the residual M5 quotient pair Tzbar and TxTzbar, and
+  the signed basic triplets descend through <Ty>. However, the two
+  residual classes have the same component-sign tuple and the same net
+  signed flux at half6, half12, and half18. The tested native
+  Mermin-Ho sign summaries therefore do not provide the opposite binary
+  orientation label required to anchor the Result-032 C-sign. The two
+  Result-034 cross-system mappings remain admissible.
+
+next_question: >
+  Given Results 001-038, what is the strongest Reading Point to M5
+  correspondence licensed by the executable evidence without imposing
+  an additional cross-system orientation convention?
