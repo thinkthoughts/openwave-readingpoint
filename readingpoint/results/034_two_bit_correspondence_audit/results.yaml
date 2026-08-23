@@ -1,0 +1,65 @@
+id: readingpoint-034
+status: pass
+scope: cross_system_correspondence
+test:
+  name: two_bit_m5_readingpoint_correspondence_audit
+  script: readingpoint/tests/test_034_two_bit_correspondence_audit.py
+inputs:
+  m5_quotient: C2^3 / <Ty>
+  readingpoint_quotient: (Z/30Z)^* / {1,19}
+  previously_licensed_partition_bridge: Txbar <-> {11,29}
+  result_031_partition_preserving_isomorphisms: 2
+native_labels:
+  m5:
+    first: full-frame G/R norm partition
+    second: N4 C-sign
+  readingpoint:
+    first: chi5 / mod-5 quadratic character
+    second: chi3 / nontrivial mod-3 character
+  cross_system_C_sign_chi3_identification_assumed: false
+mappings:
+  A:
+    assignment:
+      Ibar: '{1,19}'
+      Txbar: '{11,29}'
+      Tzbar: '{7,13}'
+      TxTzbar: '{17,23}'
+    bijection: true
+    multiplication_preserving: true
+    result_031_partition_preserving: true
+    residual_sign_relation: aligned
+    sign_rule: C-sign = chi3
+  B:
+    assignment:
+      Ibar: '{1,19}'
+      Txbar: '{11,29}'
+      Tzbar: '{17,23}'
+      TxTzbar: '{7,13}'
+    bijection: true
+    multiplication_preserving: true
+    result_031_partition_preserving: true
+    residual_sign_relation: reversed
+    sign_rule: C-sign = -chi3
+sign_convention_audit:
+  aligned_convention_selects_one_mapping: true
+  aligned_mapping: A
+  reversed_convention_selects_one_mapping: true
+  reversed_mapping: B
+  independent_cross_system_sign_rule_found: false
+result:
+  result_031_correspondence_count: 2
+  result_034_correspondence_count: 2
+  two_to_one_reduction_licensed: false
+  unique_structural_correspondence_established: false
+  unique_readingpoint_to_m5_correspondence_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+interpretation: Results 032 and 033 fully label the M5 and Reading Point quotients
+  independently. Mapping A identifies M5 C-sign with Reading Point chi3, while Mapping
+  B identifies C-sign with -chi3. Both are bijective, multiplication-preserving, and
+  preserve the Result-031 partition. No independently established cross-system orientation/sign
+  convention selects one relation, so the correspondence count remains two.
+constraint: Complete intrinsic labeling on each side does not itself establish correspondence
+  between the meanings or orientations of those labels.
+next_question: Does the existing implementation contain an independently defined cross-system
+  orientation convention or provenance anchor that selects C-sign = chi3 versus C-sign
+  = -chi3?
