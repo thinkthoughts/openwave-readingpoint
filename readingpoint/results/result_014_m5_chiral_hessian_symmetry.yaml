@@ -1,0 +1,138 @@
+result_id: "014"
+title: "M5 chiral Hessian symmetry"
+status: "characterized"
+
+test:
+  script: "readingpoint/tests/test_014_m5_chiral_hessian_symmetry.py"
+  purpose: >
+    Determine whether the implemented P2 Lifshitz scalar energy can
+    generate the existing N4 antisymmetric chiral matrix C through the
+    N3 energy-Hessian projection rule.
+
+sources:
+  n3_projection:
+    artifact: "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_n3_mass_matrix.py"
+    prescription: "mass = second variation of scalar energy projected onto flavour field displacements"
+
+  p2_chiral_energy:
+    artifact: "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_p2_heliknoton.py"
+    operator: "Q_times_dQ"
+    scalar_energy: true
+
+  n4_chiral_overlap:
+    artifact: "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_n4_chiral.py"
+    operator: "gradient_gradient_antisymmetric_bilinear"
+    matrix_symbol: "C"
+
+test_geometry:
+  n: 24
+  alpha: 0.6
+  delta: 0.1
+  chi: 0.6
+  R_loop: 6.0
+  q: 0.5
+  core_vox: 2.0
+  dx: 1.0
+  q0: "2*pi/24"
+  Lc: 1.0
+
+observations:
+  projected_p2_raw_bilinear_B:
+    - [0.0, 3.045104, 3.045104]
+    - [3.297047, 22.260830, 0.289569]
+    - [3.297047, 0.289569, 22.260830]
+
+  projected_p2_hessian_H:
+    - [0.0, 6.342151, 6.342151]
+    - [6.342151, 44.521660, 0.579138]
+    - [6.342151, 0.579138, 44.521660]
+
+  projected_p2_hessian_symmetry_error: 0.0
+
+  n4_chiral_matrix_C:
+    - [0.0, 14.863451, -14.899841]
+    - [-14.863451, 0.0, -12.021943]
+    - [14.899841, 12.021943, 0.0]
+
+  n4_C_antisymmetry_error: 3.577e-16
+  normalized_frobenius_overlap_H_C: -1.291e-17
+
+result:
+  n3_energy_hessian_projection_defined: true
+  p2_lifshitz_scalar_energy_implemented: true
+  projected_p2_hessian_symmetric: true
+  n4_C_antisymmetric: true
+  n4_C_nonzero: true
+  projected_p2_hessian_proportional_to_n4_C: false
+  scalar_energy_hessian_generates_n4_C: false
+  structural_obstruction_supported: true
+  additional_effective_structure_required: true
+  readingpoint_to_m5_physical_mapping_established: false
+
+interpretation: >
+  The existing N3 bridge constructs flavour-space mass terms as the
+  second variation of a scalar energy projected onto flavour field
+  displacements. Applying the same projection principle to the
+  implemented P2 Lifshitz scalar energy produces a symmetric Hessian.
+  The existing N4 chiral matrix C is instead nonzero and antisymmetric
+  to machine precision. Their normalized Frobenius overlap is
+  approximately zero. Therefore the P2 scalar-energy contribution
+  cannot generate N4 C through the stated N3 energy-Hessian projection
+  alone.
+
+constraints:
+  - >
+    This result does not prove that no broader M5 effective theory can
+    produce the N4 antisymmetric term.
+  - >
+    It establishes a structural obstruction only for the existing
+    scalar-energy Hessian projection route.
+  - >
+    No Berry, symplectic, gyroscopic, holonomy, first-order, or other
+    non-Hessian mechanism is assumed.
+  - >
+    No Reading Point residue mapping is introduced.
+
+relation_to_previous_results:
+  result_012: >
+    Result 012 found implemented P2 chiral substrate machinery but no
+    explicit parameter bridge to N4 g_chiral.
+  result_013: >
+    Result 013 established that the P2 and N4 chiral operators differ
+    in differential order, tensor contraction, and normalization.
+  result_014: >
+    The explicit projected-Hessian control now shows that the existing
+    N3 scalar-energy reduction cannot produce the antisymmetric N4 C.
+
+bridge_status:
+  p2_chiral_substrate_machinery: "IMPLEMENTED"
+  n3_scalar_energy_hessian_projection: "IMPLEMENTED"
+  n4_antisymmetric_chiral_matrix: "IMPLEMENTED"
+  scalar_hessian_to_n4_C_bridge: "STRUCTURALLY OBSTRUCTED"
+  additional_effective_structure: "REQUIRED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+next_reading_point:
+  question: >
+    Does the current M5 repository already contain an independently
+    defined non-Hessian structure capable of generating a real
+    antisymmetric effective matrix before multiplication by i?
+  search_targets:
+    - "Berry"
+    - "symplectic"
+    - "first-order time derivative"
+    - "gyroscopic"
+    - "Wess-Zumino"
+    - "connection"
+    - "holonomy"
+    - "antisymmetric kinetic coupling"
+  rule: >
+    Inspect existing M5 machinery before introducing any new effective
+    mechanism.
+  readingpoint_residue_mapping: "HELD"
+
+final_status:
+  p2_to_n4_via_n3_hessian: "STRUCTURALLY OBSTRUCTED"
+  alternative_effective_bridge: "OPEN"
+  physical_parameter_bridge: "NOT ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
