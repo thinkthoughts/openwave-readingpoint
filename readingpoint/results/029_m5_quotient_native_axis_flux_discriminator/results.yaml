@@ -1,0 +1,195 @@
+result:
+  id: 029
+  slug: m5_quotient_native_axis_flux_discriminator
+  title: "Native M5 axis/flux discriminator on the Result-027 quotient"
+  status: pass
+
+question: >
+  Which existing repository-native M5 scalar observables descend through the
+  Result-027 kernel <Ty>, and among those descended observables, which
+  distinguish the three nonidentity quotient classes Txbar, Tzbar, and
+  TxTzbar without using Reading Point residue labels?
+
+source:
+  file: "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_22_4_a_fullf.py"
+  candidate_reads:
+    comp1: "short-axis full-F curvature component"
+    comp2: "middle-axis full-F curvature component"
+    comp3: "long-axis full-F curvature component"
+    norm3: "signed full-curvature magnitude"
+    basic: "longest-axis / Mermin-Ho basic instrument"
+  flux_scales:
+    - half6
+    - half12
+    - half18
+
+configuration:
+  n: 40
+  delta: 0.1
+  h: 1.2
+  scalar_equivalence_tolerance: 1.0e-8
+
+prior_structure:
+  result_023:
+    field_closure: "C2^3-like"
+  result_027:
+    quotient: "C2^3 / <Ty>"
+    kernel: "<Ty> = {I, Ty}"
+    quotient_classes:
+      Ibar: [I, Ty]
+      Txbar: [Tx, TxTy]
+      Tzbar: [Tz, TyTz]
+      TxTzbar: [TxTz, TxTyTz]
+    abstract_structure: "C2^2 ≅ V4"
+  result_028:
+    admissible_m5_to_reading_point_isomorphisms: 6
+    residual_correspondence_symmetry: S3
+
+descent_rule:
+  statement: >
+    A repository-native observable may label C2^3/<Ty> only if it is
+    numerically invariant within each Result-027 coset:
+    f(I)=f(Ty), f(Tx)=f(TxTy), f(Tz)=f(TyTz), and
+    f(TxTz)=f(TxTyTz), within the preregistered tolerance.
+
+audit:
+  comp1:
+    half6:
+      max_descent_error: 8.973397e-02
+      descends_to_quotient: false
+    half12:
+      max_descent_error: 1.220418e-02
+      descends_to_quotient: false
+    half18:
+      max_descent_error: 2.317145e-05
+      descends_to_quotient: false
+
+  comp2:
+    half6:
+      max_descent_error: 4.454986e-02
+      descends_to_quotient: false
+    half12:
+      max_descent_error: 2.877405e-01
+      descends_to_quotient: false
+    half18:
+      max_descent_error: 2.630657e-03
+      descends_to_quotient: false
+
+  comp3:
+    half6:
+      max_descent_error: 1.271715e-02
+      descends_to_quotient: false
+    half12:
+      max_descent_error: 4.289527e-04
+      descends_to_quotient: false
+    half18:
+      max_descent_error: 1.173227e-05
+      descends_to_quotient: false
+
+  norm3:
+    half6:
+      max_descent_error: 3.702051e-02
+      descends_to_quotient: false
+    half12:
+      max_descent_error: 7.469753e-03
+      descends_to_quotient: false
+    half18:
+      max_descent_error: 2.188746e-04
+      descends_to_quotient: false
+
+  basic:
+    half6:
+      max_descent_error: 1.444477e-16
+      descends_to_quotient: true
+      quotient_signatures:
+        Txbar: [-1.146741472e+00, -1.083055504e-01, -1.079678755e-01]
+        Tzbar: [-1.042859801e+00, -2.867537697e-01, -2.693187098e-01]
+        TxTzbar: [-1.042859801e+00, -2.693187098e-01, -2.867537697e-01]
+      nonidentity_pair_distances:
+        Txbar_vs_Tzbar: 2.265102e-01
+        Txbar_vs_TxTzbar: 2.265296e-01
+        Tzbar_vs_TxTzbar: 2.212189e-02
+      all_three_nonidentity_classes_distinct: true
+
+    half12:
+      max_descent_error: 1.387779e-16
+      descends_to_quotient: true
+      quotient_signatures:
+        Txbar: [1.801350272e-02, 2.900681130e-01, 2.869045814e-01]
+        Tzbar: [-2.343001942e-02, -2.219693854e-01, -2.177119766e-01]
+        TxTzbar: [-2.343001942e-02, -2.177119766e-01, -2.219693854e-01]
+      nonidentity_pair_distances:
+        Txbar_vs_Tzbar: 7.200957e-01
+        Txbar_vs_TxTzbar: 7.200770e-01
+        Tzbar_vs_TxTzbar: 6.020885e-03
+      all_three_nonidentity_classes_distinct: true
+
+    half18:
+      max_descent_error: 2.256730e-18
+      descends_to_quotient: true
+      quotient_signatures:
+        Txbar: [-4.541505500e-06, -2.601580131e-04, -2.631723357e-04]
+        Tzbar: [-1.525195992e-04, -4.091048998e-04, -4.063453524e-04]
+        TxTzbar: [-1.525195992e-04, -4.063453524e-04, -4.091048998e-04]
+      nonidentity_pair_distances:
+        Txbar_vs_Tzbar: 2.541283e-04
+        Txbar_vs_TxTzbar: 2.540956e-04
+        Tzbar_vs_TxTzbar: 3.902589e-06
+      all_three_nonidentity_classes_distinct: true
+
+summary:
+  candidate_observables_tested: 15
+  descended_observables:
+    - basic.half6
+    - basic.half12
+    - basic.half18
+  full_F_axis_component_reads_that_descend: []
+  basic_reads_that_descend:
+    - basic.half6
+    - basic.half12
+    - basic.half18
+  descended_observables_distinguishing_all_three_nonidentity_classes:
+    - basic.half6
+    - basic.half12
+    - basic.half18
+  native_m5_quotient_labeling: SUPPORTED
+
+structural_consequence:
+  statement: >
+    The repository-native basic longest-axis/Mermin-Ho read is invariant
+    under the Result-027 kernel <Ty> and therefore defines a legitimate
+    observable on C2^3/<Ty>. At half6, half12, and half18 it also
+    distinguishes Txbar, Tzbar, and TxTzbar. The full-F axis/component
+    reads retain valid eight-state information but fail quotient descent and
+    are therefore inadmissible as intrinsic labels of the four quotient
+    classes.
+
+claims:
+  native_m5_quotient_labeling: SUPPORTED
+  kernel_descent_by_basic: SUPPORTED
+  scale_stability_across_half6_half12_half18: SUPPORTED
+  three_nonidentity_m5_quotient_classes_distinguished: SUPPORTED
+  result_028_cross_system_isomorphism_count: 6
+  result_028_sixfold_cross_system_ambiguity_resolved: false
+  reading_point_residue_pair_to_m5_class_assignment: "NOT ESTABLISHED"
+  physical_q8_center_quotient_identification: "NOT ESTABLISHED"
+  reading_point_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+interpretation: >
+  Result 029 separates eight-state geometric information from true
+  quotient-level information. comp1, comp2, comp3, and norm3 distinguish
+  members inside Result-027 cosets and therefore do not descend through
+  <Ty>. The basic longest-axis/Mermin-Ho read does descend, at machine-level
+  numerical precision across all three tested flux scales, and it assigns
+  distinct native signatures to the three nonidentity quotient classes.
+  This supplies intrinsic M5-side labels without using Reading Point
+  residue classes. It does not by itself reduce the six admissible
+  cross-system isomorphisms from Result 028, because the Reading Point side
+  still lacks an independently established corresponding label structure.
+
+next_question: >
+  Does the existing Reading Point/mod-30 construction independently
+  distinguish the three nonidentity residue-pair classes {7,13}, {11,29},
+  and {17,23} by a pre-existing algebraic, geometric, orientation, or other
+  label that can be compared to the M5 basic quotient signatures without
+  selecting a permutation after the fact?
