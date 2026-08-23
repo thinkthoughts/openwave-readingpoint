@@ -1,0 +1,131 @@
+id: readingpoint-036
+status: pass
+scope: m5_orientation_anchor
+test:
+  name: n4_self_linking_orientation_C_sign
+  script: readingpoint/tests/test_036_n4_self_linking_orientation_C_sign.py
+question: Does native N4 self-linking reversal N -> -N provide an independently defined
+  orientation anchor for the existing chiral-overlap matrix C?
+implementation:
+  topology_source: openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_n4_topo.py
+  chiral_source: openwave/xperiments/m5_liquid_crystal/research/scripts/m5_11_n4_chiral.py
+  topology_function: topo_mass_matrix
+  chiral_function: chiral_overlap
+orientation:
+  variable: N
+  definition: integer self-linking of closed-loop director framing
+  reversal: N -> -N
+  reading_point_mapping_used: false
+parameters:
+  n: 40
+  alpha: 0.6
+  delta: 0.1
+  chi: 0.6
+  g_chiral: 1.0
+  R_loop: 9.0
+  q: 0.5
+  core_vox: 2.0
+  kappa: 0.0
+  tested_N:
+  - -2
+  - -1
+  - 0
+  - 1
+  - 2
+C_by_N:
+  '-2':
+    C_01: 1.058248
+    C_02: -1.054916
+    C_12: -1.208446
+    norm_F: 2.717748
+    antisymmetry: 0.0
+  '-1':
+    C_01: 1.03029
+    C_02: -1.028742
+    C_12: -1.194177
+    norm_F: 2.663031
+    antisymmetry: 0.0
+  '0':
+    C_01: 1.009874
+    C_02: -1.009884
+    C_12: -1.179775
+    norm_F: 2.619763
+    antisymmetry: 0.0
+  '1':
+    C_01: 0.9974572
+    C_02: -0.9988927
+    C_12: -1.165587
+    norm_F: 2.588938
+    antisymmetry: 0.0
+  '2':
+    C_01: 0.9930572
+    C_02: -0.9958847
+    C_12: -1.151906
+    norm_F: 2.570928
+    antisymmetry: 0.0
+pair_results:
+  '1':
+    full_C:
+      r_odd: 0.9999984949
+      r_even: 0.01421393175
+      magnitude_ratio: 1.028619041
+      verdict: NO_CLEAN_RELATION
+    delta_C:
+      plus_norm: 0.03086370468
+      minus_norm: 0.04426909346
+      r_odd: 0.2112234355
+      r_even: 0.9935890914
+      magnitude_ratio: 1.434341532
+      verdict: NO_CLEAN_RELATION
+    component_sign_reversals:
+      C_01: false
+      C_02: false
+      C_12: false
+  '2':
+    full_C:
+      r_odd: 0.9999945217
+      r_even: 0.02795778096
+      magnitude_ratio: 1.057107652
+      verdict: NO_CLEAN_RELATION
+    delta_C:
+      plus_norm: 0.05010910642
+      minus_norm: 0.1018813209
+      r_odd: 0.4118794054
+      r_even: 0.9728221194
+      magnitude_ratio: 2.033189738
+      verdict: NO_CLEAN_RELATION
+    component_sign_reversals:
+      C_01: false
+      C_02: false
+      C_12: false
+controls:
+  repeatability_residual: 0.0
+  repeatability: SUPPORTED
+  antisymmetry_all_N: SUPPORTED
+  plus_minus_N_parameter_identity: SUPPORTED
+  replication_abs_N_1_and_2: SUPPORTED
+aggregate_verdict:
+  full_C: NO CLEAN FULL-C ORIENTATION ANCHOR
+  delta_C: NO CLEAN DELTA-C ORIENTATION ANCHOR
+correspondence_boundary:
+  native_self_linking_anchors_full_C_sign: NOT ESTABLISHED
+  native_self_linking_anchors_delta_C_sign: NOT ESTABLISHED
+  reading_point_chi3_sign_assigned_to_N_sign: false
+  result_034_admissible_cross_system_mappings: 2
+  result_036_admissible_cross_system_mappings: 2
+  reduction_2_to_1: NOT LICENSED
+  unique_readingpoint_to_m5_correspondence: NOT ESTABLISHED
+  readingpoint_to_m5_physical_mapping: NOT ESTABLISHED
+qualification: Test 036 treats N -> -N exactly as the signed self-linking orientation
+  reversal supplied by the existing N4 topology construction. It does not introduce
+  an additional coordinate reflection. If repository interpretation requires an additional
+  spatial operation beyond changing the native self-linking integer, this result is
+  the parity of the executable +/-N construction rather than a complete physical-space
+  parity law.
+conclusion: Native N4 self-linking reversal N -> -N gives no clean odd/even relation
+  for the full chiral-overlap matrix C. Baseline-subtracted dC also gives no clean
+  odd/even orientation relation. Reading Point chi3 sign mapping remains unassigned.
+next_question: Do any remaining independently implemented M5 sign/orientation conventions
+  have an existing executable relation to C that could supply the unresolved cross-system
+  orientation anchor, or has the current implementation reached a twofold stopping
+  boundary?
