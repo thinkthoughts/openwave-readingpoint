@@ -1,0 +1,124 @@
+result_id: "020"
+title: "N4 C actual spatial reflection"
+status: "characterized_parity_even_in_tested_basis"
+
+test:
+  script: "readingpoint/tests/test_020_n4_C_spatial_reflection.py"
+  purpose: >
+    Determine how the existing N4 chiral-overlap matrix C transforms under
+    an actual spatial reflection x -> -x applied consistently to the full
+    spatial tensor field, while keeping that operation distinct from
+    mu-tau flavour-basis relabeling.
+
+test_geometry:
+  n: 40
+  dx: 1.0
+  alpha: 0.6
+  delta: 0.1
+  chi: 0.6
+  q: 0.5
+  R_loop: 9.0
+  core_vox: 2.0
+
+spatial_reflection:
+  coordinate_map: "x -> -x"
+  tensor_map: "M'_sp(x) = S M_sp(Sx) S^T"
+  S: "diag(-1, +1, +1)"
+
+observations:
+  direct_parity:
+    evenness_error: 8.371447e-06
+    oddness_error: 1.999999
+    normalized_even_shape_error: 8.246263e-06
+    normalized_odd_shape_error: 2.0
+    magnitude_ratio: 0.999998557649
+    relative_magnitude_difference: 1.442351e-06
+
+  basis_adjusted:
+    error_vs_P_C_PT: 1.999999
+    error_vs_minus_P_C_PT: 1.999098e-06
+
+  antisymmetry:
+    original_error: 2.823e-15
+    reflected_error: 6.023e-15
+
+result:
+  direct_spatial_parity_oddness_supported: false
+  direct_spatial_parity_evenness_supported: true
+  magnitude_preserved: true
+  antisymmetry_preserved: true
+  basis_adjusted_relation: "C_ref approximately equals -P C P^T"
+  physical_spatial_reflection_law: "C_ref approximately equals C"
+  physical_handedness_identification_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+interpretation: >
+  Under the tested physical-space reflection x -> -x, applied consistently
+  to both coordinates and spatial tensor components, the N4 chiral operator
+  remains approximately invariant rather than changing sign. Therefore the
+  robust sign reversal observed under the mu-tau orientation swap in Results
+  018-019 is not simply the direct action of spatial parity on C in the fixed
+  flavour basis. The reflected operator also satisfies the basis-adjusted
+  relation C_ref approximately equals -P C P^T. This indicates that the
+  sign-reversing structure is tied to a combined orientation/basis action,
+  while direct spatial reflection is approximately even in the tested basis.
+
+constraints:
+  - >
+    The spatial reflection tested here is x -> -x only.
+  - >
+    The result is established at one controlled geometry and resolution.
+  - >
+    Approximate direct parity evenness does not by itself identify the
+    physical handedness degree of freedom.
+  - >
+    The relation C_ref approximately equals -P C P^T remains a composite
+    transformation statement and requires separate classification.
+  - >
+    No Reading Point residue mapping is introduced.
+
+relation_to_previous_results:
+  result_018: >
+    Result 018 found that chi -> -chi leaves C approximately invariant while
+    the mu-tau orientation swap gives exact basis covariance and approximate
+    sign reversal.
+  result_019: >
+    Result 019 showed that the mirror/orientation sign reversal and chi-even
+    behavior are robust across 27 tested geometry points.
+  result_020: >
+    An actual spatial reflection x -> -x now leaves C approximately invariant
+    in the fixed flavour basis, while satisfying the composite relation
+    C_ref approximately equals -P C P^T.
+
+bridge_status:
+  n4_C_effective_operator_shape: "SUPPORTED"
+  n4_C_lattice_normalization: "dx * C SUPPORTED"
+  n4_C_antisymmetry: "SUPPORTED"
+  chi_sign_oddness: "REJECTED"
+  mirror_orientation_oddness: "ROBUST ACROSS TESTED FAMILY"
+  direct_spatial_parity_oddness: "NOT SUPPORTED"
+  direct_spatial_parity_evenness: "SUPPORTED IN TESTED GEOMETRY"
+  composite_parity_basis_relation: "C_ref approximately equals -P C P^T"
+  physical_handedness_identification: "NOT YET ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+next_reading_point:
+  result: "021"
+  question: >
+    What is the algebraic action of the combined spatial-reflection and
+    mu-tau basis transformation on C, and does that composite symmetry act
+    consistently across geometry and square to the expected identity?
+  requirements:
+    - "Keep spatial reflection and flavour-basis permutation explicit."
+    - "Test the composite transformation as an operator action."
+    - "Check whether the composite action squares to identity."
+    - "Check robustness across a controlled geometry family."
+    - "Do not identify the composite action with physical handedness unless the test establishes it."
+  readingpoint_residue_mapping: "HELD"
+
+final_status:
+  direct_spatial_reflection_law: "APPROXIMATELY EVEN"
+  mirror_orientation_sign_reversal: "SEPARATE FROM DIRECT PARITY"
+  combined_symmetry_classification: "OPEN"
+  physical_handedness_identification: "OPEN"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
