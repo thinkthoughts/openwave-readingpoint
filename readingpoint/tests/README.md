@@ -4,43 +4,96 @@ This directory contains executable tests for the proposed relationship
 between Reading Point structure and the M5 liquid-crystal model.
 
 The tests are deliberately cumulative. Each test asks what the existing
-M5 implementation actually supports before a stronger physical or
-algebraic identification is made.
+M5 implementation and the Reading Point arithmetic actually support before
+a stronger algebraic or physical identification is made.
 
-The current sequence, Results 014--025, reaches a defined implementation
-boundary. It does **not** establish a Reading Point → M5 physical
-mapping.
+The current evidence ledger reaches **Result 039**.
+
+The strongest licensed statement is:
+
+```text
+shared V4 quotient:
+SUPPORTED
+
+independent 1+2 partition bridge:
+SUPPORTED
+
+abstract quotient isomorphisms:
+6
+
+partition-preserving isomorphisms:
+2
+
+independent rule selecting between the final two:
+NOT FOUND
+
+unique Reading Point -> M5 correspondence:
+NOT ESTABLISHED
+
+Reading Point -> M5 physical mapping:
+NOT ESTABLISHED
+
+current implementation stopping boundary:
+SUPPORTED
+```
 
 ## Current reading order
 
-The present evidence chain is:
+The present correspondence chain is:
 
-\[ `\text{energy-Hessian obstruction}`{=tex} `\rightarrow`{=tex}
-`\text{non-Hessian N4 }`{=tex} C `\rightarrow`{=tex}
-`\text{continuum characterization}`{=tex} `\rightarrow`{=tex}
-`\text{transformation behavior}`{=tex} `\rightarrow`{=tex}
-C_2\^3`\text{-like field closure}`{=tex} `\rightarrow`{=tex}
-C_2`\text{-like observable quotient}`{=tex} `\rightarrow`{=tex}
-`\text{implemented-bridge stopping boundary}`{=tex}. \]
+```text
+implemented N3/N4 structure
+    ->
+C2^3-like transformation closure
+    ->
+repository-native M5 V4 quotient
+    ->
+Reading Point V4 quotient
+    ->
+six abstract V4 isomorphisms
+    ->
+independent 1+2 partitions on both sides
+    ->
+two partition-preserving isomorphisms
+    ->
+independent residual-pair labels on both sides
+    ->
+orientation-convention audit
+    ->
+two admissible mappings remain
+```
 
 In words:
 
-1.  the implemented N3 scalar-energy Hessian is symmetric;
-2.  the implemented N4 chiral matrix (C) is antisymmetric;
-3.  therefore the N3 scalar-energy Hessian alone cannot generate N4 (C);
-4.  \(C\) has a stable normalized operator shape under lattice
-    refinement and supports a candidate (dx,C) continuum normalization
-    among the tested integer powers;
-5.  its transformation behavior exposes a larger field-level algebra;
-6.  three tested commuting involutions generate eight distinct field
-    states, giving a (C_2\^3)-like closure;
-7.  the implemented effective observables distinguish only two classes
-    of those eight states;
-8.  M5 contains additional connection/curvature machinery, but the
-    examined implementation does not project the N3/N4 flavour fields
-    into that sector.
+1. the implemented N4 chiral matrix `C` is a non-Hessian antisymmetric
+   observable with a reproducible transformation structure;
+2. three commuting involutions generate an eight-state `C2^3`-like
+   field-level closure;
+3. a repository-native quotient by `<Ty>` produces a four-element
+   `C2 x C2` structure on the M5 side;
+4. independently, `(Z/30Z)^* / {1,19}` is also `C2 x C2`;
+5. abstractly, the two V4 quotients admit six identity-preserving
+   isomorphisms;
+6. Reading Point parent orders and canonical mod-5 arithmetic distinguish
+   one nonidentity quotient class from the remaining pair;
+7. existing M5 full-frame `G/R` norms independently produce the same
+   singleton-plus-pair structure;
+8. that partition-level bridge reduces the admissible correspondence count
+   from six to two;
+9. N4 `C`-sign distinguishes the remaining M5 pair;
+10. the canonical Reading Point `chi3` character distinguishes the remaining
+    Reading Point pair;
+11. complete internal labeling on both sides still leaves an aligned versus
+    reversed cross-system orientation convention;
+12. Results 035--038 audit native M5 orientation candidates and do not supply
+    an independent rule identifying `C-sign = chi3` or
+    `C-sign = -chi3`;
+13. Result 039 therefore records the present implementation boundary:
+    **6 -> 2 is supported; 2 -> 1 is not licensed.**
 
-That final point is the current stopping boundary.
+This boundary is a positive result: the executable program now states
+precisely which structural correspondence is supported and exactly which
+additional cross-system rule would be required to make it unique.
 
 ## Test sequence
 
@@ -470,25 +523,408 @@ If the mapping must be introduced by this project, that should begin a
 separately identified model-development phase rather than being
 presented as another test of the existing bridge.
 
+## Results 027--028 — native M5 quotient and abstract correspondence
+
+Result 027 identified the repository-native quotient
+
+```text
+C2^3 / <Ty>
+```
+
+with classes
+
+```text
+Ibar     = {I, Ty}
+Txbar    = {Tx, TxTy}
+Tzbar    = {Tz, TyTz}
+TxTzbar  = {TxTz, TxTyTz}
+```
+
+giving a four-element `C2 x C2` quotient.
+
+Result 028 compared this quotient with the independently established
+Reading Point quotient
+
+```text
+(Z/30Z)^* / {1,19}
+```
+
+whose classes are
+
+```text
+{1,19}
+{7,13}
+{11,29}
+{17,23}
+```
+
+Both are V4. With identity fixed, all permutations of the three
+nonidentity elements preserve the abstract V4 structure, so the initial
+cross-system correspondence count is:
+
+```text
+6
+```
+
+No physical interpretation follows from that abstract isomorphism alone.
+
+## Results 029--031 — independent singleton-plus-pair structure
+
+Result 030 showed that the Reading Point quotient is already partially
+labeled by structure inherited from its parent group `(Z/30Z)^*`.
+
+The parent-order profiles are:
+
+```text
+{11,29}  -> (2,2)
+{7,13}   -> (4,4)
+{17,23}  -> (4,4)
+```
+
+Therefore the Reading Point side has the native partition
+
+```text
+singleton = {11,29}
+pair      = {{7,13}, {17,23}}
+```
+
+Result 031 then found the same abstract `1+2` pattern independently in
+existing M5 full-frame geometric norms:
+
+```text
+singleton = Txbar
+pair      = {Tzbar, TxTzbar}
+```
+
+Both `||G||_F` and `||R||_F` support this partition and descend through
+the Result-027 kernel `<Ty>`.
+
+The partition-level bridge therefore fixes:
+
+```text
+Txbar <-> {11,29}
+```
+
+and reduces the six abstract V4 isomorphisms to two:
+
+```text
+6 -> 2
+SUPPORTED
+```
+
+The unresolved exchange is:
+
+```text
+Tzbar / TxTzbar
+    <->
+{7,13} / {17,23}
+```
+
+## Results 032--033 — independent residual-pair labels
+
+Result 032 showed that the existing N4 chiral-overlap matrix `C` supplies
+a quotient-level sign label that descends through `<Ty>`:
+
+```text
+Ibar     -> +
+Txbar    -> -
+Tzbar    -> +
+TxTzbar  -> -
+```
+
+Within the residual M5 pair:
+
+```text
+Tzbar    -> +
+TxTzbar  -> -
+```
+
+so the M5 quotient is fully distinguished within the tested quotient.
+
+Result 033 independently constructed the canonical Reading Point binary
+characters
+
+```text
+chi3:
+  r mod 3 = 1 -> +1
+  r mod 3 = 2 -> -1
+
+chi5:
+  r mod 5 in {1,4} -> +1
+  r mod 5 in {2,3} -> -1
+```
+
+Both have `{1,19}` in their kernels and therefore descend to the Reading
+Point quotient.
+
+Their joint quotient labels are:
+
+```text
+{1,19}   -> (+1,+1)
+{7,13}   -> (+1,-1)
+{11,29}  -> (-1,+1)
+{17,23}  -> (-1,-1)
+```
+
+`chi5` reproduces the singleton-plus-pair distinction, while `chi3`
+distinguishes the remaining pair:
+
+```text
+{7,13}   -> chi3 = +1
+{17,23}  -> chi3 = -1
+```
+
+Thus both quotient systems are internally fully labeled.
+
+## Result 034 — two-bit correspondence audit
+
+Result 034 compared the two remaining partition-preserving isomorphisms.
+
+```text
+Mapping A
+
+Ibar     -> {1,19}
+Txbar    -> {11,29}
+Tzbar    -> {7,13}
+TxTzbar  -> {17,23}
+
+residual C-sign / chi3 relation:
+ALIGNED
+```
+
+and
+
+```text
+Mapping B
+
+Ibar     -> {1,19}
+Txbar    -> {11,29}
+Tzbar    -> {17,23}
+TxTzbar  -> {7,13}
+
+residual C-sign / chi3 relation:
+REVERSED
+```
+
+Both are bijective, multiplication-preserving, and preserve the
+independently established Result-031 partition.
+
+Therefore complete internal labeling does not itself select a unique
+cross-system orientation convention.
+
+The correspondence count remains:
+
+```text
+2
+```
+
+## Results 035--038 — native orientation-anchor audit
+
+Results 035--038 tested whether existing M5 structures independently
+select the aligned or reversed convention.
+
+### Result 035 — right-handed full-frame convention
+
+The existing full-frame construction
+
+```text
+e3 = oriented long axis
+e1 = oriented short axis
+e2 = e3 x e1
+O  = [e1,e2,e3]
+```
+
+is right-handed by construction.
+
+However, an actual orientation-reversing spatial reflection leaves the
+computed `C` approximately invariant after the implementation reconstructs
+a right-handed eigenframe.
+
+Therefore:
+
+```text
+right-handed full-frame convention anchors C-sign:
+NOT SUPPORTED
+```
+
+### Result 036 — self-linking `N -> -N`
+
+The existing N4 topology construction was evaluated for
+
+```text
+N = -2, -1, 0, 1, 2
+```
+
+Neither the full `C` matrix nor the baseline-subtracted `dC` obeyed a clean
+odd/even sign law under `N -> -N`.
+
+Therefore:
+
+```text
+native self-linking orientation anchors full C-sign:
+NOT ESTABLISHED
+
+native self-linking orientation anchors dC sign:
+NOT ESTABLISHED
+```
+
+### Result 037 — native chiral-coupling signs
+
+The native construction
+
+```text
+M_H = Mr + i * g_chiral * C
+```
+
+was audited under `g_chiral` and `chi` sign reversals.
+
+The result is:
+
+```text
+g_chiral sign leaves geometric C even:
+SUPPORTED
+
+g_chiral sign reverses weighted g_chiral*C:
+SUPPORTED
+
+chi sign leaves geometric C even:
+SUPPORTED
+```
+
+Thus `g_chiral` supplies a native sign for the weighted interaction term,
+not an independent sign anchor for geometric `C`.
+
+### Result 038 — Mermin-Ho / topological-flux sign
+
+The existing signed Mermin-Ho / topological-flux machinery supplies the
+same residual-pair sign structure on the tested M5 quotient.
+
+That strengthens the native M5-side orientation labeling, but it does not
+create an independent Reading Point rule identifying that sign with
+`chi3` rather than `-chi3`.
+
+Therefore Result 038 also leaves the cross-system correspondence count at
+two.
+
+## Result 039 — evidence-ledger / correspondence-boundary synthesis
+
+Result 039 introduces no new M5 observable, no new Reading Point label,
+and no new cross-system sign convention.
+
+It reconstructs the strongest correspondence licensed by the executable
+evidence.
+
+The ledger is:
+
+```text
+Result 003  common V4 quotient                                  SUPPORTED
+Result 027  repository-native M5 quotient                       SUPPORTED
+Result 028  abstract M5 <-> Reading Point quotient isomorphisms SUPPORTED
+Result 029  native M5 quotient observables                      SUPPORTED
+Result 030  Reading Point native 1+2 partition                  SUPPORTED
+Result 031  M5 native 1+2 partition                             SUPPORTED
+Result 032  M5 residual-pair C-sign label                       SUPPORTED
+Result 033  Reading Point residual-pair chi3 label              SUPPORTED
+Result 034  two-bit cross-system correspondence audit           SUPPORTED
+Result 035  right-handed full-frame C-sign anchor               NOT_SUPPORTED
+Result 036  self-linking N -> -N C-sign anchor                  NOT_ESTABLISHED
+Result 037  native chiral-sign C anchor                         NOT_ESTABLISHED
+Result 038  Mermin-Ho/topological-flux C-sign anchor            NOT_ESTABLISHED
+```
+
+The resulting boundary is:
+
+```text
+common quotient structure:
+SUPPORTED
+
+repository-native M5 quotient:
+SUPPORTED
+
+Reading Point quotient intrinsically labeled:
+SUPPORTED
+
+M5 quotient intrinsically labeled:
+SUPPORTED
+
+partition-level cross-system correspondence:
+SUPPORTED
+
+abstract quotient isomorphisms:
+6
+
+partition-preserving isomorphisms:
+2
+
+currently admissible cross-system mappings:
+2
+
+independent orientation-alignment rule:
+NOT_FOUND
+
+unique structural correspondence:
+NOT_ESTABLISHED
+
+Reading Point -> M5 physical mapping:
+NOT_ESTABLISHED
+```
+
+The implementation therefore supports:
+
+```text
+6 -> 2
+```
+
+but does not license:
+
+```text
+2 -> 1
+```
+
+without an additional independently established cross-system orientation
+rule.
+
+**Current implementation stopping boundary: SUPPORTED.**
+
+
 ## Claims not established
 
-Results 014--025 do not establish:
+Results through 039 do not establish:
 
--   a unique embedded (V_4) subgroup;
--   a (Q_8/{+1,-1}) identification;
--   a particle classification from the (C_2\^3)-like closure;
--   a physical handedness identification;
--   a connection/curvature origin for N4 (C);
--   an (M`\rightarrow`{=tex}(q_0,q)) physical projection;
--   or a Reading Point → M5 physical mapping.
+- a unique Reading Point ↔ M5 quotient isomorphism;
+- an independently fixed cross-system orientation convention;
+- `C-sign = chi3`;
+- `C-sign = -chi3`;
+- a unique residue-pair → M5 quotient-class assignment;
+- a particle classification from the quotient correspondence;
+- or a Reading Point → M5 physical mapping.
 
 These remain open requirements rather than assumptions.
 
 ## Current program status
 
-**Results 014--025: characterized through the current implemented
-bridge.**
+**Shared Reading Point / M5 V4 quotient structure: SUPPORTED.**
 
-**Current implemented-bridge stopping boundary: REACHED.**
+**Independent singleton-plus-pair bridge: SUPPORTED.**
+
+**Abstract correspondence reduction `6 -> 2`: SUPPORTED.**
+
+**Cross-system reduction `2 -> 1`: NOT LICENSED.**
+
+**Unique Reading Point → M5 correspondence: NOT ESTABLISHED.**
 
 **Reading Point → M5 physical mapping: NOT ESTABLISHED.**
+
+**Current implementation stopping boundary through Result 039: SUPPORTED.**
+
+## Next reading point
+
+A further reduction requires evidence that is genuinely cross-system rather
+than another internal label on either quotient.
+
+The next admissible test should therefore require an independently motivated
+rule that gives the M5 orientation sign and the Reading Point `chi3` sign the
+same operational meaning.
+
+Until such a rule is found or derived, the two remaining mappings should be
+retained explicitly rather than selecting one by convention.
