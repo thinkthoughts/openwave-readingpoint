@@ -1,0 +1,108 @@
+result_id: "016"
+title: "N4 C resolution stability"
+status: "supported_converging_shape"
+
+test:
+  script: "readingpoint/tests/test_016_n4_C_resolution_stability.py"
+  purpose: >
+    Determine whether the dimensionless antisymmetric structure of the
+    existing N4 chiral-overlap matrix C persists under lattice refinement
+    when loop geometry is held fixed relative to the grid.
+
+controlled_refinement:
+  resolutions: [24, 32, 40, 48]
+  fixed_ratios:
+    R_loop_over_n: 0.225
+    core_vox_over_n: 0.05
+  fixed_parameters:
+    alpha: 0.6
+    delta: 0.1
+    chi: 0.6
+    q: 0.5
+
+observations:
+  n24:
+    R_loop: 5.4
+    core_vox: 1.2
+    C_norm_frobenius: 1.698142
+    antisymmetry_error: 4.441e-15
+    shape_distance_to_n48: 3.018033e-02
+  n32:
+    R_loop: 7.2
+    core_vox: 1.6
+    C_norm_frobenius: 2.145233
+    antisymmetry_error: 2.220e-15
+    shape_distance_to_n48: 1.264968e-02
+  n40:
+    R_loop: 9.0
+    core_vox: 2.0
+    C_norm_frobenius: 2.619763
+    antisymmetry_error: 2.823e-15
+    shape_distance_to_n48: 4.549089e-03
+  n48:
+    R_loop: 10.8
+    core_vox: 2.4
+    C_norm_frobenius: 3.104983
+    antisymmetry_error: 1.263e-15
+    shape_distance_to_n48: 0.0
+
+pairwise_normalized_operator_changes:
+  n24_to_n32: 1.753148e-02
+  n32_to_n40: 8.100647e-03
+  n40_to_n48: 4.549089e-03
+
+raw_norm_scaling_diagnostic:
+  fitted_form: "||C||_F ~ n^p"
+  p: 0.8702
+  interpretation: >
+    Diagnostic only. The current sample establishes resolution dependence
+    of the raw norm but does not establish 0.8702 as an asymptotic scaling law.
+
+result:
+  C_finite_across_refinement: true
+  C_nonzero_across_refinement: true
+  C_antisymmetric_across_refinement: true
+  normalized_operator_shape_converging: true
+  normalized_shape_convergence_supported_in_tested_family: true
+  raw_C_norm_resolution_independent: false
+  raw_C_normalization_physically_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+interpretation: >
+  The dimensionless shape C_hat = C/||C||_F stabilizes monotonically as
+  the lattice is refined while the loop radius and core size are held
+  fixed relative to the grid. Pairwise normalized-operator changes shrink
+  from 1.75e-2 to 8.10e-3 to 4.55e-3, and antisymmetry remains at machine
+  precision. This supports convergence of the relative three-flavour
+  chiral structure in the tested refinement family. The raw Frobenius norm
+  grows with resolution, so the current unnormalized C is resolution
+  dependent and still lacks a physically established lattice-spacing or
+  volume normalization.
+
+constraints:
+  - >
+    This result supports convergence only for the tested dimensionless
+    geometry and parameter family.
+  - >
+    The fitted raw scaling exponent 0.8702 is a diagnostic, not an
+    established asymptotic law.
+  - >
+    No physical normalization for C is assumed.
+  - >
+    No Reading Point residue mapping is introduced.
+
+bridge_status:
+  n4_C_effective_operator_shape: "SUPPORTED AS CONVERGING IN TESTED REFINEMENT"
+  n4_C_antisymmetry: "SUPPORTED"
+  raw_n4_C_normalization: "RESOLUTION DEPENDENT"
+  physical_normalization: "NOT ESTABLISHED"
+  microscopic_provenance: "NOT ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+next_reading_point:
+  result: "017"
+  question: >
+    What lattice-spacing or volume normalization, if any, makes the raw
+    N4 chiral-overlap magnitude converge when the same physical geometry
+    is refined?
+  readingpoint_residue_mapping: "HELD"
