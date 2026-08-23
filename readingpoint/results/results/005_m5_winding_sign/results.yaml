@@ -1,0 +1,61 @@
+id: readingpoint-005
+status: supported
+scope: m5_observable_sign_identification
+
+test:
+  name: m5_winding_sign_identification
+  script: readingpoint/tests/test_005_m5_winding_sign.py
+
+openwave_target:
+  model: M5
+  instrument: winding_measure_biax
+  source_artifact: >
+    openwave/xperiments/m5_liquid_crystal/research/scripts/
+    m5_20_1_b_seeds.py
+
+test_domain:
+  q_inputs: [0.5, -0.5]
+  deltas: [0.1, 0.3, 0.5]
+  pairings:
+    - pair_1d
+    - pair_d0
+  read_radii: [3.0, 4.0, 5.0, 6.0]
+
+observations:
+  positive_input_measured_as: 0.5
+  negative_input_measured_as: 0.5
+  all_tested_cases_pass: true
+  mixing_monitor_zero_in_tested_cases: true
+  input_sign_distinguished: false
+  input_sign_identified: true
+
+result:
+  m5_winding_sign_identification: supported_in_tested_sector
+  q_neg_q_operational_for_this_observable: true
+  result_003_v4_quotient_mathematically_supported: true
+  full_q8_center_quotient_physically_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+constraints:
+  tested_q_magnitude: 0.5
+  tested_configuration_family_only: true
+  full_q8_classification_not_measured: true
+  residue_to_quaternion_pairing_assumed: false
+  physical_mapping_assumed: false
+
+conclusion: >
+  Across every tested delta, pairing, and read radius, the current M5
+  eigenframe-winding observable returns +0.5 for both synthetic +0.5
+  and -0.5 inputs. The tested observable therefore does not distinguish
+  winding sign in this configuration family and operationally supports
+  q ~ -q for this specific observable. This does not establish that the
+  full M5 Q8 topology is physically reduced to Q8/{1,-1}, nor does it
+  establish a physical mapping from Reading Point residue classes to M5
+  defect states.
+
+next_question: >
+  Does the sign identification persist for other admissible winding
+  magnitudes, configurations, and M5 observables, and can the resulting
+  sign-quotiented measurement be related to the four-element quotient
+  structure from Reading Point Result 003 without assigning quaternion
+  labels by hand?
