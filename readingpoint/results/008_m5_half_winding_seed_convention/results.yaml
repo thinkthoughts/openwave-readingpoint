@@ -1,0 +1,64 @@
+id: readingpoint-008
+status: supported
+scope: m5_seed_convention_control
+
+test:
+  name: m5_half_winding_seed_convention
+  script: readingpoint/tests/test_008_m5_half_winding_seed_convention.py
+
+openwave_target:
+  model: M5
+  instrument: winding_measure_biax
+  seed_function: winding_director
+
+test_domain:
+  q_inputs: [0.5, -0.5]
+  read_radii: [3.0, 4.0, 5.0, 6.0]
+  conventions:
+    - current
+    - generic
+    - symmetric
+
+observations:
+  current:
+    q_positive_measured: 0.5
+    q_negative_measured: 0.5
+    classification: sign_identified
+
+  generic:
+    q_positive_measured: -0.5
+    q_negative_measured: 0.5
+    classification: sign_distinguished
+
+  symmetric:
+    q_positive_measured: 0.5
+    q_negative_measured: -0.5
+    classification: sign_distinguished
+
+result:
+  current_openwave_sign_identification_reproduced: true
+  sign_identification_persists_under_matched_conventions: false
+  sign_response_seed_convention_dependent: true
+  apolarity_alone_implies_q_neg_q_identification: false
+  result_005_requires_qualification: true
+  physical_q8_center_quotient_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+constraints:
+  half_winding_sector_only: true
+  physical_mapping_assumed: false
+  residue_to_quaternion_pairing_assumed: false
+
+conclusion: >
+  The sign-identification behavior observed in Result 005 is specific
+  to the current asymmetric OpenWave half-winding seed convention.
+  When positive and negative half-windings are constructed using the
+  same generic or symmetric convention, winding_measure_biax
+  distinguishes their signs. Therefore the current numerical evidence
+  does not support a general q ~ -q identification arising from
+  apolarity or from the winding observable itself.
+
+next_question: >
+  Which half-winding seed convention is the intended physical and
+  topological convention for M5, and can that convention be derived
+  from the biaxial order-parameter space rather than selected by code?
