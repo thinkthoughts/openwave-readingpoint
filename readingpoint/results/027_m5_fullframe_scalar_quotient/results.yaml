@@ -1,0 +1,212 @@
+result:
+  id: 027
+  slug: m5_fullframe_scalar_quotient
+  title: "Existing full-frame scalar instruments -> natural four-class quotient"
+  status: pass
+
+question: >
+  Do existing repository-native M5 full-frame scalar instruments define a
+  natural four-class, composition-compatible reduction of the eight-state
+  C2^3-like field closure, without selecting a V4 subgroup by hand?
+
+source:
+  file: "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_22_4_a_fullf.py"
+  scalar_reads:
+    - comp3
+    - comp2
+    - comp1
+    - norm3
+    - basic
+  flux_scales:
+    - half6
+    - half12
+    - half18
+
+configuration:
+  n: 40
+  delta: 0.1
+  h: 1.2
+  scalar_equivalence_tolerance: 1.0e-8
+
+prior_structure:
+  result_023:
+    field_closure: "C2^3-like"
+    transformations:
+      - I
+      - Tx
+      - Ty
+      - Tz
+      - TxTy
+      - TxTz
+      - TyTz
+      - TxTyTz
+  result_026:
+    fullframe_geometric_readout: "8 classes"
+    interpretation: >
+      Full normalized eigenframe connection and curvature observables retain
+      the complete eight-state distinction.
+
+candidate_analysis:
+  comp3:
+    half6:
+      class_count: 8
+      class_sizes: [1,1,1,1,1,1,1,1]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: false
+    half12:
+      class_count: 8
+      class_sizes: [1,1,1,1,1,1,1,1]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: false
+    half18:
+      class_count: 8
+      class_sizes: [1,1,1,1,1,1,1,1]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: false
+
+  comp2:
+    half6:
+      class_count: 8
+      class_sizes: [1,1,1,1,1,1,1,1]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: false
+    half12:
+      class_count: 8
+      class_sizes: [1,1,1,1,1,1,1,1]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: false
+    half18:
+      class_count: 8
+      class_sizes: [1,1,1,1,1,1,1,1]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: false
+
+  comp1:
+    half6:
+      class_count: 8
+      class_sizes: [1,1,1,1,1,1,1,1]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: false
+    half12:
+      class_count: 8
+      class_sizes: [1,1,1,1,1,1,1,1]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: false
+    half18:
+      class_count: 8
+      class_sizes: [1,1,1,1,1,1,1,1]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: false
+
+  norm3:
+    half6:
+      class_count: 8
+      class_sizes: [1,1,1,1,1,1,1,1]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: false
+    half12:
+      class_count: 8
+      class_sizes: [1,1,1,1,1,1,1,1]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: false
+    half18:
+      class_count: 8
+      class_sizes: [1,1,1,1,1,1,1,1]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: false
+
+  basic:
+    half6:
+      class_count: 4
+      class_sizes: [2,2,2,2]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: true
+      classes:
+        - [I, Ty]
+        - [Tx, TxTy]
+        - [Tz, TyTz]
+        - [TxTz, TxTyTz]
+    half12:
+      class_count: 4
+      class_sizes: [2,2,2,2]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: true
+      classes:
+        - [I, Ty]
+        - [Tx, TxTy]
+        - [Tz, TyTz]
+        - [TxTz, TxTyTz]
+    half18:
+      class_count: 4
+      class_sizes: [2,2,2,2]
+      composition_compatible: true
+      violations: 0
+      four_classes_of_two: true
+      classes:
+        - [I, Ty]
+        - [Tx, TxTy]
+        - [Tz, TyTz]
+        - [TxTz, TxTyTz]
+
+successful_native_scalar_candidates:
+  - basic.half6
+  - basic.half12
+  - basic.half18
+
+natural_quotient:
+  supported: true
+  selected_kernel:
+    elements: [I, Ty]
+    notation: "<Ty>"
+    order: 2
+  cosets:
+    - [I, Ty]
+    - [Tx, TxTy]
+    - [Tz, TyTz]
+    - [TxTz, TxTyTz]
+  quotient_structure:
+    expression: "C2^3 / <Ty>"
+    abstract_isomorphism: "C2^2 ≅ V4"
+  scale_stability:
+    supported: true
+    statement: >
+      The same four cosets are produced independently at half6, half12,
+      and half18.
+
+interpretation: >
+  The full-frame comp1, comp2, comp3, and norm3 scalar reads retain all eight
+  singleton states, while the repository-native basic longest-axis/Mermin-Ho
+  cube-flux instrument consistently identifies pairs differing by Ty. This
+  gives the kernel <Ty> = {I,Ty} and the composition-compatible quotient
+  C2^3/<Ty> ≅ C2^2 ≅ V4. The quotient is selected by an existing M5 scalar
+  instrument rather than by choosing an embedded V4 subgroup by hand.
+
+claims:
+  repository_native_four_class_quotient: supported
+  kernel_selected_by_basic: "<Ty> = {I,Ty}"
+  quotient: "C2^3/<Ty> ≅ C2^2 ≅ V4"
+  scale_stability_across_half6_half12_half18: supported
+  full_F_scalars_comp1_comp2_comp3_norm3_retain_eight_states: supported
+  identification_with_Q8_mod_center: "NOT ESTABLISHED"
+  correspondence_to_Reading_Point_quotient: "NOT ESTABLISHED"
+  physical_handedness_identification: "NOT YET ESTABLISHED"
+  reading_point_to_M5_physical_mapping: "NOT ESTABLISHED"
+
+next_question: >
+  Does the M5 quotient C2^3/<Ty> admit an independently defined generator
+  correspondence to Q8/{+1,-1} and the Reading Point quotient, rather than
+  an arbitrary permutation of the three nonidentity V4 classes?
