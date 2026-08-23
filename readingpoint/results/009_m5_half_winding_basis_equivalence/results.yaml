@@ -1,0 +1,77 @@
+id: readingpoint-009
+status: supported
+scope: basis_equivalence_control
+
+test:
+  name: m5_half_winding_basis_equivalence
+  script: readingpoint/tests/test_009_m5_half_winding_basis_equivalence.py
+
+openwave_target:
+  model: M5
+  sector: half_winding
+  related_instrument: winding_measure_biax
+
+test_domain:
+  q_values: [0.5, -0.5]
+  conventions:
+    - generic
+    - symmetric
+
+transformation:
+  wound_plane:
+    description: swap_axes_1_and_3
+    matrix:
+      - [0.0, 1.0]
+      - [1.0, 0.0]
+    determinant: -1
+
+  proper_3d_embedding:
+    description: >
+      Swap axes 1 and 3 while reversing axis 2.
+    matrix:
+      - [0.0, 0.0, 1.0]
+      - [0.0, -1.0, 0.0]
+      - [1.0, 0.0, 0.0]
+    determinant: 1
+    group: SO3
+
+observations:
+  q_pos_0_5:
+    max_tensor_equivalence_error: 3.331e-16
+    basis_equivalent: true
+
+  q_neg_0_5:
+    max_tensor_equivalence_error: 3.331e-16
+    basis_equivalent: true
+
+result:
+  generic_and_symmetric_tensor_constructions_basis_equivalent: true
+  proper_so3_embedding_exists: true
+  result_008_sign_orientation_basis_dependent: true
+  scalar_winding_sign_basis_invariant_physical_label: false
+  physical_q8_class_identification_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+constraints:
+  half_winding_sector_only: true
+  global_basis_transformation_only: true
+  handedness_not_fixed_by_this_test: true
+  physical_mapping_assumed: false
+  residue_to_quaternion_pairing_assumed: false
+
+conclusion: >
+  The generic and symmetric half-winding tensor constructions are
+  related by a fixed global basis transformation. Their maximum tensor
+  mismatch is approximately 3.3e-16 for both q = +0.5 and q = -0.5.
+  The wound-plane axis swap has determinant -1, but it admits a proper
+  three-dimensional SO(3) embedding with determinant +1. Therefore the
+  opposite scalar winding-sign readouts observed under the two matched
+  conventions in Result 008 do not by themselves identify physically
+  distinct M5 sectors. A physical sign requires an independently
+  specified orientation, handedness, transport rule, interaction
+  observable, or other basis-invariant structure.
+
+next_question: >
+  Does M5 contain an independently defined chirality, handedness,
+  helicity, interaction, or other orientation-sensitive observable that
+  can fix the physical meaning of half-winding sign beyond basis choice?
