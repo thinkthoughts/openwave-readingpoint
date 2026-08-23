@@ -1,4 +1,4 @@
-# Result 005 — M5 winding sign identification
+# Result 005 --- M5 winding sign identification
 
 ## Outcome
 
@@ -20,11 +20,11 @@ input winding in this configuration family.
 
 The comparison covered:
 
-- `delta = 0.1, 0.3, 0.5`
-- `pair_1d`
-- `pair_d0`
-- read radii `3, 4, 5, 6`
-- input windings `+0.5` and `-0.5`
+-   `delta = 0.1, 0.3, 0.5`
+-   `pair_1d`
+-   `pair_d0`
+-   read radii `3, 4, 5, 6`
+-   input windings `+0.5` and `-0.5`
 
 All tested cases passed the sign-identification criterion.
 
@@ -34,11 +34,11 @@ The out-of-plane mixing monitor remained zero in the reported runs.
 
 The executable test confirms:
 
-- positive winding measurable: **PASS**
-- negative winding measurable: **PASS**
-- winding magnitude preserved: **PASS**
-- input sign distinguished: **NO**
-- input sign identified by this observable: **SUPPORTED**
+-   positive winding measurable: **PASS**
+-   negative winding measurable: **PASS**
+-   winding magnitude preserved: **PASS**
+-   input sign distinguished: **NO**
+-   input sign identified by this observable: **SUPPORTED**
 
 ## Relation to Result 003
 
@@ -55,8 +55,8 @@ This is consistent with a sign-quotiented reading of the observable.
 
 ## Constraint
 
-This result does **not** establish that the full M5 quaternion topology is
-physically reduced to:
+This result does **not** establish that the full M5 quaternion topology
+is physically reduced to:
 
 `Q8 / {1,-1}`
 
@@ -78,12 +78,12 @@ quaternion coset.
 
 ## Next reading point
 
-Test whether the observed sign identification persists beyond `|q| = 0.5`
-and whether another independently defined M5 observable exposes the same
-four-way quotient structure.
+Test whether the observed sign identification persists beyond
+`|q| = 0.5` and whether another independently defined M5 observable
+exposes the same four-way quotient structure.
 
-The next bridge must remain non-arbitrary: no residue-to-quaternion labels
-should be assigned by hand.
+The next bridge must remain non-arbitrary: no residue-to-quaternion
+labels should be assigned by hand.
 
 ## Script
 
