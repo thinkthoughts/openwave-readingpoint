@@ -1,4 +1,4 @@
-# OpenWave Reading Point 
+# OpenWave ReadingPoint 
 
 An experimental fork of OpenWave for translating specified structure into testable model constraints.
 
