@@ -1,0 +1,184 @@
+result:
+  id: 032
+  slug: m5_residual_pair_orientation_discriminator
+  title: "Native M5/N4 residual-pair orientation discriminator"
+  status: pass
+
+question: >
+  Does the existing N4 chiral-overlap operator C descend through the
+  Result-027 kernel <Ty> and independently distinguish the residual
+  M5 quotient pair Tzbar versus TxTzbar left unresolved by Result 031?
+
+existing_observable:
+  name: "N4 chiral-overlap matrix C"
+  construction: "C_ab = chiral_overlap(dM_a, dM_b)"
+  prior_characterization:
+    antisymmetry: SUPPORTED
+    mirror_orientation_sign_action: "SUPPORTED BY RESULTS 018-021"
+    chi_sign_as_handedness_selector: "REJECTED IN TESTED FAMILY"
+
+configuration:
+  n: 40
+  alpha: 0.6
+  delta: 0.1
+  chi: 0.6
+  q: 0.5
+  R_loop: 9.0
+  core_vox: 2.0
+  C_sign_tolerance: 1.0e-4
+  antisymmetry_tolerance: 1.0e-10
+
+prior_structure:
+  result_027:
+    quotient: "C2^3 / <Ty>"
+    kernel: "<Ty> = {I, Ty}"
+    quotient_classes:
+      Ibar: [I, Ty]
+      Txbar: [Tx, TxTy]
+      Tzbar: [Tz, TyTz]
+      TxTzbar: [TxTz, TxTyTz]
+  result_031:
+    native_m5_1_plus_2_partition:
+      singleton: Txbar
+      pair: [Tzbar, TxTzbar]
+    partition_preserving_m5_to_reading_point_isomorphisms: 2
+
+per_transformation:
+  I:
+    C_sign: "+"
+    C_norm: 2.619763253e+00
+    even_error: 0.000000e+00
+    odd_error: 2.000000e+00
+    antisymmetry_error: 2.823e-15
+  Tx:
+    C_sign: "-"
+    C_norm: 2.619759475e+00
+    even_error: 1.999999e+00
+    odd_error: 1.999098e-06
+    antisymmetry_error: 6.023e-15
+  Ty:
+    C_sign: "+"
+    C_norm: 2.619759475e+00
+    even_error: 8.371447e-06
+    odd_error: 1.999999e+00
+    antisymmetry_error: 3.576e-15
+  Tz:
+    C_sign: "+"
+    C_norm: 2.619763253e+00
+    even_error: 3.681833e-15
+    odd_error: 2.000000e+00
+    antisymmetry_error: 1.694e-15
+  TxTy:
+    C_sign: "-"
+    C_norm: 2.619763253e+00
+    even_error: 2.000000e+00
+    odd_error: 8.129252e-06
+    antisymmetry_error: 1.506e-15
+  TxTz:
+    C_sign: "-"
+    C_norm: 2.619759475e+00
+    even_error: 1.999999e+00
+    odd_error: 1.999098e-06
+    antisymmetry_error: 4.329e-15
+  TyTz:
+    C_sign: "+"
+    C_norm: 2.619759475e+00
+    even_error: 8.371447e-06
+    odd_error: 1.999999e+00
+    antisymmetry_error: 4.517e-15
+  TxTyTz:
+    C_sign: "-"
+    C_norm: 2.619763253e+00
+    even_error: 2.000000e+00
+    odd_error: 8.129252e-06
+    antisymmetry_error: 1.882e-15
+
+quotient_descent:
+  Ibar:
+    representatives:
+      I: "+"
+      Ty: "+"
+    descends: true
+  Txbar:
+    representatives:
+      Tx: "-"
+      TxTy: "-"
+    descends: true
+  Tzbar:
+    representatives:
+      Tz: "+"
+      TyTz: "+"
+    descends: true
+  TxTzbar:
+    representatives:
+      TxTz: "-"
+      TxTyTz: "-"
+    descends: true
+  overall: SUPPORTED
+
+quotient_level_C_signs:
+  Ibar: "+"
+  Txbar: "-"
+  Tzbar: "+"
+  TxTzbar: "-"
+
+residual_pair:
+  classes: [Tzbar, TxTzbar]
+  labels:
+    Tzbar: "+"
+    TxTzbar: "-"
+  distinguished_by_C_sign: true
+  verdict: SUPPORTED
+
+summary:
+  C_antisymmetry: SUPPORTED
+  C_sign_descends_through_Ty: SUPPORTED
+  residual_m5_pair_discrimination: SUPPORTED
+  native_m5_n4_residual_pair_labeling: SUPPORTED
+  m5_quotient_intrinsic_labeling: "FULLY DISTINGUISHED WITHIN TESTED QUOTIENT"
+  result_031_partition_preserving_isomorphisms: 2
+  reading_point_residual_pair:
+    - [7, 13]
+    - [17, 23]
+  reading_point_side_corresponding_binary_label: "NOT ESTABLISHED"
+  licensed_cross_system_correspondence_count_after_result_032: 2
+
+structural_consequence:
+  statement: >
+    The existing N4 chiral-overlap operator supplies a quotient-level binary
+    orientation-sensitive sign label. C-sign is invariant under the Result-027
+    kernel <Ty> and therefore descends to C2^3/<Ty>. Within the residual pair
+    left by Result 031, Tzbar carries +C while TxTzbar carries -C. This fully
+    distinguishes the M5 quotient internally using repository-native
+    observables. The cross-system correspondence count remains 2 because the
+    Reading Point pair {7,13} and {17,23} still lacks an independently
+    established corresponding second binary label.
+
+claims:
+  C_antisymmetry: SUPPORTED
+  C_sign_quotient_descent: SUPPORTED
+  Tzbar_C_sign: "+"
+  TxTzbar_C_sign: "-"
+  residual_m5_pair_orientation_labeling: SUPPORTED
+  m5_quotient_intrinsic_labeling: "FULLY DISTINGUISHED WITHIN TESTED QUOTIENT"
+  cross_system_correspondence_count: 2
+  reading_point_residual_pair_labeling: "NOT ESTABLISHED"
+  unique_reading_point_to_m5_correspondence: "NOT ESTABLISHED"
+  physical_q8_center_quotient_identification: "NOT ESTABLISHED"
+  reading_point_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+interpretation: >
+  Result 032 removes the final internal ambiguity on the M5 quotient side.
+  Result 031 had singled out Txbar using the independently defined G- and
+  R-norm partition while leaving Tzbar and TxTzbar degenerate. The existing
+  N4 chiral operator now separates that residual pair by sign, with Tzbar
+  mapped to +C and TxTzbar to -C, and the sign classification is constant on
+  every Result-027 coset. This does not yet select between the two remaining
+  Reading Point mappings because no corresponding intrinsic second binary
+  label has been established for {7,13} versus {17,23}.
+
+next_question: >
+  Does the existing Reading Point/mod-30 construction contain an independent
+  second binary invariant that distinguishes {7,13} from {17,23} in a way
+  that can be compared structurally to the M5 residual C-sign labels without
+  assigning a residue pair to +C or -C after seeing the result?
