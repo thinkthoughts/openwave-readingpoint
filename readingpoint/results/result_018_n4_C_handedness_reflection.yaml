@@ -1,0 +1,119 @@
+result_id: "018"
+title: "N4 C handedness / reflection behavior"
+status: "characterized"
+
+test:
+  script: "readingpoint/tests/test_018_n4_C_handedness_reflection.py"
+  purpose: >
+    Characterize how the existing N4 chiral-overlap matrix C transforms
+    under screw reversal chi -> -chi and under swapping the +alpha and
+    -alpha flavour-loop orientations.
+
+test_geometry:
+  n: 40
+  dx: 1.0
+  alpha: 0.6
+  delta: 0.1
+  chi_magnitude: 0.6
+  q: 0.5
+  R_loop: 9.0
+  core_vox: 2.0
+
+cases:
+  A:
+    alpha_order: "mu=+alpha, tau=-alpha"
+    chi: 0.6
+  B:
+    alpha_order: "mu=+alpha, tau=-alpha"
+    chi: -0.6
+  C:
+    alpha_order: "mu=-alpha, tau=+alpha"
+    chi: 0.6
+  D:
+    alpha_order: "mu=-alpha, tau=+alpha"
+    chi: -0.6
+
+observations:
+  screw_reversal:
+    oddness_error: 1.999999
+    evenness_error: 8.371447e-06
+    magnitude_ratio: 0.999998557649
+    relative_magnitude_difference: 1.442351e-06
+    normalized_odd_shape_error: 2.0
+    normalized_even_shape_error: 8.246263e-06
+
+  mirror_order:
+    basis_covariance_error_chi_positive: 0.0
+    basis_covariance_error_chi_negative: 0.0
+    mirror_as_sign_flip_error_chi_positive: 8.129252e-06
+    mirror_as_sign_flip_error_chi_negative: 8.129264e-06
+    magnitude_ratio_chi_positive: 1.0
+    magnitude_ratio_chi_negative: 1.0
+
+result:
+  antisymmetry_preserved: true
+  chi_reversal_exact_sign_flip: false
+  chi_reversal_approximate_invariance: true
+  chi_reversal_magnitude_preserved: true
+  mirror_basis_covariance: true
+  mirror_approximate_sign_flip_in_tested_geometry: true
+  mirror_magnitude_preserved: true
+  physical_handedness_identification_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+interpretation: >
+  In the tested geometry, the N4 chiral operator C is approximately even
+  under chi -> -chi rather than odd. The screw parameter sign therefore
+  does not by itself supply the operation that reverses C. Swapping the
+  +alpha and -alpha flavour-loop orientations transforms C exactly by the
+  mu-tau basis permutation P C P^T. For this tested geometry that
+  basis-transformed matrix is also approximately equal to -C, with
+  relative error of order 8e-6. This separates screw-sign reversal from
+  mirror/orientation reversal and leaves the physical handedness
+  identification open.
+
+constraints:
+  - >
+    The approximate chi-evenness and mirror sign reversal are established
+    only for the tested geometry.
+  - >
+    Exact basis covariance follows from the explicit mu-tau relabeling
+    control; approximate C -> -C under that transformation remains a
+    geometry-dependent numerical observation until tested more broadly.
+  - >
+    No physical handedness observable is claimed from chi alone.
+  - >
+    No Reading Point residue mapping is introduced.
+
+relation_to_previous_results:
+  result_016: >
+    Result 016 supported convergence of the normalized N4 C operator shape.
+  result_017: >
+    Result 017 supported dx*C as the lattice normalization among the tested
+    integer powers.
+  result_018: >
+    Result 018 now characterizes transformation behavior: C is
+    approximately chi-even and exactly covariant under mu-tau mirror
+    relabeling, with approximate sign reversal in the tested geometry.
+
+bridge_status:
+  n4_C_effective_operator_shape: "SUPPORTED"
+  n4_C_lattice_normalization: "dx * C SUPPORTED"
+  chi_sign_as_physical_handedness: "NOT SUPPORTED"
+  mirror_basis_covariance: "SUPPORTED"
+  mirror_sign_reversal: "SUPPORTED IN TESTED GEOMETRY"
+  physical_handedness_identification: "NOT YET ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+next_reading_point:
+  result: "019"
+  question: >
+    Is the approximate mirror relation P C P^T approximately equal to -C
+    robust across controlled changes in alpha, delta, chi, loop radius,
+    core size, and resolution?
+  requirements:
+    - "Keep basis covariance and mirror oddness as separate diagnostics."
+    - "Measure whether P C P^T = C_mirror remains exact."
+    - "Measure whether P C P^T + C remains small across geometry changes."
+    - "Do not treat chi -> -chi as the handedness flip unless a later test supports it."
+  readingpoint_residue_mapping: "HELD"
