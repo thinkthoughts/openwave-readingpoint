@@ -7,10 +7,8 @@ Results 016–017 established that the existing N4 chiral-overlap matrix C:
   - has a converging normalized operator shape under refinement;
   - admits the lattice normalization dx * C in the tested family.
 
-Result 018 asks whether the operator transforms as a genuine chiral /
-handedness-sensitive object.
-
-Two controls are tested separately:
+Result 018 asks how the effective operator transforms under two distinct
+controls:
 
   1. screw reversal:
          chi -> -chi
@@ -22,18 +20,23 @@ Two controls are tested separately:
 
 The test does NOT assume these two operations are physically identical.
 
-For screw reversal we test whether:
+For screw reversal we measure both possibilities:
 
-    C(-chi) ~ -C(+chi)
+    oddness:
+        C(-chi) ~ -C(+chi)
 
-while preserving:
+    evenness:
+        C(-chi) ~ +C(+chi)
 
-    ||C||_F
-    antisymmetry
-    normalized operator shape after sign correction.
+and compare magnitudes and normalized shapes.
 
-For mirror ordering we compare the resulting matrix against the permutation
-transformation expected from swapping the mu and tau basis labels.
+For mirror ordering we test the exact basis-covariance relation expected
+from swapping the mu and tau flavour labels:
+
+    C_mirror = P C P^T
+
+and separately ask whether, for the tested geometry, that basis-transformed
+matrix is also approximately equal to -C.
 
 No Reading Point residue mapping is introduced.
 """
@@ -85,6 +88,11 @@ CORE_VOX = 2.0
 
 ANTISYM_TOL = 1e-10
 
+# These tolerances classify numerical behavior rather than exact algebraic
+# identity. Result 018 is a finite-grid characterization.
+APPROX_TOL = 1e-4
+MAG_TOL = 1e-4
+
 
 def build_displacements(
     *,
@@ -104,7 +112,7 @@ def build_displacements(
         mu  = -alpha
         tau = +alpha
 
-    Both mu and tau use the same supplied screw handedness chi,
+    Both mu and tau use the same supplied screw parameter chi,
     matching the N4 construction.
     """
 
@@ -235,6 +243,17 @@ def relative_matrix_error(A, B):
     )
 
 
+def relative_scalar_error(a, b):
+    """
+    Relative scalar difference |a-b|/|b|.
+    """
+
+    return float(
+        abs(a - b)
+        / max(abs(b), 1e-30)
+    )
+
+
 def mu_tau_swap_matrix():
     """
     Permutation matrix swapping flavour basis labels mu <-> tau.
@@ -311,8 +330,70 @@ def test_all_cases_finite_nonzero_antisymmetric():
         )
 
 
+def test_mirror_basis_covariance():
+    """
+    Swapping the mu and tau construction order should transform C by the
+    corresponding basis permutation.
+    """
+
+    A = evaluate_case(
+        "A",
+        chi=+CHI,
+        mirrored_order=False,
+    )
+
+    B = evaluate_case(
+        "B",
+        chi=-CHI,
+        mirrored_order=False,
+    )
+
+    C = evaluate_case(
+        "C",
+        chi=+CHI,
+        mirrored_order=True,
+    )
+
+    D = evaluate_case(
+        "D",
+        chi=-CHI,
+        mirrored_order=True,
+    )
+
+    P = mu_tau_swap_matrix()
+
+    expected_C = (
+        P
+        @ A["C"]
+        @ P.T
+    )
+
+    expected_D = (
+        P
+        @ B["C"]
+        @ P.T
+    )
+
+    assert (
+        relative_matrix_error(
+            C["C"],
+            expected_C,
+        )
+        < 1e-12
+    )
+
+    assert (
+        relative_matrix_error(
+            D["C"],
+            expected_D,
+        )
+        < 1e-12
+    )
+
+
 def run_all():
     test_all_cases_finite_nonzero_antisymmetric()
+    test_mirror_basis_covariance()
 
 
 def main():
@@ -348,9 +429,14 @@ def main():
     # Screw reversal
     # --------------------------------------------------------------
 
-    screw_sign_error = relative_matrix_error(
+    screw_odd_error = relative_matrix_error(
         B["C"],
         -A["C"],
+    )
+
+    screw_even_error = relative_matrix_error(
+        B["C"],
+        A["C"],
     )
 
     screw_norm_ratio = (
@@ -358,9 +444,19 @@ def main():
         / A["C_eff_norm"]
     )
 
-    screw_shape_error = relative_matrix_error(
+    screw_norm_error = relative_scalar_error(
+        B["C_eff_norm"],
+        A["C_eff_norm"],
+    )
+
+    screw_odd_shape_error = relative_matrix_error(
         B["C_hat"],
         -A["C_hat"],
+    )
+
+    screw_even_shape_error = relative_matrix_error(
+        B["C_hat"],
+        A["C_hat"],
     )
 
     # --------------------------------------------------------------
@@ -389,10 +485,24 @@ def main():
         expected_D,
     )
 
-    # Does the mu<->tau swap also happen to produce -C?
-    mirror_as_sign_error = relative_matrix_error(
+    mirror_as_sign_error_plus = relative_matrix_error(
         C["C"],
         -A["C"],
+    )
+
+    mirror_as_sign_error_minus = relative_matrix_error(
+        D["C"],
+        -B["C"],
+    )
+
+    mirror_norm_ratio_plus = (
+        C["C_eff_norm"]
+        / A["C_eff_norm"]
+    )
+
+    mirror_norm_ratio_minus = (
+        D["C_eff_norm"]
+        / B["C_eff_norm"]
     )
 
     print("Reading Point Test 018")
@@ -447,15 +557,28 @@ def main():
         )
         print()
 
+    # --------------------------------------------------------------
+    # Screw reversal report
+    # --------------------------------------------------------------
+
     print("Screw reversal control:")
     print()
 
     print(
-        "relative error in "
-        "C(-chi) = -C(+chi):"
+        "oddness error "
+        "||C(-chi)+C(+chi)|| / ||C(+chi)||:"
     )
     print(
-        f"{screw_sign_error:.6e}"
+        f"{screw_odd_error:.6e}"
+    )
+
+    print()
+    print(
+        "evenness error "
+        "||C(-chi)-C(+chi)|| / ||C(+chi)||:"
+    )
+    print(
+        f"{screw_even_error:.6e}"
     )
 
     print()
@@ -469,19 +592,38 @@ def main():
 
     print()
     print(
-        "normalized shape error after "
-        "sign correction:"
+        "relative magnitude difference:"
     )
     print(
-        f"{screw_shape_error:.6e}"
+        f"{screw_norm_error:.6e}"
     )
+
+    print()
+    print(
+        "normalized odd-shape error:"
+    )
+    print(
+        f"{screw_odd_shape_error:.6e}"
+    )
+
+    print()
+    print(
+        "normalized even-shape error:"
+    )
+    print(
+        f"{screw_even_shape_error:.6e}"
+    )
+
+    # --------------------------------------------------------------
+    # Mirror report
+    # --------------------------------------------------------------
 
     print()
     print("Mirror-order control:")
     print()
 
     print(
-        "expected transformation:"
+        "expected basis transformation:"
     )
     print(
         "C_mirror = P C P^T"
@@ -489,7 +631,7 @@ def main():
 
     print()
     print(
-        "relative error, chi=+:"
+        "basis-covariance error, chi=+:"
     )
     print(
         f"{mirror_error_plus:.6e}"
@@ -497,7 +639,7 @@ def main():
 
     print()
     print(
-        "relative error, chi=-:"
+        "basis-covariance error, chi=-:"
     )
     print(
         f"{mirror_error_minus:.6e}"
@@ -505,60 +647,128 @@ def main():
 
     print()
     print(
-        "mirror-as-simple-sign-flip error:"
+        "mirror-as-sign-flip error, chi=+:"
     )
     print(
-        f"{mirror_as_sign_error:.6e}"
+        f"{mirror_as_sign_error_plus:.6e}"
+    )
+
+    print()
+    print(
+        "mirror-as-sign-flip error, chi=-:"
+    )
+    print(
+        f"{mirror_as_sign_error_minus:.6e}"
+    )
+
+    print()
+    print(
+        "mirror magnitude ratio, chi=+:"
+    )
+    print(
+        f"{mirror_norm_ratio_plus:.12f}"
+    )
+
+    print()
+    print(
+        "mirror magnitude ratio, chi=-:"
+    )
+    print(
+        f"{mirror_norm_ratio_minus:.12f}"
     )
 
     print()
     print("Antisymmetry:")
     print("PASS")
 
-    print()
-    print("Interpretation:")
-    print(
-        "The screw-reversal control tests whether the "
-        "existing N4 effective operator is odd under "
-        "chi -> -chi."
-    )
-    print(
-        "The mirror-order control is treated separately: "
-        "swapping the +alpha and -alpha flavour-loop "
-        "orientations should transform C by the corresponding "
-        "mu<->tau basis permutation rather than being assumed "
-        "to equal a simple sign flip."
-    )
-    print(
-        "The run therefore distinguishes handedness reversal "
-        "from flavour-basis relabeling."
-    )
+    # --------------------------------------------------------------
+    # Verdicts
+    # --------------------------------------------------------------
 
     print()
-    print("Screw handedness oddness:")
-    if screw_sign_error < 1e-8:
+    print("Screw reversal chi -> -chi:")
+    print()
+
+    print("C sign reversal:")
+    if screw_odd_error < APPROX_TOL:
         print("SUPPORTED")
     else:
-        print("NOT SUPPORTED AS EXACT SIGN REVERSAL")
+        print("NOT SUPPORTED")
 
     print()
-    print("Screw-reversal magnitude preservation:")
-    if abs(
-        screw_norm_ratio - 1.0
-    ) < 1e-8:
+    print("C approximate invariance:")
+    if screw_even_error < APPROX_TOL:
         print("SUPPORTED")
     else:
-        print("NOT EXACTLY PRESERVED")
+        print("NOT SUPPORTED")
 
     print()
-    print("Mirror basis covariance:")
+    print("Magnitude preservation:")
+    if screw_norm_error < MAG_TOL:
+        print("SUPPORTED")
+    else:
+        print("NOT SUPPORTED")
+
+    print()
+    print("Mirror orientation swap:")
+    print()
+
+    print("Basis covariance P C P^T:")
     if (
-        mirror_error_plus < 1e-8
-        and mirror_error_minus < 1e-8
+        mirror_error_plus < 1e-12
+        and mirror_error_minus < 1e-12
     ):
         print("SUPPORTED")
     else:
         print("NOT SUPPORTED")
+
+    print()
+    print("Approximate C sign reversal:")
+    if (
+        mirror_as_sign_error_plus < APPROX_TOL
+        and mirror_as_sign_error_minus < APPROX_TOL
+    ):
+        print("SUPPORTED IN TESTED GEOMETRY")
+    else:
+        print("NOT SUPPORTED")
+
+    print()
+    print("Mirror magnitude preservation:")
+    if (
+        abs(mirror_norm_ratio_plus - 1.0) < MAG_TOL
+        and abs(mirror_norm_ratio_minus - 1.0) < MAG_TOL
+    ):
+        print("SUPPORTED")
+    else:
+        print("NOT SUPPORTED")
+
+    print()
+    print("Interpretation:")
+    print(
+        "The N4 chiral operator is approximately even under "
+        "chi -> -chi in this tested geometry rather than odd."
+    )
+    print(
+        "Therefore the sign of the screw parameter chi is not, by "
+        "itself, the operation that reverses C in this construction."
+    )
+    print(
+        "Swapping the +alpha and -alpha flavour-loop orientations "
+        "transforms C exactly by the mu<->tau basis permutation "
+        "P C P^T."
+    )
+    print(
+        "For this tested geometry, that mirror-basis transformation is "
+        "also approximately equal to C -> -C."
+    )
+    print(
+        "The test therefore distinguishes screw-sign reversal from "
+        "mirror/orientation reversal."
+    )
+
+    print()
+    print("Physical handedness identification:")
+    print("NOT YET ESTABLISHED")
 
     print()
     print("Reading Point -> M5 physical mapping:")
