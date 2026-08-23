@@ -1,4 +1,4 @@
-# Result 002 — Mod-30 units vs Q8 conjugacy classes
+# Result 002 --- Mod-30 units vs Q8 conjugacy classes
 
 ## Outcome
 
@@ -13,7 +13,8 @@ The units modulo 30 are:
 
 `{1, 7, 11, 13, 17, 19, 23, 29}`
 
-Because `(Z/30Z)*` is abelian, every element forms its own conjugacy class.
+Because `(Z/30Z)*` is abelian, every element forms its own conjugacy
+class.
 
 **Class structure:** `1 + 1 + 1 + 1 + 1 + 1 + 1 + 1`
 
@@ -23,10 +24,10 @@ Because `(Z/30Z)*` is abelian, every element forms its own conjugacy class.
 
 The quaternion group has conjugacy classes:
 
-`{1}`  
-`{-1}`  
-`{i, -i}`  
-`{j, -j}`  
+`{1}`\
+`{-1}`\
+`{i, -i}`\
+`{j, -j}`\
 `{k, -k}`
 
 **Class structure:** `1 + 1 + 2 + 2 + 2`
@@ -37,11 +38,12 @@ The quaternion group has conjugacy classes:
 
 The executable test confirms:
 
-- element cardinality match: **PASS**
-- conjugacy-class count match: **REJECTED**
-- one-to-one conjugacy-class correspondence: **REJECTED**
+-   element cardinality match: **PASS**
+-   conjugacy-class count match: **REJECTED**
+-   one-to-one conjugacy-class correspondence: **REJECTED**
 
-Equal element cardinality therefore does not produce equal class structure.
+Equal element cardinality therefore does not produce equal class
+structure.
 
 ## Next reading point
 
