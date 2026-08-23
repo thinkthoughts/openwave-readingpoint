@@ -1,0 +1,126 @@
+result_id: "017"
+title: "N4 C lattice normalization"
+status: "supported_dx_normalization"
+
+test:
+  script: "readingpoint/tests/test_017_n4_C_lattice_normalization.py"
+  purpose: >
+    Determine whether an explicit lattice-spacing normalization makes the
+    raw N4 chiral-overlap magnitude converge when fixed physical geometry
+    is refined.
+
+fixed_physical_geometry:
+  R_loop: 9.0
+  core: 2.0
+  alpha: 0.6
+  delta: 0.1
+  chi: 0.6
+  q: 0.5
+
+refinement:
+  reference:
+    n: 40
+    dx: 1.0
+  resolutions: [24, 32, 40, 48]
+  dx_values:
+    n24: 1.666667
+    n32: 1.25
+    n40: 1.0
+    n48: 0.833333
+
+observations:
+  n24:
+    raw_C_norm: 1.698142
+    dx_C_norm: 2.830236
+  n32:
+    raw_C_norm: 2.145233
+    dx_C_norm: 2.681542
+  n40:
+    raw_C_norm: 2.619763
+    dx_C_norm: 2.619763
+  n48:
+    raw_C_norm: 3.104983
+    dx_C_norm: 2.587486
+
+raw_scaling_fit:
+  form: "||C_raw|| ~ dx^p"
+  p: -0.8702
+
+continuum_counting_prediction:
+  raw_scaling: "C_raw ~ dx^-1"
+  candidate_normalization: "dx * C"
+
+candidate_integer_power_spreads:
+  dx_power_0:
+    spread: 5.881368e-01
+  dx_power_1:
+    spread: 9.058688e-02
+  dx_power_2:
+    spread: 7.974542e-01
+  dx_power_3:
+    spread: 1.473109
+
+best_tested_integer_power: 1
+
+successive_changes_in_dx_C_norm:
+  n24_to_n32: 5.545128e-02
+  n32_to_n40: 2.358165e-02
+  n40_to_n48: 1.247449e-02
+
+result:
+  antisymmetry_across_refinement: true
+  raw_C_resolution_independent: false
+  dx_times_C_best_among_tested_integer_powers: true
+  dx_times_C_converging_in_tested_refinement: true
+  continuum_lattice_normalization_supported: true
+  deeper_physical_normalization_established: false
+  microscopic_provenance_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+interpretation: >
+  The current N4 chiral_overlap uses two coded central-difference gradients
+  with dx=1 and then directly sums lattice cells. For fixed physical
+  geometry, continuum counting predicts raw C ~ dx^-1. The measured fit
+  gives dx^-0.8702 over the tested refinement. Among the tested integer
+  powers p=0,1,2,3, multiplying C by dx gives by far the smallest norm
+  spread and the successive changes decrease from 5.55 percent to 2.36
+  percent to 1.25 percent. This supports dx*C as the appropriate lattice
+  normalization for the tested N4 effective operator.
+
+constraints:
+  - >
+    The measured exponent -0.8702 is a finite-resolution diagnostic and is
+    not asserted as an asymptotic law.
+  - >
+    Support for dx*C is limited to the tested integer powers and refinement
+    family.
+  - >
+    This establishes lattice normalization, not microscopic physical
+    provenance.
+  - >
+    No Reading Point residue mapping is introduced.
+
+relation_to_previous_results:
+  result_016: >
+    Result 016 showed that C/||C|| converges in shape while raw ||C|| is
+    resolution dependent.
+  result_017: >
+    Result 017 identifies dx*C as the best tested lattice normalization and
+    shows its norm approaching a stable value under refinement.
+
+bridge_status:
+  n4_C_shape: "SUPPORTED AS CONVERGING"
+  n4_C_lattice_normalization: "dx * C SUPPORTED"
+  n4_C_effective_operator_status: "STRENGTHENED"
+  deeper_physical_normalization: "NOT ESTABLISHED"
+  microscopic_provenance: "NOT ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+next_reading_point:
+  result: "018"
+  question: >
+    Does the normalized N4 chiral operator transform with the expected
+    handedness/reflection behavior, including sign reversal under the
+    relevant mirror or chi -> -chi control while preserving magnitude and
+    antisymmetric structure?
+  readingpoint_residue_mapping: "HELD"
