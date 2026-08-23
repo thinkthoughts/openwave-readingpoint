@@ -2,7 +2,7 @@
 
 An experimental fork of OpenWave for translating specified structure into testable model constraints.
 
-## Reading Point <img height="49" src="assets/logo/reading-point-badge-dark-512.png" />
+## ReadingPoint <img height="49" src="assets/logo/reading-point-badge-dark-512.png" />
 
  https://github.com/thinkthoughts/reading-point
 
