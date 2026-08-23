@@ -1,0 +1,184 @@
+id: readingpoint-035
+status: supported
+scope: m5_orientation_anchor
+
+test:
+  name: m5_fullframe_orientation_anchor
+  script: readingpoint/tests/test_035_m5_fullframe_orientation_anchor.py
+
+depends_on:
+  - readingpoint-020
+  - readingpoint-027
+  - readingpoint-031
+  - readingpoint-032
+  - readingpoint-033
+  - readingpoint-034
+
+question: >
+  Does the pre-existing right-handed M5 full-frame convention provide
+  an independent orientation anchor that determines the sign of the
+  Result-032 N4 chiral-overlap discriminator C?
+
+m5_full_frame:
+  source: >
+    openwave/xperiments/m5_liquid_crystal/research/scripts/
+    m5_22_4_a_fullf.py
+
+  construction:
+    e3: oriented_long_axis
+    e1: oriented_short_axis
+    e2: e3_cross_e1
+    O: "[e1,e2,e3]"
+
+  declared_handedness: right_handed_by_construction
+
+improper_spatial_transformation:
+  name: x_reflection
+
+  coordinate_action: "x -> -x"
+
+  tensor_action: >
+    M_sp'(x) = S_x M_sp(S_x x) S_x^T
+
+  matrix:
+    - [-1.0, 0.0, 0.0]
+    - [0.0, 1.0, 0.0]
+    - [0.0, 0.0, 1.0]
+
+  determinant: -1.0
+  improper_transformation_supported: true
+
+native_full_frame:
+  right_handed: true
+
+  determinant:
+    e:
+      min: 1.0
+      mean: 1.0
+      max: 1.0
+      max_abs_det_minus_one: 1.776e-15
+
+    mu:
+      min: 1.0
+      mean: 1.0
+      max: 1.0
+      max_abs_det_minus_one: 2.220e-15
+
+    tau:
+      min: 1.0
+      mean: 1.0
+      max: 1.0
+      max_abs_det_minus_one: 1.998e-15
+
+reflected_field_full_frame:
+  right_handed: true
+
+  determinant:
+    e:
+      min: 1.0
+      mean: 1.0
+      max: 1.0
+      max_abs_det_minus_one: 1.776e-15
+
+    mu:
+      min: 1.0
+      mean: 1.0
+      max: 1.0
+      max_abs_det_minus_one: 2.220e-15
+
+    tau:
+      min: 1.0
+      mean: 1.0
+      max: 1.0
+      max_abs_det_minus_one: 1.998e-15
+
+derived_frame_reversal_control:
+  operation: swap_e1_e2
+  purpose: determinant_control_only
+  used_to_compute_C: false
+
+  determinant_after_swap: -1.0
+
+  sign_flip_error:
+    e: 4.441e-16
+    mu: 6.661e-16
+    tau: 6.661e-16
+
+  determinant_sign_flip_supported: true
+
+n4_chiral_overlap:
+  native_C:
+    - [0.0, 1.009874, -1.009884]
+    - [-1.009874, 0.0, -1.179775]
+    - [1.009884, 1.179775, 0.0]
+
+  reflected_C:
+    - [0.0, 1.009884, -1.009873]
+    - [-1.009884, 0.0, -1.179771]
+    - [1.009873, 1.179771, 0.0]
+
+  antisymmetry_error:
+    native: 2.823e-15
+    reflected: 6.023e-15
+
+  spatial_reflection:
+    evenness_error: 8.371447e-06
+    oddness_error: 1.999999e+00
+
+    approximately_even: true
+    sign_reversing: false
+
+orientation_anchor:
+  native_right_handed_frame_supported: true
+  improper_spatial_reflection_supported: true
+  reflected_frame_reconstructed_right_handed: true
+
+  C_sign_anchored_by_fullframe_handedness: false
+
+  verdict: not_supported
+
+result_034_boundary:
+  admissible_cross_system_mappings_before: 2
+  admissible_cross_system_mappings_after: 2
+
+  C_sign_equals_chi3_licensed: false
+  C_sign_equals_negative_chi3_licensed: false
+
+  reduction_2_to_1_licensed: false
+
+result:
+  direct_spatial_parity_of_C: approximately_even
+
+  m5_fullframe_orientation_anchor:
+    tested: true
+    supported: false
+
+  unique_readingpoint_to_m5_correspondence:
+    established: false
+
+  readingpoint_to_m5_physical_mapping:
+    established: false
+
+interpretation: >
+  The tested x reflection is an actual improper spatial transformation
+  with determinant -1. The existing M5 full_frame implementation
+  reconstructs a right-handed eigenframe with determinant +1 on both
+  the native and reflected tensor fields. A literal e1/e2 frame swap
+  correctly reverses the determinant, confirming the frame-handedness
+  control. However, recomputing the existing N4 chiral-overlap matrix C
+  on the actually reflected underlying fields leaves C approximately
+  invariant rather than reversing its sign. Therefore the repository's
+  right-handed full-frame convention does not by itself determine the
+  sign of the Result-032 C discriminator.
+
+constraint: >
+  Result 035 does not establish C-sign = chi3 or C-sign = -chi3.
+  The two Result-034 partition-preserving quotient isomorphisms remain
+  equally admissible.
+
+next_question: >
+  Do any other independently implemented M5 orientation or sign
+  conventions -- including topological winding sign, electric-charge
+  sign, signed curvature, basis orientation, or chiral conventions --
+  establish an executable relation to the Result-032 C-sign that could
+  supply the remaining cross-system orientation anchor?
