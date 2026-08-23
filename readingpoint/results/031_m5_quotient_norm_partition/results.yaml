@@ -1,0 +1,187 @@
+result:
+  id: 031
+  slug: m5_quotient_norm_partition
+  title: "Native M5 1+2 quotient partition from existing full-frame norms"
+  status: pass
+
+question: >
+  Do independently defined existing M5 full-frame geometric norm observables
+  produce a native 1+2 partition of the three nonidentity Result-027 quotient
+  classes, matching the independently established 1+2 partition on the
+  Reading Point side?
+
+source:
+  file: "openwave/xperiments/m5_liquid_crystal/research/scripts/m5_22_4_a_fullf.py"
+  route: "M -> O(M) -> Gamma_i -> G_i -> R_ij"
+  observables:
+    G_norm: "Frobenius norm of the stacked full-eigenframe connection-vector fields"
+    R_norm: "Frobenius norm of the stacked full-eigenframe curvature-vector fields"
+
+configuration:
+  n: 40
+  dx: 1.0
+  alpha: 0.6
+  delta: 0.1
+  chi: 0.6
+  q: 0.5
+  R_loop: 9.0
+  core_vox: 2.0
+  norm_equivalence_tolerance: 1.0e-10
+  norm_distinct_tolerance: 1.0e-4
+
+prior_structure:
+  result_027:
+    quotient: "C2^3 / <Ty>"
+    kernel: "<Ty> = {I, Ty}"
+    quotient_classes:
+      Ibar: [I, Ty]
+      Txbar: [Tx, TxTy]
+      Tzbar: [Tz, TyTz]
+      TxTzbar: [TxTz, TxTyTz]
+    abstract_structure: "C2^2 ≅ V4"
+  result_028:
+    abstract_isomorphisms: 6
+    residual_correspondence_symmetry: S3
+  result_030:
+    reading_point_nonidentity_partition:
+      singleton: [11, 29]
+      pair:
+        - [7, 13]
+        - [17, 23]
+    inherited_parent_order_profiles:
+      "{11,29}": [2, 2]
+      "{7,13}": [4, 4]
+      "{17,23}": [4, 4]
+    reading_point_intrinsic_labeling: PARTIAL
+
+per_transformation:
+  I:
+    G_norm: 8.366680495e+01
+    R_norm: 1.150418722e+01
+  Tx:
+    G_norm: 8.366680495e+01
+    R_norm: 1.150418722e+01
+  Ty:
+    G_norm: 8.366680495e+01
+    R_norm: 1.150418722e+01
+  Tz:
+    G_norm: 8.265404600e+01
+    R_norm: 1.082988097e+01
+  TxTy:
+    G_norm: 8.366680495e+01
+    R_norm: 1.150418722e+01
+  TxTz:
+    G_norm: 8.265404600e+01
+    R_norm: 1.082988097e+01
+  TyTz:
+    G_norm: 8.265404600e+01
+    R_norm: 1.082988097e+01
+  TxTyTz:
+    G_norm: 8.265404600e+01
+    R_norm: 1.082988097e+01
+
+quotient_descent:
+  G_norm:
+    errors:
+      Ibar: 0.0
+      Txbar: 1.698506e-16
+      Tzbar: 1.719317e-16
+      TxTzbar: 1.719317e-16
+    max_error: 1.719317e-16
+    descends_through_Ty: true
+  R_norm:
+    errors:
+      Ibar: 0.0
+      Txbar: 1.544096e-16
+      Tzbar: 3.280473e-16
+      TxTzbar: 3.280473e-16
+    max_error: 3.280473e-16
+    descends_through_Ty: true
+
+quotient_values:
+  G_norm:
+    Txbar: 8.366680495e+01
+    Tzbar: 8.265404600e+01
+    TxTzbar: 8.265404600e+01
+    pair_errors:
+      Txbar_vs_Tzbar: 1.210467e-02
+      Txbar_vs_TxTzbar: 1.210467e-02
+      Tzbar_vs_TxTzbar: 0.0
+    native_partition:
+      singleton: Txbar
+      pair: [Tzbar, TxTzbar]
+      supported: true
+
+  R_norm:
+    Txbar: 1.150418722e+01
+    Tzbar: 1.082988097e+01
+    TxTzbar: 1.082988097e+01
+    pair_errors:
+      Txbar_vs_Tzbar: 5.861398e-02
+      Txbar_vs_TxTzbar: 5.861398e-02
+      Tzbar_vs_TxTzbar: 0.0
+    native_partition:
+      singleton: Txbar
+      pair: [Tzbar, TxTzbar]
+      supported: true
+
+summary:
+  observables_with_native_1_plus_2_partition:
+    - G_norm
+    - R_norm
+  consistent_native_m5_partition: true
+  m5_singleton: Txbar
+  m5_pair: [Tzbar, TxTzbar]
+  reading_point_singleton: [11, 29]
+  reading_point_pair:
+    - [7, 13]
+    - [17, 23]
+  cross_system_partition_compatibility: SUPPORTED
+  result_028_abstract_isomorphisms: 6
+  partition_preserving_isomorphisms: 2
+  residual_correspondence_freedom: "C2 / exchange of the two paired classes"
+
+structural_consequence:
+  statement: >
+    Both existing M5 full-frame norm observables descend through the
+    Result-027 kernel <Ty> at machine precision and independently produce the
+    same nonidentity singleton-plus-pair partition:
+    Txbar | {Tzbar, TxTzbar}. Result 030 independently established the
+    Reading Point partition {11,29} | {{7,13},{17,23}} from parent-element
+    orders in (Z/30Z)^*. Requiring an isomorphism to preserve these
+    independently established 1+2 label structures reduces the admissible
+    correspondence count from 6 to 2.
+
+claims:
+  G_norm_descends_to_quotient: SUPPORTED
+  R_norm_descends_to_quotient: SUPPORTED
+  native_m5_1_plus_2_partition: SUPPORTED
+  m5_singleton: Txbar
+  m5_equivalent_pair: [Tzbar, TxTzbar]
+  reading_point_m5_partition_compatibility: SUPPORTED
+  distinguished_singleton_correspondence:
+    m5: Txbar
+    reading_point: [11, 29]
+    status: "SUPPORTED AT PARTITION LEVEL"
+  structurally_admissible_correspondences_after_partition_match: 2
+  residual_correspondence_ambiguity: C2
+  unique_reading_point_to_m5_correspondence: "NOT ESTABLISHED"
+  physical_q8_center_quotient_identification: "NOT ESTABLISHED"
+  reading_point_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+interpretation: >
+  Result 031 provides the first independently matched label partition across
+  the M5 and Reading Point quotients. The M5 full-frame connection and
+  curvature norms single out Txbar and leave Tzbar and TxTzbar exactly
+  degenerate at quotient level. The Reading Point parent-group order profile
+  independently singles out {11,29} and leaves {7,13} and {17,23}
+  equivalent under that invariant. Thus a partition-preserving quotient
+  isomorphism must map Txbar to {11,29}. Two mappings remain because the
+  paired classes may still be exchanged. This is a partial structural bridge,
+  not a unique physical mapping.
+
+next_question: >
+  Is there an independently defined orientation, sign, ordering, or other
+  repository-native invariant on both sides that distinguishes Tzbar from
+  TxTzbar and independently distinguishes {7,13} from {17,23}, reducing the
+  remaining C2 correspondence ambiguity from 2 to 1?
