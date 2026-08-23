@@ -1,0 +1,174 @@
+result_id: "021"
+title: "N4 C composite spatial-reflection + mu-tau symmetry"
+status: "z2_like_sign_representation_supported"
+
+test:
+  script: "readingpoint/tests/test_021_n4_C_composite_reflection_symmetry.py"
+  purpose: >
+    Classify the action on the N4 antisymmetric chiral matrix C of the
+    composite transformation T = P o R_x, where R_x is the actual spatial
+    reflection x -> -x applied to the M5 tensor fields and P exchanges the
+    mu and tau flavour basis labels. Test whether T acts as C -> -C, whether
+    T^2 is the identity, and whether the result persists across a controlled
+    geometry family.
+
+composite_operation:
+  name: "T"
+  definition: "T = P o R_x"
+  spatial_reflection:
+    name: "R_x"
+    coordinate_map: "x -> -x"
+    tensor_map: "M'_sp(x) = S M_sp(Sx) S^T"
+    S: "diag(-1, +1, +1)"
+  flavour_permutation:
+    name: "P"
+    map: "[e, mu, tau] -> [e, tau, mu]"
+  tested_sign_action: "T(C) approximately equals -C"
+  tested_involution: "T^2(C) = C"
+
+test_geometry:
+  n: 40
+  dx: 1.0
+  alpha:
+    - 0.40
+    - 0.60
+    - 0.80
+  delta:
+    - 0.05
+    - 0.10
+    - 0.20
+  chi: 0.6
+  q: 0.5
+  R_loop: 9.0
+  core_vox: 2.0
+  tested_points: 9
+
+thresholds:
+  composite_oddness: 1.0e-03
+  magnitude_preservation: 1.0e-03
+
+observations:
+  composite_sign_action:
+    relation: "T(C) approximately equals -C"
+    supported_points: 9
+    total_points: 9
+    oddness_error:
+      min: 7.039153e-07
+      median: 1.698129e-06
+      max: 2.535024e-06
+    competing_evenness_error:
+      min: 1.999998
+      median: 1.999999
+      max: 2.000000
+
+  composite_involution:
+    field_level_T2_error:
+      min: 0.0
+      median: 0.0
+      max: 0.0
+    matrix_level_T2_error:
+      min: 0.0
+      median: 0.0
+      max: 0.0
+
+  magnitude_preservation:
+    supported_points: 9
+    total_points: 9
+    relative_difference:
+      min: 3.298796e-07
+      median: 9.036876e-07
+      max: 1.635667e-06
+
+  antisymmetry:
+    max_error: 6.328271e-15
+    status: "PASS"
+
+result:
+  composite_sign_odd_across_tested_family: true
+  composite_square_identity: true
+  magnitude_preserved: true
+  antisymmetry_preserved: true
+  algebraic_classification: "Z2-LIKE SIGN REPRESENTATION ON C SUPPORTED"
+  physical_handedness_identification_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+interpretation: >
+  Spatial reflection R_x and mu-tau flavour exchange P are kept as explicit
+  separate operations. Their composite T = P o R_x is an exact involution at
+  the tested field and matrix levels. Across all nine tested geometry points,
+  the induced action on the effective N4 antisymmetric matrix is
+  T(C) approximately equals -C, with errors of order 10^-6, while the
+  competing even relation has relative error approximately 2. The composite
+  therefore realizes the nontrivial sign representation of an order-2
+  symmetry on C across the tested family.
+
+constraints:
+  - >
+    The result classifies the tested composite transformation algebraically;
+    it does not establish that T is the physical handedness operation.
+  - >
+    The spatial component tested is specifically the reflection x -> -x.
+  - >
+    The geometry family varies alpha and delta while holding chi, q, R_loop,
+    core_vox, n, and dx fixed.
+  - >
+    The Z2-like classification concerns the action of T on the effective N4
+    operator C and does not establish a larger group identification.
+  - >
+    No identification with Q8/{+1,-1}, V4, or a Reading Point residue
+    structure is made by this result.
+  - >
+    No Reading Point -> M5 physical mapping is introduced.
+
+relation_to_previous_results:
+  result_018: >
+    chi -> -chi was approximately even, while swapping the +alpha and -alpha
+    flavour-loop orientations produced exact mu-tau basis covariance and an
+    approximate sign reversal of C at the original geometry.
+  result_019: >
+    The orientation-mirror sign reversal and chi-even behavior were robust
+    across 27 tested geometry points.
+  result_020: >
+    An actual spatial reflection x -> -x left C approximately invariant in
+    the fixed flavour basis and satisfied C_ref approximately equals
+    -P C P^T.
+  result_021: >
+    Combining the actual spatial reflection with the mu-tau basis exchange
+    gives T = P o R_x, with T(C) approximately equals -C across 9/9 tested
+    points and T^2 exactly equal to the identity in the implemented test.
+
+bridge_status:
+  n4_C_effective_operator_shape: "SUPPORTED"
+  n4_C_lattice_normalization: "dx * C SUPPORTED"
+  n4_C_antisymmetry: "SUPPORTED"
+  chi_sign_oddness: "NOT SUPPORTED"
+  direct_spatial_parity_oddness: "NOT SUPPORTED"
+  direct_spatial_parity_evenness: "SUPPORTED IN RESULT 020 TESTED GEOMETRY"
+  mirror_orientation_oddness: "ROBUST ACROSS RESULT 019 TESTED FAMILY"
+  composite_T_sign_oddness: "SUPPORTED ACROSS 9/9 TESTED POINTS"
+  composite_T_involution: "IDENTITY"
+  composite_symmetry_classification: "Z2-LIKE SIGN REPRESENTATION ON C SUPPORTED"
+  physical_handedness_identification: "NOT YET ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+next_reading_point:
+  result: "022"
+  question: >
+    Is the order-2 action established for T merely one independent binary
+    symmetry of C, or can it be connected by explicit implemented operations
+    to a larger previously examined discrete structure?
+  requirements:
+    - "Preserve T = P o R_x as an explicitly tested operation."
+    - "Search for additional independent involutions before assigning a larger group."
+    - "Test composition laws explicitly."
+    - "Do not infer V4 or Q8 quotient structure from one Z2 generator."
+    - "Keep physical handedness identification open unless independently established."
+    - "Keep Reading Point -> M5 physical mapping held."
+
+final_status:
+  T_action_on_C: "SIGN-ODD ACROSS TESTED FAMILY"
+  T_squared: "IDENTITY"
+  algebraic_classification: "Z2-LIKE SIGN REPRESENTATION ON C SUPPORTED"
+  physical_handedness_identification: "OPEN"
+  larger_discrete_group_identification: "OPEN"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
