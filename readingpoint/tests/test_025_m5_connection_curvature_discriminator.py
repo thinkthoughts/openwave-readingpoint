@@ -170,6 +170,42 @@ def function_names(path: Path) -> set[str]:
     }
 
 
+def function_signature(path: Path, func_name: str) -> list[str]:
+    """
+    Return positional argument names for a named function.
+
+    Example:
+        def connection(q0, q, h, *, include_cross=True, scale=1.0)
+
+    returns:
+        ["q0", "q", "h"]
+
+    AST inspection is used instead of a regex so multiline function
+    signatures are handled correctly.
+    """
+    text = read_text(path)
+
+    if not text:
+        return []
+
+    try:
+        tree = ast.parse(text)
+    except SyntaxError:
+        return []
+
+    for node in ast.walk(tree):
+        if (
+            isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+            and node.name == func_name
+        ):
+            return [
+                arg.arg
+                for arg in node.args.args
+            ]
+
+    return []
+
+
 def normalized_code(text: str) -> str:
     """
     Remove comments and strings where possible, so provenance matching is less
@@ -396,15 +432,15 @@ def audit_field_compatibility():
     conn_funcs = function_names(connection_path)
     n3_funcs = function_names(n3_path)
 
+    connection_args = function_signature(
+        connection_path,
+        "connection",
+    )
+
     connection_accepts_q = (
-        "connection" in conn_funcs
-        and bool(
-            re.search(
-                r"def\s+connection\s*\(\s*q0\s*,\s*q",
-                conn_text,
-                flags=re.MULTILINE,
-            )
-        )
+        len(connection_args) >= 2
+        and connection_args[0] == "q0"
+        and connection_args[1] == "q"
     )
 
     n3_builds_M_fields = (
@@ -574,7 +610,10 @@ def main():
 
     print("Connection/curvature input representation:")
     print()
-    print("connection(q0, q):", yn(compatibility["connection_accepts_q0_q"]))
+    print(
+        "connection begins with (q0, q):",
+        yn(compatibility["connection_accepts_q0_q"]),
+    )
     print(
         "N3/N4 rank-2 M flavour fields:",
         yn(compatibility["n3_builds_rank2_M_fields"]),
@@ -754,3 +793,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
