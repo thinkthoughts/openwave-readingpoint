@@ -1,7 +1,6 @@
 # readingpoint/tests/test_010_m5_self_linking_baseline.py
 
 from pathlib import Path
-import json
 import re
 import subprocess
 import sys
@@ -31,15 +30,8 @@ M5_SUMMARY = (
 )
 
 
-def run_upstream():
-    completed = subprocess.run(
-        [sys.executable, str(M5_SCRIPT)],
-        cwd=REPO_ROOT,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    return completed
+# Cache the expensive upstream run so every assertion uses the same result.
+_BASELINE_CACHE = None
 
 
 def parse_scan(stdout):
@@ -58,6 +50,7 @@ def parse_scan(stdout):
 
     for match in pattern.finditer(stdout):
         N = int(match.group(1))
+
         rows[N] = {
             "theta12": float(match.group(2)),
             "theta23": float(match.group(3)),
@@ -70,21 +63,88 @@ def parse_scan(stdout):
     return rows
 
 
+def run_upstream_once():
+    """
+    Execute the expensive upstream M5 N4 self-linking scan exactly once.
+
+    The upstream script writes m5_11_n4_topo_summary.json. Preserve the
+    repository's original version of that file and restore it immediately
+    after the run so this Reading Point baseline test has no persistent
+    side effect inside upstream OpenWave.
+    """
+
+    global _BASELINE_CACHE
+
+    if _BASELINE_CACHE is not None:
+        return _BASELINE_CACHE
+
+    if not M5_SCRIPT.exists():
+        raise FileNotFoundError(
+            f"Upstream M5 script not found: {M5_SCRIPT}"
+        )
+
+    summary_existed = M5_SUMMARY.exists()
+
+    if summary_existed:
+        original_summary = M5_SUMMARY.read_bytes()
+    else:
+        original_summary = None
+
+    try:
+        completed = subprocess.run(
+            [sys.executable, str(M5_SCRIPT)],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+        rows = parse_scan(completed.stdout)
+
+        _BASELINE_CACHE = {
+            "completed": completed,
+            "rows": rows,
+        }
+
+    finally:
+        # Restore the upstream-generated data artifact exactly as it was.
+        if summary_existed:
+            M5_SUMMARY.write_bytes(original_summary)
+        elif M5_SUMMARY.exists():
+            M5_SUMMARY.unlink()
+
+    return _BASELINE_CACHE
+
+
+def baseline():
+    return run_upstream_once()
+
+
+def test_upstream_script_exists():
+    assert M5_SCRIPT.exists()
+
+
 def test_upstream_script_runs():
-    completed = run_upstream()
-    assert completed.returncode == 0, completed.stderr
+    result = baseline()
+    completed = result["completed"]
+
+    assert completed.returncode == 0, (
+        "M5 self-linking baseline returned a nonzero exit code.\n"
+        f"STDOUT:\n{completed.stdout}\n"
+        f"STDERR:\n{completed.stderr}"
+    )
 
 
 def test_self_linking_scan_contains_expected_N_values():
-    completed = run_upstream()
-    rows = parse_scan(completed.stdout)
+    result = baseline()
+    rows = result["rows"]
 
     assert set(rows) == {-2, -1, 0, 1, 2}
 
 
 def test_n0_keeps_clean_structure():
-    completed = run_upstream()
-    rows = parse_scan(completed.stdout)
+    result = baseline()
+    rows = result["rows"]
 
     n0 = rows[0]
 
@@ -94,8 +154,8 @@ def test_n0_keeps_clean_structure():
 
 
 def test_nonzero_N_breaks_tbm_baseline():
-    completed = run_upstream()
-    rows = parse_scan(completed.stdout)
+    result = baseline()
+    rows = result["rows"]
 
     for N in (-2, -1, 1, 2):
         row = rows[N]
@@ -109,39 +169,58 @@ def test_nonzero_N_breaks_tbm_baseline():
 
 
 def test_delta_cp_not_cleanly_antisymmetric_under_N_flip():
-    completed = run_upstream()
-    rows = parse_scan(completed.stdout)
+    result = baseline()
+    rows = result["rows"]
 
     for N in (1, 2):
-        antisym = abs(
-            rows[N]["delta_CP"]
-            + rows[-N]["delta_CP"]
-        ) < 1.0
+        antisymmetric = (
+            abs(
+                rows[N]["delta_CP"]
+                + rows[-N]["delta_CP"]
+            )
+            < 1.0
+        )
 
-        assert antisym is False
+        assert antisymmetric is False
 
 
 def test_upstream_verdict_is_negative_inconclusive():
-    completed = run_upstream()
+    result = baseline()
+    stdout = result["completed"].stdout
 
     assert (
         "N4 topo: INCONCLUSIVE / NEGATIVE "
         "for clean topological quantization."
-        in completed.stdout
+        in stdout
     )
 
 
-if __name__ == "__main__":
-    completed = run_upstream()
+def test_upstream_summary_file_restored():
+    """
+    The baseline wrapper should leave upstream OpenWave data unchanged.
 
+    The exact bytes are restored inside run_upstream_once(); here we
+    simply verify that the expected repository path still exists when it
+    existed before the test run.
+    """
+
+    # In the current OpenWave checkout this tracked artifact exists.
+    assert M5_SUMMARY.exists()
+
+
+if __name__ == "__main__":
+    result = baseline()
+    completed = result["completed"]
+    rows = result["rows"]
+
+    test_upstream_script_exists()
     test_upstream_script_runs()
     test_self_linking_scan_contains_expected_N_values()
     test_n0_keeps_clean_structure()
     test_nonzero_N_breaks_tbm_baseline()
     test_delta_cp_not_cleanly_antisymmetric_under_N_flip()
     test_upstream_verdict_is_negative_inconclusive()
-
-    rows = parse_scan(completed.stdout)
+    test_upstream_summary_file_restored()
 
     print("Reading Point Test 010")
     print("----------------------")
@@ -165,23 +244,40 @@ if __name__ == "__main__":
     print("N!=0 preserves TBM baseline: NO")
     print("delta_CP antisymmetric under N -> -N: NO")
     print()
-    print(
-        "M5 self-linking handedness observable: DEFINED"
-    )
-    print(
-        "Clean topological quantization from naive N*s construction: "
-        "NOT SUPPORTED"
-    )
-    print(
-        "Orientation bridge for Result 009: NOT ESTABLISHED"
-    )
+
+    print("M5 self-linking handedness candidate:")
+    print("DEFINED")
+
+    print()
+    print("Clean topological quantization from naive N*s construction:")
+    print("NOT SUPPORTED")
+
+    print()
+    print("Orientation bridge for Result 009:")
+    print("NOT ESTABLISHED")
+
     print()
     print("Interpretation:")
     print(
-        "M5 already defines an integer, reflection-odd self-linking "
-        "candidate N, but the current naive azimuthal N*s framing "
-        "fails its own physics-preservation test."
+        "M5 defines an integer, reflection-odd self-linking candidate N, "
+        "but the current naive azimuthal N*s framing fails its own "
+        "physics-preservation test."
     )
     print(
-        "A mu-tau-respecting self-linking construction remains open."
+        "N=0 preserves the clean TBM/maximal-CP structure, while all "
+        "tested nonzero N values break the TBM baseline."
     )
+    print(
+        "The tested delta_CP response is also not cleanly antisymmetric "
+        "under N -> -N."
+    )
+    print(
+        "A mu-tau-respecting definition of self-linking remains an "
+        "open M5 requirement."
+    )
+    print()
+
+    print("Upstream repository side effects:")
+    print("NONE — generated summary restored after the baseline run")
+
+    raise SystemExit(0)
