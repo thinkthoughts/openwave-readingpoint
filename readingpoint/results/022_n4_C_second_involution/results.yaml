@@ -1,0 +1,201 @@
+result_id: "022"
+title: "N4 C second independent involution"
+status: "field_level_v4_like_supported_for_tested_candidates"
+
+test:
+  script: "readingpoint/tests/test_022_n4_C_second_involution.py"
+  purpose: >
+    Search for a second independent involution beyond the established
+    T_x = P o R_x action, using preregistered candidates T_y = P o R_y
+    and T_z = P o R_z, and explicitly test involution, commutation,
+    distinctness, product closure, and induced action on the effective
+    N4 chiral matrix C.
+
+reference_geometry:
+  n: 40
+  dx: 1.0
+  alpha: 0.6
+  delta: 0.1
+  chi: 0.6
+  q: 0.5
+  R_loop: 9.0
+  core_vox: 2.0
+
+generators:
+  T_x:
+    definition: "P o R_x"
+    status: "ESTABLISHED IN RESULT 021"
+  T_y:
+    definition: "P o R_y"
+    status: "SUPPORTED AS INDEPENDENT INVOLUTION"
+  T_z:
+    definition: "P o R_z"
+    status: "SUPPORTED AS INDEPENDENT INVOLUTION"
+
+candidate_T_y:
+  field_involutions:
+    T_x_squared_error: 0.0
+    T_y_squared_error: 0.0
+  generator_independence:
+    field_distance_Tx_vs_Ty: 1.012946
+  commutation:
+    field_error: 0.0
+  product_involution:
+    field_error: 0.0
+  four_field_states:
+    all_distinct: true
+    pairwise_distances:
+      I_Tx: 1.012493
+      I_Ty: 9.525433e-02
+      I_TxTy: 1.012946
+      Tx_Ty: 1.012946
+      Tx_TxTy: 9.525433e-02
+      Ty_TxTy: 1.012493
+  action_on_C:
+    T_x:
+      sign: "-C"
+      even_error: 2.0
+      odd_error: 1.999e-06
+    T_y:
+      sign: "+C"
+      even_error: 8.371e-06
+      odd_error: 2.0
+    T_x_T_y:
+      sign: "-C"
+      even_error: 2.0
+      odd_error: 8.129e-06
+  matrix_composition:
+    product_order_error: 0.0
+    product_square_error: 0.0
+  antisymmetry:
+    max_error: 6.022717e-15
+  field_level_classification: "FOUR DISTINCT COMMUTING INVOLUTIONS: V4-LIKE"
+  representation_on_C: >
+    Non-faithful sign action: T_x -> -1, T_y -> +1, T_x T_y -> -1.
+
+candidate_T_z:
+  field_involutions:
+    T_x_squared_error: 0.0
+    T_z_squared_error: 0.0
+  generator_independence:
+    field_distance_Tx_vs_Tz: 1.263628
+  commutation:
+    field_error: 0.0
+  product_involution:
+    field_error: 0.0
+  four_field_states:
+    all_distinct: true
+    pairwise_distances:
+      I_Tx: 1.012493
+      I_Tz: 1.074153
+      I_TxTz: 1.263628
+      Tx_Tz: 1.263628
+      Tx_TxTz: 1.074153
+      Tz_TxTz: 1.012493
+  action_on_C:
+    T_x:
+      sign: "-C"
+      even_error: 2.0
+      odd_error: 1.999e-06
+    T_z:
+      sign: "+C"
+      even_error: 3.682e-15
+      odd_error: 2.0
+    T_x_T_z:
+      sign: "-C"
+      even_error: 2.0
+      odd_error: 1.999e-06
+  matrix_composition:
+    product_order_error: 0.0
+    product_square_error: 0.0
+  antisymmetry:
+    max_error: 6.022717e-15
+  field_level_classification: "FOUR DISTINCT COMMUTING INVOLUTIONS: V4-LIKE"
+  representation_on_C: >
+    Non-faithful sign action: T_x -> -1, T_z -> +1, T_x T_z -> -1.
+
+result:
+  second_independent_involution_supported: true
+  supported_candidates:
+    - "T_y"
+    - "T_z"
+  field_level_v4_like_structure_supported: true
+  v4_like_pairs:
+    - ["T_x", "T_y"]
+    - ["T_x", "T_z"]
+  C_representation_faithful: false
+  C_distinguishes_all_four_field_states: false
+  physical_handedness_identification_established: false
+  Q8_quotient_identification_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+interpretation: >
+  Both preregistered candidates T_y and T_z are distinct commuting
+  involutions with T_x. For each pair, the four field states
+  {I, T_x, T_a, T_x T_a} are distinct and the product is also an
+  involution, supporting a V4-like field-level transformation structure.
+  However, the action on the single effective operator C is non-faithful.
+  T_x acts approximately as -1, while T_y and T_z act approximately as
+  +1; consequently T_x T_y and T_x T_z also act approximately as -1.
+  Therefore C alone cannot distinguish all four field-level transformation
+  states.
+
+constraints:
+  - >
+    V4-like refers to the tested field-level transformation composition
+    pattern, not to an established physical state classification.
+  - >
+    The result does not establish Q8/{+1,-1}, despite the common abstract
+    four-element structure.
+  - >
+    The existence of both T_y and T_z leaves open whether they belong to
+    the same four-element subgroup or generate a larger abelian 2-group.
+  - >
+    Because the representation on C is non-faithful, C alone cannot supply
+    a four-way operational classification.
+  - >
+    No Reading Point residue mapping is introduced.
+
+relation_to_previous_results:
+  result_021: >
+    Result 021 established T_x = P o R_x as an involution acting
+    approximately as C -> -C across the tested family.
+  result_022: >
+    T_y and T_z now provide independent commuting involution candidates.
+    Each forms a V4-like four-state field-level structure with T_x, but C
+    carries only a non-faithful sign representation of those structures.
+
+bridge_status:
+  T_x: "SUPPORTED"
+  T_y: "SUPPORTED AS SECOND INDEPENDENT INVOLUTION"
+  T_z: "SUPPORTED AS SECOND INDEPENDENT INVOLUTION"
+  field_level_v4_like_structure: "SUPPORTED FOR TESTED PAIRS"
+  representation_on_C: "NON-FAITHFUL"
+  four_way_operational_classification_from_C: "NOT ESTABLISHED"
+  larger_discrete_group: "OPEN"
+  Q8_over_center_identification: "NOT ESTABLISHED"
+  physical_handedness_identification: "NOT YET ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+next_reading_point:
+  result: "023"
+  question: >
+    What is the closure generated by T_x, T_y, and T_z? Does it contain
+    four distinct transformations or eight, and what are the exact
+    composition relations among the generators?
+  requirements:
+    - "Generate the full closure of {T_x, T_y, T_z} explicitly."
+    - "Count distinct field transformations."
+    - "Test all generator commutators and squares."
+    - "Determine whether T_z is already in <T_x,T_y>."
+    - "If eight states appear, classify the field-level structure as C2^3-like rather than selecting one V4 arbitrarily."
+    - "Keep the representation on C separate from the field-level group."
+    - "Do not reconnect to Reading Point or Q8 until the closure is known."
+
+final_status:
+  field_level_v4_like_pairs: "SUPPORTED"
+  second_independent_involution: "SUPPORTED"
+  C_representation: "NON-FAITHFUL SIGN REPRESENTATION"
+  larger_group_closure: "OPEN"
+  Q8_quotient_bridge: "NOT ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
