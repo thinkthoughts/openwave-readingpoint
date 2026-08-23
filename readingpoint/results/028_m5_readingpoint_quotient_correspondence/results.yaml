@@ -1,0 +1,161 @@
+result:
+  id: 028
+  slug: m5_readingpoint_quotient_correspondence
+  title: "M5 quotient -> Reading Point quotient correspondence audit"
+  status: pass
+
+question: >
+  Does the abstract quotient structure uniquely determine a correspondence
+  between the three nonidentity M5 quotient classes selected in Result 027
+  and the three nonidentity Reading Point residue-pair classes?
+
+prior_results:
+  result_023:
+    field_closure: "C2^3-like"
+  result_027:
+    m5_quotient: "C2^3 / <Ty>"
+    kernel: "<Ty> = {I, Ty}"
+    abstract_structure: "C2^2 ≅ V4"
+  reading_point_result_003:
+    quotient: "(Z/30Z)^* / {1,19}"
+    abstract_structure: "C2 x C2 ≅ V4"
+    assignment_boundary: >
+      No particular Reading Point residue-pair class is preassigned to a
+      quaternion coset or M5 quotient class.
+
+m5_quotient:
+  expression: "C2^3 / <Ty>"
+  order: 4
+  classes:
+    Ibar: [I, Ty]
+    Txbar: [Tx, TxTy]
+    Tzbar: [Tz, TyTz]
+    TxTzbar: [TxTz, TxTyTz]
+  classification: V4
+  multiplication:
+    Ibar:
+      Ibar: Ibar
+      Txbar: Txbar
+      Tzbar: Tzbar
+      TxTzbar: TxTzbar
+    Txbar:
+      Ibar: Txbar
+      Txbar: Ibar
+      Tzbar: TxTzbar
+      TxTzbar: Tzbar
+    Tzbar:
+      Ibar: Tzbar
+      Txbar: TxTzbar
+      Tzbar: Ibar
+      TxTzbar: Txbar
+    TxTzbar:
+      Ibar: TxTzbar
+      Txbar: Tzbar
+      Tzbar: Txbar
+      TxTzbar: Ibar
+
+reading_point_quotient:
+  expression: "(Z/30Z)^* / {1,19}"
+  order: 4
+  kernel: [1, 19]
+  residue_pair_classes:
+    - [1, 19]
+    - [7, 13]
+    - [11, 29]
+    - [17, 23]
+  classification: V4
+  multiplication:
+    "{1,19}":
+      "{1,19}": "{1,19}"
+      "{7,13}": "{7,13}"
+      "{11,29}": "{11,29}"
+      "{17,23}": "{17,23}"
+    "{7,13}":
+      "{1,19}": "{7,13}"
+      "{7,13}": "{1,19}"
+      "{11,29}": "{17,23}"
+      "{17,23}": "{11,29}"
+    "{11,29}":
+      "{1,19}": "{11,29}"
+      "{7,13}": "{17,23}"
+      "{11,29}": "{1,19}"
+      "{17,23}": "{7,13}"
+    "{17,23}":
+      "{1,19}": "{17,23}"
+      "{7,13}": "{11,29}"
+      "{11,29}": "{7,13}"
+      "{17,23}": "{1,19}"
+
+correspondence_audit:
+  identity_preserving_bijections_tested: 6
+  multiplication_preserving_isomorphisms: 6
+  all_identity_preserving_bijections_are_isomorphisms: true
+  admissible_mappings:
+    - Ibar: [1, 19]
+      Txbar: [7, 13]
+      Tzbar: [11, 29]
+      TxTzbar: [17, 23]
+    - Ibar: [1, 19]
+      Txbar: [7, 13]
+      Tzbar: [17, 23]
+      TxTzbar: [11, 29]
+    - Ibar: [1, 19]
+      Txbar: [11, 29]
+      Tzbar: [7, 13]
+      TxTzbar: [17, 23]
+    - Ibar: [1, 19]
+      Txbar: [11, 29]
+      Tzbar: [17, 23]
+      TxTzbar: [7, 13]
+    - Ibar: [1, 19]
+      Txbar: [17, 23]
+      Tzbar: [7, 13]
+      TxTzbar: [11, 29]
+    - Ibar: [1, 19]
+      Txbar: [17, 23]
+      Tzbar: [11, 29]
+      TxTzbar: [7, 13]
+
+ambiguity:
+  residual_symmetry: S3
+  admissible_nonidentity_permutations: 6
+  unique_generator_correspondence: false
+  interpretation: >
+    Abstract V4 multiplication fixes the identity class but does not
+    distinguish the three nonidentity elements. All six permutations of
+    those elements remain valid group isomorphisms.
+
+q8_center_quotient:
+  expression: "Q8 / {+1,-1}"
+  abstract_structure: V4
+  identity_preserving_bijections_tested: 6
+  multiplication_preserving_isomorphisms: 6
+  abstract_compatibility_with_m5: supported
+  physical_identification: "NOT ESTABLISHED"
+
+claims:
+  m5_reading_point_abstract_quotient_isomorphism: SUPPORTED
+  m5_q8_center_quotient_abstract_compatibility: SUPPORTED
+  admissible_generator_correspondences: 6
+  residual_correspondence_ambiguity: "S3"
+  unique_generator_correspondence: "NOT SUPPORTED"
+  reading_point_residue_pair_to_m5_class_assignment: "NOT ESTABLISHED"
+  physical_q8_center_quotient_identification: "NOT ESTABLISHED"
+  reading_point_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+interpretation: >
+  Result 027 supplied a repository-native M5 quotient C2^3/<Ty>.
+  The independently established Reading Point quotient
+  (Z/30Z)^*/{1,19} has the same V4 multiplication structure. However,
+  abstract group structure alone does not distinguish the three
+  nonidentity elements. Every one of the six identity-preserving
+  bijections is multiplication-preserving. Therefore the quotient
+  algebra supports abstract compatibility while leaving a sixfold S3
+  generator-label ambiguity. No residue-pair-to-M5 assignment is
+  introduced by this result.
+
+next_question: >
+  Which independently defined M5 observable, orientation convention,
+  charge, topological read, or other repository-native label can distinguish
+  the three nonidentity quotient classes and reduce the six admissible
+  correspondences without using Reading Point residue labels to choose them?
