@@ -1,0 +1,167 @@
+result_id: "024"
+title: "N4 second independent observable from real-overlap sector"
+status: "mr_adds_no_independent_discrimination"
+
+test:
+  script: "readingpoint/tests/test_024_n4_second_observable_real_overlap.py"
+  purpose: >
+    Test whether the existing independently defined N3/N4 real-overlap
+    sector Mr = K + kappa P distinguishes field transformations that the
+    binary N4 chiral-sign observable C identifies inside the C2^3-like
+    closure established in Result 023.
+
+reference_geometry:
+  n: 40
+  dx: 1.0
+  alpha: 0.6
+  delta: 0.1
+  chi: 0.6
+  q: 0.5
+  R_loop: 9.0
+  core_vox: 2.0
+  kappa: 0.0
+
+field_closure:
+  source_result: "023"
+  classification: "C2^3-LIKE"
+  transformations:
+    - "I"
+    - "T_x"
+    - "T_y"
+    - "T_z"
+    - "T_x T_y"
+    - "T_x T_z"
+    - "T_y T_z"
+    - "T_x T_y T_z"
+
+observable:
+  primary: "Mr"
+  definition: "Mr = K + kappa P"
+  baseline_kappa: 0.0
+  implemented_components:
+    K: "real_overlap gradient term"
+    P: "real_overlap field-overlap term"
+  recomputed_from_transformed_fields: true
+
+observations:
+  Mr_norm:
+    all_transformations: 3.785515e+03
+  Mr_symmetry:
+    all_transformations_max_error: 0.0
+  C_antisymmetry:
+    max_error: 6.023e-15
+
+  normalized_Mr_pairwise_distances:
+    min: 0.0
+    max: 3.140185e-16
+    interpretation: "IDENTICAL TO NUMERICAL PRECISION"
+
+  equal_C_sign_pairs:
+    total_pairs: 12
+    separated_by_Mr: 0
+
+  joint_signature:
+    rule: "same C sign AND normalized-Mr distance <= 1e-4"
+    class_count: 2
+    classes:
+      class_0:
+        - "I"
+        - "T_y"
+        - "T_z"
+        - "T_y T_z"
+      class_1:
+        - "T_x"
+        - "T_x T_y"
+        - "T_x T_z"
+        - "T_x T_y T_z"
+
+  quotient_compatibility:
+    supported: true
+    violations: 0
+    induced_table:
+      - [0, 1]
+      - [1, 0]
+    classification: "C2 quotient"
+
+result:
+  Mr_adds_independent_discrimination: false
+  Mr_separates_equal_C_sign_states: false
+  joint_class_count: 2
+  joint_four_state_structure_supported: false
+  joint_eight_state_structure_supported: false
+  measured_equivalence_is_group_compatible: true
+  induced_quotient: "C2"
+  unique_V4_selected: false
+  Q8_over_center_identification_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+interpretation: >
+  The existing N3/N4 real-overlap sector Mr is exactly invariant, to
+  numerical precision, across all eight field transformations in the
+  tested C2^3-like closure. Within the four +C states and four -C states,
+  normalized Mr provides zero additional separation: 0 of 12 equal-C-sign
+  pairs are distinguished. The joint observable (C sign, normalized Mr)
+  therefore still yields exactly two equivalence classes. Those classes
+  are compatible with the Result-023 composition law and define the
+  expected C2 quotient of the C2^3-like field closure. Mr does not supply
+  the missing second discriminator needed for a four-state quotient or
+  unique embedded V4 selection.
+
+constraints:
+  - >
+    The result is established for the tested reference geometry and the
+    N4 baseline kappa = 0.
+  - >
+    Mr was recomputed directly from every transformed field configuration.
+  - >
+    No classifier, subgroup choice, or fitted partition was introduced.
+  - >
+    The negative result concerns discrimination by the existing real-overlap
+    sector in this tested construction.
+  - >
+    No Q8/{+1,-1} identification is established.
+  - >
+    No Reading Point residue mapping is introduced.
+
+relation_to_previous_results:
+  result_023: >
+    Result 023 established an eight-state C2^3-like field-level closure and
+    a non-faithful binary sign representation on C.
+  result_024: >
+    The independently defined real-overlap sector Mr adds no discrimination
+    inside the two C-sign sectors and leaves the effective readout at a
+    two-class C2 quotient.
+
+bridge_status:
+  field_level_closure: "C2^3-LIKE"
+  C_readout: "NON-FAITHFUL Z2 SIGN"
+  Mr_readout: "INVARIANT / NO ADDITIONAL DISCRIMINATION"
+  joint_C_plus_Mr_readout: "TWO CLASSES"
+  induced_quotient: "C2"
+  unique_V4_selection: "NOT ESTABLISHED"
+  four_way_operational_classification: "NOT ESTABLISHED"
+  Q8_over_center_identification: "NOT ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
+
+next_reading_point:
+  result: "025"
+  question: >
+    Does an independently implemented M5 connection/curvature observable
+    distinguish transformations inside the four-element kernel left
+    unresolved by the joint C + Mr readout?
+  requirements:
+    - "Use an existing M5 connection or curvature observable."
+    - "Do not invent a discriminator solely to create four classes."
+    - "Require an independently defined projection/readout."
+    - "Test whether states identified by C and Mr are separated."
+    - "If no such projection/readout exists, treat that as a possible stopping boundary."
+    - "Keep Reading Point -> M5 mapping held."
+
+final_status:
+  Mr_independent_discriminator: "REJECTED"
+  joint_signature_class_count: 2
+  quotient_compatibility: "SUPPORTED"
+  induced_effective_quotient: "C2"
+  unique_V4: "NOT ESTABLISHED"
+  Q8_quotient_bridge: "NOT ESTABLISHED"
+  readingpoint_to_m5_physical_mapping: "NOT ESTABLISHED"
