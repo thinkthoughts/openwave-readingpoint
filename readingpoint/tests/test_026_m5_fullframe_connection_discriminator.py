@@ -574,25 +574,31 @@ def connection_geometry_for_field(dM):
     """
     Existing M5 route:
 
-        M
-        -> full_frame(M)
+        rank-2 M field
+        -> spatial 3x3 block M_sp
+        -> full_frame(M_sp)
         -> gamma_vecs(O, h)
 
-    full_frame() is expected to return:
-
-        O, ...
-
-    where O is the oriented right-handed spatial eigenframe.
-
-    gamma_vecs() is expected to return the three G_i vector fields.
+    The N3/N4 field is 4x4 because index 0 carries the g/time-like
+    component. m5_22_4_a_fullf.full_frame() constructs an SO(3)
+    eigenframe and therefore acts on the spatial 3x3 block only.
     """
 
     M = displacement_to_full_M(
         dM
     )
 
+    # The existing full-frame machinery is spatial SO(3), not the full
+    # 4x4 M5 matrix. Passing the 4x4 field makes full_frame() produce
+    # four-component eigenvectors, which are incompatible with np.cross().
+    Msp = M[
+        ...,
+        1:4,
+        1:4,
+    ]
+
     frame_result = FULL_FRAME(
-        M
+        Msp
     )
 
     if isinstance(
@@ -603,12 +609,38 @@ def connection_geometry_for_field(dM):
     else:
         O = frame_result
 
+    O = np.asarray(O)
+
+    # Explicit interface guard: the existing routine should return a field
+    # of spatial 3x3 frames.
+    if (
+        O.ndim < 2
+        or O.shape[-2:] != (3, 3)
+    ):
+        raise RuntimeError(
+            "full_frame(M_sp) did not return a spatial 3x3 "
+            f"eigenframe; got shape {O.shape}"
+        )
+
+    # Do not regularize or mask a non-finite eigenframe here. If the
+    # existing full_frame() convention is undefined at degenerate cells,
+    # that is a scientific/interface result to inspect rather than hide.
+    if not np.all(
+        np.isfinite(O)
+    ):
+        raise RuntimeError(
+            "full_frame(M_sp) returned non-finite values; "
+            "inspect eigenframe degeneracy/orientation handling before "
+            "introducing any regularization"
+        )
+
     G = GAMMA_VECS(
         O,
         DX,
     )
 
-    # Accept list/tuple of 3 vector fields or ndarray with leading axis 3.
+    # Accept the existing implementation as either a sequence of three
+    # vector fields or an ndarray whose leading axis labels x,y,z.
     if isinstance(
         G,
         (list, tuple),
@@ -626,9 +658,13 @@ def connection_geometry_for_field(dM):
     else:
         G = np.asarray(G)
 
-        if G.shape[0] != 3:
+        if (
+            G.ndim < 1
+            or G.shape[0] != 3
+        ):
             raise RuntimeError(
-                "gamma_vecs() ndarray does not have leading size 3"
+                "gamma_vecs() ndarray does not have leading size 3; "
+                f"got shape {G.shape}"
             )
 
         Gx, Gy, Gz = (
@@ -637,11 +673,25 @@ def connection_geometry_for_field(dM):
             G[2],
         )
 
-    # Existing curvature-vector structure:
+    # Each connection-vector field must itself be a 3-vector field.
+    for label, Gi in (
+        ("Gx", Gx),
+        ("Gy", Gy),
+        ("Gz", Gz),
+    ):
+        if (
+            Gi.ndim < 1
+            or Gi.shape[-1] != 3
+        ):
+            raise RuntimeError(
+                f"{label} is not a 3-vector field; got shape {Gi.shape}"
+            )
+
+    # Existing curvature-vector construction:
     #
-    #   R_ij = G_i x G_j
+    #     R_ij = G_i x G_j
     #
-    # Stack the three independent pair curvatures.
+    # Retain the three independent pair curvatures.
     Rxy = np.cross(
         Gx,
         Gy,
@@ -675,8 +725,22 @@ def connection_geometry_for_field(dM):
         axis=0,
     )
 
+    if not np.all(
+        np.isfinite(Gstack)
+    ):
+        raise RuntimeError(
+            "full-frame connection contains non-finite values"
+        )
+
+    if not np.all(
+        np.isfinite(Rstack)
+    ):
+        raise RuntimeError(
+            "full-frame curvature contains non-finite values"
+        )
+
     return {
-        "O": np.asarray(O),
+        "O": O,
         "G": Gstack,
         "R": Rstack,
         "G_hat": normalized_field(
