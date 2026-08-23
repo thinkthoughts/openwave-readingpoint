@@ -1,0 +1,88 @@
+id: readingpoint-010
+status: reproduced_negative
+scope: m5_self_linking_handedness_baseline
+
+test:
+  name: m5_self_linking_baseline
+  script: readingpoint/tests/test_010_m5_self_linking_baseline.py
+
+openwave_target:
+  model: M5
+  artifact: >
+    openwave/xperiments/m5_liquid_crystal/research/scripts/
+    m5_11_n4_topo.py
+  candidate_observable: integer_self_linking_N
+
+test_domain:
+  N_values: [-2, -1, 0, 1, 2]
+  delta: 0.1
+  chi: 0.6
+  g_chiral: 1.0
+
+observations:
+  N_neg_2:
+    theta12: 32.958
+    theta23: 44.543
+    theta13: 0.374
+    delta_CP: -18.03
+
+  N_neg_1:
+    theta12: 32.829
+    theta23: 44.696
+    theta13: 0.265
+    delta_CP: -18.26
+
+  N_0:
+    theta12: 35.264
+    theta23: 45.000
+    theta13: 0.136
+    delta_CP: -90.00
+
+  N_pos_1:
+    theta12: 32.790
+    theta23: 45.361
+    theta13: 0.371
+    delta_CP: -12.97
+
+  N_pos_2:
+    theta12: 33.326
+    theta23: 46.204
+    theta13: 1.259
+    delta_CP: -3.91
+
+result:
+  self_linking_candidate_defined: true
+  self_linking_integer_quantized_by_construction: true
+  reflection_odd_handedness_candidate: true
+  N0_clean_structure: true
+  nonzero_N_preserves_TBM: false
+  delta_CP_antisymmetric_under_N_flip: false
+  clean_topological_quantization_supported: false
+  orientation_bridge_for_result_009_established: false
+  readingpoint_to_m5_physical_mapping_established: false
+
+constraints:
+  naive_N_times_s_framing_only: true
+  mu_tau_respecting_self_linking_not_implemented: true
+  physical_handedness_selector_not_established: true
+  readingpoint_mapping_assumed: false
+
+conclusion: >
+  The existing M5 N4 self-linking program defines an integer,
+  reflection-odd handedness candidate N, but the current naive N*s
+  azimuthal framing does not preserve the clean physics structure.
+  N = 0 preserves the TBM/maximal-CP baseline, while every tested
+  nonzero N breaks the TBM baseline, and delta_CP is not cleanly
+  antisymmetric under N -> -N. The upstream negative/inconclusive
+  verdict is therefore reproduced. A mu-tau-respecting definition
+  of self-linking remains required before N can serve as the
+  orientation-fixing bridge sought after Result 009.
+
+upstream_side_effects:
+  generated_summary_restored: true
+  persistent_openwave_modification: false
+
+next_question: >
+  Does the existing M5 chiral-overlap or handedness-energy machinery
+  provide a basis-invariant orientation observable that preserves the
+  clean baseline better than the naive self-linking N*s construction?
