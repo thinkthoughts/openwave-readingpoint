@@ -1,0 +1,81 @@
+id: readingpoint-007
+status: supported
+scope: m5_seed_topology_closure
+
+test:
+  name: m5_winding_seed_closure
+  script: readingpoint/tests/test_007_m5_winding_seed_closure.py
+
+openwave_target:
+  model: M5
+  seed_function: winding_director
+  source_artifact: >
+    openwave/xperiments/m5_liquid_crystal/research/scripts/
+    m5_19_c1_loop.py
+
+test_domain:
+  synthetic_q_values:
+    - -1.0
+    - -0.5
+    - -0.25
+    - 0.25
+    - 0.5
+    - 1.0
+
+observations:
+  q_neg_1:
+    director_return: n_to_n
+    apolar_field_closed: true
+
+  q_neg_0_5:
+    director_return: n_to_neg_n
+    apolar_field_closed: true
+
+  q_neg_0_25:
+    director_return: no_plus_or_minus_n_return
+    apolar_field_closed: false
+
+  q_pos_0_25:
+    director_return: no_plus_or_minus_n_return
+    apolar_field_closed: false
+
+  q_pos_0_5:
+    director_return: n_to_neg_n
+    apolar_field_closed: true
+
+  q_pos_1:
+    director_return: n_to_n
+    apolar_field_closed: true
+
+result:
+  integer_winding_closure: supported
+  half_integer_winding_apolar_closure: supported
+  quarter_winding_apolar_closure: rejected
+  result_006_quarter_winding_is_topological_sector: false
+  result_005_half_winding_sector_remains_admissible_for_further_testing: true
+
+code_path:
+  q_pos_0_5_special_cased: true
+  q_neg_0_5_uses_generic_branch: true
+  branch_asymmetry_effect_established: false
+
+constraints:
+  synthetic_probe_only: true
+  physical_particle_interpretation_assumed: false
+  readingpoint_mapping_assumed: false
+  full_q8_classification_measured: false
+
+conclusion: >
+  Integer and half-integer synthetic winding probes close after one
+  circuit as apolar tensor fields. The half-integer probes close by
+  director sign reversal, n -> -n, while integer probes close by
+  n -> n. Quarter-winding probes do not return to either n or -n and
+  therefore do not define closed apolar fields after one circuit.
+  The q = +/-0.25 behavior observed in Result 006 should therefore be
+  treated as instrument behavior on non-closing synthetic probes rather
+  than evidence for a quarter-winding topological sector.
+
+next_question: >
+  Does the asymmetric seed implementation for q = +0.5 versus q = -0.5
+  affect the sign-identification result observed in Result 005, or does
+  that behavior persist under symmetric half-winding seed conventions?
