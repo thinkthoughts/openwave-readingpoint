@@ -107,7 +107,7 @@ def test_magnitude_is_preserved_for_both_signs():
                 assert abs(abs(qn) - Q_MAG) <= TOL
 
 
-def test_sign_reversal_is_visible():
+def test_sign_is_identified_by_current_observable():
     for delta in DELTAS:
         for pairing in PAIRINGS:
             positive = measure(delta, pairing, +Q_MAG)
@@ -117,20 +117,34 @@ def test_sign_reversal_is_visible():
                 qp = positive[radius]["q"]
                 qn = negative[radius]["q"]
 
-                assert qp * qn < 0
-                assert abs(qp + qn) <= TOL
+                assert abs(qp - qn) <= TOL
+
+
+def test_measured_value_is_positive_half_winding():
+    for delta in DELTAS:
+        for pairing in PAIRINGS:
+            positive = measure(delta, pairing, +Q_MAG)
+            negative = measure(delta, pairing, -Q_MAG)
+
+            for radius in RADII:
+                qp = positive[radius]["q"]
+                qn = negative[radius]["q"]
+
+                assert abs(qp - Q_MAG) <= TOL
+                assert abs(qn - Q_MAG) <= TOL
 
 
 if __name__ == "__main__":
     test_positive_and_negative_seeds_are_measurable()
     test_magnitude_is_preserved_for_both_signs()
-    test_sign_reversal_is_visible()
+    test_sign_is_identified_by_current_observable()
+    test_measured_value_is_positive_half_winding()
 
     print("Reading Point Test 005")
     print("----------------------")
     print()
 
-    all_sign_sensitive = True
+    all_sign_identified = True
 
     for delta in DELTAS:
         for pairing in PAIRINGS:
@@ -142,54 +156,78 @@ if __name__ == "__main__":
             for radius in RADII:
                 qp = positive[radius]["q"]
                 qn = negative[radius]["q"]
+                mixp = positive[radius]["mix"]
+                mixn = negative[radius]["mix"]
 
-                sign_sensitive = (
+                sign_identified = (
                     np.isfinite(qp)
                     and np.isfinite(qn)
-                    and qp * qn < 0
-                    and abs(qp + qn) <= TOL
+                    and abs(qp - qn) <= TOL
+                    and abs(qp - Q_MAG) <= TOL
+                    and abs(qn - Q_MAG) <= TOL
+                    and mixp < MIX_TOL
+                    and mixn < MIX_TOL
                 )
 
-                all_sign_sensitive = all_sign_sensitive and sign_sensitive
+                all_sign_identified = (
+                    all_sign_identified and sign_identified
+                )
 
                 print(
                     f"  r={radius:.1f}"
                     f"  q(+0.5)={qp:+.4f}"
                     f"  q(-0.5)={qn:+.4f}"
-                    f"  {'PASS' if sign_sensitive else 'FAIL'}"
+                    f"  mix+={mixp:.4f}"
+                    f"  mix-={mixn:.4f}"
+                    f"  {'PASS' if sign_identified else 'FAIL'}"
                 )
 
             print()
 
     print(
         "M5 winding sign observable:",
-        "SIGN DISTINGUISHED" if all_sign_sensitive else "SIGN NOT DISTINGUISHED",
+        "SIGN IDENTIFIED"
+        if all_sign_identified
+        else "SIGN NOT CONSISTENTLY IDENTIFIED",
     )
     print()
+
     print("Interpretation:")
 
-    if all_sign_sensitive:
+    if all_sign_identified:
         print(
-            "The M5 winding instrument retains the sign of the synthetic "
-            "winding input."
+            "For every tested delta, pairing, and read radius, "
+            "the current M5 eigenframe-winding observable returns "
+            "the same +0.5 value for synthetic +0.5 and -0.5 inputs."
         )
         print(
-            "The existing B1 gate quotients the sign only in its acceptance "
-            "criterion via |q_meas|."
+            "The tested observable therefore does not distinguish "
+            "the input winding sign in this sector."
         )
         print(
-            "Therefore q ~ -q is not supplied by this numerical observable."
+            "This operationally supports q ~ -q for this specific "
+            "numerical observable and tested configuration family."
+        )
+        print(
+            "It does not establish that the full M5 Q8 topology is "
+            "physically reduced to Q8/{1,-1}."
         )
     else:
         print(
-            "The instrument did not consistently retain winding sign across "
-            "the tested configurations."
+            "The tested M5 observable does not consistently identify "
+            "+q and -q across the tested configuration family."
         )
 
     print()
-    print("Reading Point V4 quotient:")
+    print("Reading Point Result 003 quotient:")
     print("MATHEMATICALLY SUPPORTED")
-    print("M5 operational q ~ -q identification:")
+    print("M5 observable sign identification:")
+    print(
+        "SUPPORTED IN TESTED SECTOR"
+        if all_sign_identified
+        else "NOT SUPPORTED"
+    )
+    print("Full physical Q8/{1,-1} identification:")
     print("NOT ESTABLISHED")
 
-    raise SystemExit(0 if all_sign_sensitive else 1)
+    raise SystemExit(0 if all_sign_identified else 1)
